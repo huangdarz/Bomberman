@@ -1,4 +1,4 @@
-package scene;
+package scenes;
 
 import javafx.animation.AnimationTimer;
 

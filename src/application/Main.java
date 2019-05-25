@@ -3,7 +3,7 @@ package application;
 import javafx.application.Application;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import scene.GameScene;
+import scenes.GameScene;
 
 
 public class Main extends Application {
@@ -13,6 +13,7 @@ public class Main extends Application {
 		GameScene game = new GameScene(pane, 1280, 720);
 		primaryStage.setScene(game);
 		primaryStage.setTitle("Bomberman");
+		primaryStage.setResizable(false);
 		primaryStage.show();
 	}
 	
