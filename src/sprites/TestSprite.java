@@ -19,7 +19,7 @@ public class TestSprite extends Sprite {
 	
 	@Override
 	public void run() {
-//		move(velocityX, velocityY);
+		
 	}
 	
 }
