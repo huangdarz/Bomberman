@@ -1,12 +1,15 @@
 package sprites;
 
 import application.GameLoop;
+import javafx.animation.AnimationTimer;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 
 public abstract class Sprite extends ImageView implements GameLoop {
+	AnimationTimer loop;
+	Scene scene;
 	private int velocityX, velocityY;
 	private Boolean isMovingUp = false, 
 					isMovingDown = false, 
@@ -20,32 +23,34 @@ public abstract class Sprite extends ImageView implements GameLoop {
 		LEFT
 	}
 	
-	public Sprite() {
+	public Sprite(Scene scene) {
 		super();
-		loop();
+		this.scene = scene;
+		loop = loop();
+		loop.start();
 	}
 	
-	public Sprite(Image image) {
-		super(image);
-		loop();
-	}
-	
-	public Sprite(String url) {
-		super(url);
-		loop();
-	}
-
 	public void move(int velocityX, int velocityY) {
 		this.setTranslateX(this.getTranslateX() + velocityX);
+		this.velocityX = velocityX;
 		this.setTranslateY(this.getTranslateY() + velocityY);
+		this.velocityY = velocityY;
 	}
 	
-	public void userMovementDetectARROW(Scene scene) {
-		scene.setOnKeyPressed(key -> moveKeyPressedReleased(key.getCode(), true));
+	public void userMovementDetectARROW(Scene scene, AnimationTimer timerLoop) {
+		scene.setOnKeyPressed(key -> {
+			moveKeyPressedReleased(key.getCode(), true);
+			if (key.getCode() == KeyCode.ESCAPE) {
+				timerLoop.stop();
+			}
+			if (key.getCode() == KeyCode.INSERT) {
+				timerLoop.start();
+			}
+		});
 		scene.setOnKeyReleased(key -> moveKeyPressedReleased(key.getCode(), false));
 	}
 	
-	public void moveKeyPressedReleased(KeyCode key, Boolean isPressed) {
+	private void moveKeyPressedReleased(KeyCode key, Boolean isPressed) {
 			switch (key) {
 				case UP:
 					this.setIsMoving(Sprite.Direction.UP, isPressed ? true : false);
@@ -79,8 +84,8 @@ public abstract class Sprite extends ImageView implements GameLoop {
 		}
 	}
 	
-	public int getVelocityX() {return velocityX;}
-	public int getVelocityY() {return velocityY;}
+	public int getVelocityX() {return this.velocityX;}
+	public int getVelocityY() {return this.velocityY;}
 	public void setVelocityX(int velocity) {this.velocityX = velocity;}
 	public void setVelocityY(int velocity) {this.velocityY = velocity;}
 	
