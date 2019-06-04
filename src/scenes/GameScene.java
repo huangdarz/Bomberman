@@ -25,7 +25,6 @@ public class GameScene extends BaseScene {
 		this.setOnKeyPressed(key -> {
 			player.moveKeyPressedReleased(key.getCode(), true);
 			player.placeBomb(key.getCode());
-			player.explodeBomb(key.getCode());
 		});
 		this.setOnKeyReleased(key -> {
 			player.moveKeyPressedReleased(key.getCode(), false);

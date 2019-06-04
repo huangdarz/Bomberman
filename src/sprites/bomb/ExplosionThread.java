@@ -4,25 +4,20 @@ import java.util.ArrayList;
 
 public class ExplosionThread extends Thread {
 	ArrayList<Bomb> bombs;
+	Bomb b;
 	
-	public ExplosionThread(ArrayList<Bomb> bombs) {
-		this.bombs = bombs;
+	public ExplosionThread(Bomb b) {
+		this.b = b;
 	}
 	
 	@Override
 	public synchronized void run() {
-		boolean shouldRun = true;
-		while (shouldRun) {
-			try {
-				wait();
-			} catch (InterruptedException e) {
-				shouldRun = false;
-			}
-			for (Bomb b : bombs) {
-				b.explode();
-			}
-			bombs.clear();
+		try {
+			sleep(1000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
 		}
+		b.explode();
 	}
 	
 }

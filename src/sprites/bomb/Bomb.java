@@ -24,14 +24,14 @@ public class Bomb extends Sprite {
 	}
 	
 	public void explode() {
-		long startTime = System.currentTimeMillis();
-		long finishTime = System.currentTimeMillis();
-		long elapsedTime = finishTime = startTime;
-		
-		do {
-			finishTime = System.currentTimeMillis();
-			elapsedTime = finishTime - startTime;
-		} while (elapsedTime < 1000);
+//		long startTime = System.currentTimeMillis();
+//		long finishTime = System.currentTimeMillis();
+//		long elapsedTime = finishTime = startTime;
+//		
+//		do {
+//			finishTime = System.currentTimeMillis();
+//			elapsedTime = finishTime - startTime;
+//		} while (elapsedTime < 1000);
 		
 		int multiplier = 1;
 		ArrayList<Explosion> blasts = new ArrayList<Explosion>();

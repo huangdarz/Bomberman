@@ -30,8 +30,8 @@ public class Player extends Sprite {
 		this.setFitHeight(50);
 		this.setSmooth(true);
 		
-		setExplosionThread(new ExplosionThread(getBombs()));
-		getExplosionThread().start();
+//		setExplosionThread(new ExplosionThread(getBombs()));
+//		getExplosionThread().start();
 	}
 	
 	/**
@@ -93,24 +93,13 @@ public class Player extends Sprite {
 			getPane().getChildren().add(getBombs().get(getBombIndex()));
 			getBombs().get(getBombIndex()).relocate(this.getLayoutX(), this.getLayoutY());
 			getBombs().get(getBombIndex()).toBack();
+			ExplosionThread e = createExplosionThread(getBombs().get(getBombIndex()));
+			e.start();
 			setBombIndex(getBombIndex()+1);
-			bombExplode();
 		}
 	}
 	
-	private void bombExplode() {
-		synchronized(getExplosionThread()) {
-			getExplosionThread().notify();
-		}
-	}
-	
-	public void explodeBomb(KeyCode key) {
-		if (key == KeyCode.A) {
-			synchronized(getExplosionThread()) {
-				getExplosionThread().notify();
-			}
-		}
-	}
+	private ExplosionThread createExplosionThread(Bomb b) {return new ExplosionThread(b);}
 	
 	public int getLives() {return lives;}
 	public void setLives(int lives) {this.lives = lives;}
