@@ -11,14 +11,24 @@ public class GameScene extends BaseScene {
 	
 	public GameScene(Pane root, double width, double height) {
 		super(root, width, height);
-		root.getChildren().addAll(rect, player);
+		getPane().getChildren().addAll(rect, player);
 	}
 
 	@Override
 	public void run() {
 		rect.setTranslateX(rect.getTranslateX()+1);
-		System.out.printf("Rectangle X: %.1f \n", rect.getTranslateX());
-		System.out.println(player.getVelocityX());
-		System.out.println(player.getVelocityY());
+		rect.toFront();
+	}
+
+	@Override
+	public void userInput() {
+		this.setOnKeyPressed(key -> {
+			player.moveKeyPressedReleased(key.getCode(), true);
+			player.placeBomb(key.getCode());
+			player.explodeBomb(key.getCode());
+		});
+		this.setOnKeyReleased(key -> {
+			player.moveKeyPressedReleased(key.getCode(), false);
+		});
 	}
 }

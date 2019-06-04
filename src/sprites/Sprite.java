@@ -4,10 +4,13 @@ import application.GameLoop;
 import javafx.animation.AnimationTimer;
 import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 
 public abstract class Sprite extends ImageView implements GameLoop {
-	AnimationTimer loop;
-	Scene scene;
+	private AnimationTimer loop;
+	private Scene scene;
+	private Pane pane;
+	
 	private int velocityX, velocityY;
 	private Boolean isMovingUp = false, 
 					isMovingDown = false, 
@@ -24,22 +27,19 @@ public abstract class Sprite extends ImageView implements GameLoop {
 	public Sprite(Scene scene) {
 		super();
 		this.scene = scene;
+		this.pane = (Pane) this.scene.getRoot();
 		loop = loop();
 		loop.start();
 	}
 	
 	public void move(int velocityX, int velocityY) {
-		this.setTranslateX(this.getTranslateX() + velocityX);
-		setVelocityX(velocityX);
-		this.setTranslateY(this.getTranslateY() + velocityY);
-		setVelocityY(velocityY);
+		this.relocate(this.getLayoutX() + velocityX, this.getLayoutY() + velocityY);
 	}
 	
-	
-	
 	public int getVelocityX() {return this.velocityX;}
-	public int getVelocityY() {return this.velocityY;}
 	public void setVelocityX(int velocity) {this.velocityX = velocity;}
+	
+	public int getVelocityY() {return this.velocityY;}
 	public void setVelocityY(int velocity) {this.velocityY = velocity;}
 	
 	public Boolean getIsMoving(Direction direction) {
@@ -81,4 +81,7 @@ public abstract class Sprite extends ImageView implements GameLoop {
 		}
 	}
 	
+	public AnimationTimer getLoop() {return loop;}
+	
+	public Pane getPane() {return pane;}
 }
