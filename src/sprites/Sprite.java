@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import application.GameLoop;
 import javafx.animation.AnimationTimer;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import scenes.GameScene;
@@ -13,6 +12,7 @@ import scenes.GameScene;
 public abstract class Sprite extends ImageView implements GameLoop {
 	AnimationTimer loop;
 	Scene scene;
+  private Pane pane;
 	public int positionX, positionY;
 	private int velocityX, velocityY;
 	
@@ -32,67 +32,19 @@ public abstract class Sprite extends ImageView implements GameLoop {
 	public Sprite(Scene scene) {
 		super();
 		this.scene = scene;
+		this.pane = (Pane) this.scene.getRoot();
 		loop = loop();
 		loop.start();
 	}
 	
 	public void move(int velocityX, int velocityY) {
-		this.setTranslateX(this.getTranslateX() + velocityX);
-		this.velocityX = velocityX;
-		this.setTranslateY(this.getTranslateY() + velocityY);
-		this.velocityY = velocityY;
-	}
-	
-	public void userMovementDetectARROW(Scene scene, AnimationTimer timerLoop) {
-		scene.setOnKeyPressed(key -> {
-			moveKeyPressedReleased(key.getCode(), true);
-			if (key.getCode() == KeyCode.ESCAPE) {
-				timerLoop.stop();
-			}
-			if (key.getCode() == KeyCode.INSERT) {
-				timerLoop.start();
-			}
-		});
-		scene.setOnKeyReleased(key -> moveKeyPressedReleased(key.getCode(), false));
-	}
-	
-	private void moveKeyPressedReleased(KeyCode key, Boolean isPressed) {
-			switch (key) {
-				case UP:
-					this.setIsMoving(Sprite.Direction.UP, isPressed ? true : false);
-					break;
-				case DOWN:
-					this.setIsMoving(Sprite.Direction.DOWN, isPressed ? true : false);
-					break;
-				case RIGHT:
-					this.setIsMoving(Sprite.Direction.RIGHT, isPressed ? true : false);
-					break;
-				case LEFT:
-					this.setIsMoving(Sprite.Direction.LEFT, isPressed ? true : false);
-					break;
-				default:
-					break;
-		}
-	}
-	
-	public void userMove(int speed) {
-		if (this.getIsMoving(Sprite.Direction.UP)) {
-			this.move(0, -speed);
-		}
-		if (this.getIsMoving(Sprite.Direction.DOWN)) {
-			this.move(0, speed);
-		}
-		if (this.getIsMoving(Sprite.Direction.RIGHT)) {
-			this.move(speed, 0);
-		}
-		if (this.getIsMoving(Sprite.Direction.LEFT)) {
-			this.move(-speed, 0);
-		}
+		this.relocate(this.getLayoutX() + velocityX, this.getLayoutY() + velocityY);
 	}
 	
 	public int getVelocityX() {return this.velocityX;}
-	public int getVelocityY() {return this.velocityY;}
 	public void setVelocityX(int velocity) {this.velocityX = velocity;}
+	
+	public int getVelocityY() {return this.velocityY;}
 	public void setVelocityY(int velocity) {this.velocityY = velocity;}
 	
 	public Boolean getIsMoving(Direction direction) {
@@ -164,4 +116,8 @@ public abstract class Sprite extends ImageView implements GameLoop {
 			}
 		});
 	}
+	public AnimationTimer getLoop() {return loop;}
+	
+	public Pane getPane() {return pane;}
+
 }

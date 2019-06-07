@@ -7,11 +7,12 @@ import javafx.geometry.Point2D;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
+
 import sprites.Sprite;
 import sprites.TestSprite;
 
 public class GameScene extends BaseScene {
-	
+
 	Dimension2D spriteDimension = new Dimension2D(50d, 50d);
 	
 	public static ArrayList<Sprite>[][] grid;
@@ -20,7 +21,6 @@ public class GameScene extends BaseScene {
 	public GameScene(Pane root, double width, double height) {
 		super(root, width, height);
 		grid = new ArrayList[(int) (width / spriteDimension.getWidth())][(int) (height / spriteDimension.getHeight())];
-		
 	}
 
 	@Override
