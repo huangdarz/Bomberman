@@ -11,6 +11,11 @@ public abstract class BaseScene extends Scene implements GameLoop {
 		super(root, width, height);
 		loop = loop();
 		loop.start();
+		userInput();
 	}
+	
+	public abstract void userInput();
+	
+	public Pane getPane() {return (Pane) getRoot();}
 
 }
