@@ -1,17 +1,22 @@
 package sprites;
 
+import java.util.ArrayList;
+
 import application.GameLoop;
 import javafx.animation.AnimationTimer;
 import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Pane;
+import javafx.scene.input.KeyCode;
+import scenes.GameScene;
 
 public abstract class Sprite extends ImageView implements GameLoop {
-	private AnimationTimer loop;
-	private Scene scene;
-	private Pane pane;
-	
+	AnimationTimer loop;
+	Scene scene;
+  private Pane pane;
+	public int positionX, positionY;
 	private int velocityX, velocityY;
+	
+	
 	private Boolean isMovingUp = false, 
 					isMovingDown = false, 
 					isMovingRight = false, 
@@ -81,7 +86,38 @@ public abstract class Sprite extends ImageView implements GameLoop {
 		}
 	}
 	
+	public Sprite getColliding(ArrayList<Sprite> spritesInGrid) {
+		for(Sprite s : spritesInGrid) {
+			if(this.getLayoutBounds().contains(s.getLayoutBounds()) && !s.equals(this)) {
+				return s;
+			}
+		}
+		return null;
+	}
+	
+	public Thread getStayInBoundThread() {
+		return new Thread(() -> {
+			boolean shouldRun = true;
+			while(shouldRun) {
+				for(Sprite s : GameScene.getInLocalGrids(positionX, positionY)) {
+					double distanceX = Math.min(s.getLayoutBounds().getMaxX() - getLayoutBounds().getMinX(), s.getLayoutBounds().getMinX() - getLayoutBounds().getMaxX());
+					double distanceY = Math.min(s.getLayoutBounds().getMaxY() - getLayoutBounds().getMinY(), s.getLayoutBounds().getMinY() - getLayoutBounds().getMaxY());
+					Direction directionX = s.getLayoutBounds().getMaxX() - getLayoutBounds().getMinX() > s.getLayoutBounds().getMinX() - getLayoutBounds().getMaxX() ? Direction.LEFT : Direction.RIGHT;
+					Direction directionY = s.getLayoutBounds().getMaxY() - getLayoutBounds().getMinY() > s.getLayoutBounds().getMinY() - getLayoutBounds().getMaxY() ? Direction.UP : Direction.DOWN;
+					if((distanceX < 5) /*&& !(s instanceof Explosion, Mob)*/) {
+						if(directionX == Direction.RIGHT) isMovingRight = false; 
+						else isMovingLeft = false;
+					}
+					if((distanceY < 5) /*&& !(s instanceof Explostion, Mob)*/) {
+						if(directionY == Direction.UP) isMovingUp = false; 
+						else isMovingDown = false; 
+					}
+				}
+			}
+		});
+	}
 	public AnimationTimer getLoop() {return loop;}
 	
 	public Pane getPane() {return pane;}
+
 }
