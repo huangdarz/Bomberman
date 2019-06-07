@@ -15,7 +15,6 @@ import sprites.bomb.ExplosionThread;
 public class Player extends Sprite {
 	private int lives;
 	private int bombIndex = 0;
-	private Thread explosionThread;
 	private ArrayList<Bomb> bombs = new ArrayList<Bomb>();
 	
 	/** 
@@ -29,9 +28,6 @@ public class Player extends Sprite {
 		this.setFitWidth(50);
 		this.setFitHeight(50);
 		this.setSmooth(true);
-		
-//		setExplosionThread(new ExplosionThread(getBombs()));
-//		getExplosionThread().start();
 	}
 	
 	/**
@@ -88,14 +84,15 @@ public class Player extends Sprite {
 	
 	public void placeBomb(KeyCode key) {
 		if (key == KeyCode.SPACE) {
-			if (getBombs().isEmpty()) setBombIndex(0);
-			getBombs().add(getBombIndex(), new Bomb(getScene()));
-			getPane().getChildren().add(getBombs().get(getBombIndex()));
-			getBombs().get(getBombIndex()).relocate(this.getLayoutX(), this.getLayoutY());
-			getBombs().get(getBombIndex()).toBack();
-			ExplosionThread e = createExplosionThread(getBombs().get(getBombIndex()));
-			e.start();
-			setBombIndex(getBombIndex()+1);
+			if (Bomb.getBombsPlaced() < Bomb.getMaxNumBombs()) {
+				getBombs().add(getBombIndex(), new Bomb(getScene()));
+				getPane().getChildren().add(getBombs().get(getBombIndex()));
+				getBombs().get(getBombIndex()).relocate(getLayoutX(), getLayoutY());
+				getBombs().get(getBombIndex()).toBack();
+				createExplosionThread(getBombs().get(getBombIndex())).start();
+				setBombIndex(getBombIndex()+1);
+				Bomb.setBombsPlaced(Bomb.getBombsPlaced()+1);
+			}
 		}
 	}
 	
@@ -107,9 +104,7 @@ public class Player extends Sprite {
 	public int getBombIndex() {return bombIndex;}
 	public void setBombIndex(int bombIndex) {this.bombIndex = bombIndex;}
 	
-	public Thread getExplosionThread() {return explosionThread;}
-	public void setExplosionThread(Thread explosionThread) {this.explosionThread = explosionThread;}
-	
 	public ArrayList<Bomb> getBombs() {return bombs;}
 	public void setBombs(ArrayList<Bomb> bombs) {this.bombs = bombs;}
+
 }

@@ -1,9 +1,6 @@
 package sprites.bomb;
 
-import java.util.ArrayList;
-
 public class ExplosionThread extends Thread {
-	ArrayList<Bomb> bombs;
 	Bomb b;
 	
 	public ExplosionThread(Bomb b) {
@@ -18,6 +15,8 @@ public class ExplosionThread extends Thread {
 			e.printStackTrace();
 		}
 		b.explode();
+		System.out.println(currentThread().getName());
+		interrupt();
 	}
 	
 }
