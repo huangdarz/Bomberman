@@ -14,5 +14,4 @@ public interface GameLoop {
 		};
 		return loop;
 	}
-	
 }
