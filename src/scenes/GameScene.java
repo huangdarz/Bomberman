@@ -7,11 +7,13 @@ import javafx.geometry.Point2D;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
-
+import sprites.Mob;
 import sprites.Sprite;
 import sprites.TestSprite;
 
 public class GameScene extends BaseScene {
+	
+	Mob mob = new Mob(this);
 
 	Dimension2D spriteDimension = new Dimension2D(50d, 50d);
 	
@@ -21,6 +23,8 @@ public class GameScene extends BaseScene {
 	public GameScene(Pane root, double width, double height) {
 		super(root, width, height);
 		grid = new ArrayList[(int) (width / spriteDimension.getWidth())][(int) (height / spriteDimension.getHeight())];
+		
+		getPane().getChildren().add(mob);
 	}
 
 	@Override
@@ -33,14 +37,14 @@ public class GameScene extends BaseScene {
 		
 	}
 	
-	private ArrayList<Sprite>[][] create(int gridWidth, int gridHeight) {
-		ArrayList<Sprite>[][] grid = new ArrayList[gridWidth][gridHeight];
-		for(int i = 0; i < gridWidth*gridHeight; i++) {
-			if(i / gridWidth == 0) {
-				
-			}
-		}
-	}
+//	private ArrayList<Sprite>[][] create(int gridWidth, int gridHeight) {
+//		ArrayList<Sprite>[][] grid = new ArrayList[gridWidth][gridHeight];
+//		for(int i = 0; i < gridWidth*gridHeight; i++) {
+//			if(i / gridWidth == 0) {
+//				
+//			}
+//		}
+//	}
 	
 	public static ArrayList<Sprite> getInGrid(int x, int y) {
 		return grid[x][y];
