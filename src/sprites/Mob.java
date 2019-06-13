@@ -26,50 +26,57 @@ public class Mob extends Sprite {
 
 	@Override
 	public void run() {
+		reroll();
+		
+		switchRandomLength();
+		
+		switchRandomDirection();
+	}
+	
+	private void reroll() {
 		if (getPosition == true) {
 			currentX = getLayoutX();
 			currentY = getLayoutY();
 			randomLength = rand.nextInt(3);
 			randomDirection = rand.nextInt(4);
 			getPosition = false;
-			System.out.println("getPosition!!!");
-		}
-		
-		switch (randomLength) {
-		case 0:
-			if (Math.abs(getLayoutX()-currentX) >= 50 || Math.abs(getLayoutY()-currentY) >= 50) {
-				getPosition = true;
-			} 
-			System.out.println("randomLength: 0");
-			break;
-		case 1:
-			if (Math.abs(getLayoutX()-currentX) >= 100 || Math.abs(getLayoutY()-currentY) >= 100) {
-				getPosition = true;
-			}
-			System.out.println("randomLength: 1"); 
-			break;
-		case 2:
-			if (Math.abs(getLayoutX()-currentX) >= 150 || Math.abs(getLayoutY()-currentY) >= 150) {
-				getPosition = true;
-			} 
-			System.out.println("randomLength: 2");
-			break;
-}
-		
-		switch (randomDirection) {
-			case 0:
-				move(0, -speed);
-				break;
-			case 1:
-				move(0, speed);
-				break;
-			case 2:
-				move(speed, 0);
-				break;
-			case 3:
-				move(-speed, 0);
-				break;
 		}
 	}
+	
+	private void positionChecker(int position) {
+		if (Math.abs(getLayoutX()-currentX) >= position || Math.abs(getLayoutY()-currentY) >= position) {
+			getPosition = true;
+		} 
+	}
 
+	private void switchRandomLength() {
+		switch (randomLength) {
+		case 0:
+			positionChecker(50);
+			break;
+		case 1:
+			positionChecker(100);
+			break;
+		case 2:
+			positionChecker(150);
+			break;
+		}
+	}
+	
+	private void switchRandomDirection() {
+		switch (randomDirection) {
+		case 0:
+			move(0, -speed);
+			break;
+		case 1:
+			move(0, speed);
+			break;
+		case 2:
+			move(speed, 0);
+			break;
+		case 3:
+			move(-speed, 0);
+			break;
+	}
+	}
 }
