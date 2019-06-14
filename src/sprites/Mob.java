@@ -9,9 +9,10 @@ public class Mob extends Sprite {
 	boolean getPosition = true;
 	double currentX;
 	double currentY;
-	int speed = 5;
-	int randomLength;
+	int speed = 4;
 	int randomDirection;
+	int randomLength;
+
 	
 	Random rand = new Random();
 	
