@@ -64,7 +64,7 @@ public class GameScene extends BaseScene {
 	}
 	
 	public static Point2D TransferNearestGrid(Sprite s) {
-		if((int)(s.getLayoutBounds().getCenterX() / 50d) != s.positionX || (int)(s.getLayoutBounds().getCenterY()) != s.positionY) {
+		if((int)((s.getLayoutBounds()).getCenterX() / 50d) != s.positionX || (int)(s.getLayoutBounds().getCenterY()) != s.positionY) {
 			grid[s.positionX][s.positionY].remove(s);
 			grid[(int)(s.getLayoutBounds().getCenterX() / 50d)][(int)(s.getLayoutBounds().getCenterY())].add(s);
 			return new Point2D((int)(s.getLayoutBounds().getCenterX() / 50d), (int)(s.getLayoutBounds().getCenterY()));
