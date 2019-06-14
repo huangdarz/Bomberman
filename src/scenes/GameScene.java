@@ -8,12 +8,14 @@ import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
-
+import sprites.Mob;
 import sprites.Sprite;
 import sprites.TestSprite;
 import sprites.wall.UnbreakableWall;
 
 public class GameScene extends BaseScene {
+	
+	Mob mob = new Mob(this);
 
 	public ArrayList<Sprite>[][] grid;
 	Dimension2D spriteDimension = new Dimension2D(50d, 50d);
@@ -21,10 +23,9 @@ public class GameScene extends BaseScene {
 	@SuppressWarnings("unchecked")
 	public GameScene(Pane root, double width, double height) {
 		super(root, width, height);
-		grid = new ArrayList[(int) (getWidth() / spriteDimension.getWidth())][(int) (getHeight() / spriteDimension.getHeight())];
-		System.out.println("X: "+grid.length+" / Y: "+grid[0].length);
-		createGridArrays();
-		System.out.println("Created");
+		grid = new ArrayList[(int) (width / spriteDimension.getWidth())][(int) (height / spriteDimension.getHeight())];
+		
+		getPane().getChildren().add(mob);
 	}
 
 	@Override
@@ -69,7 +70,7 @@ public class GameScene extends BaseScene {
 				}
 			}
 		}
-	}
+  }
 	
 	public ArrayList<Sprite> getInGrid(int x, int y) {
 		return grid[x][y];
@@ -87,7 +88,7 @@ public class GameScene extends BaseScene {
 		}
 		return local;
 	}
-	
+
 	public Point2D TransferNearestGrid(Sprite s) {
 		if((int)(s.getLayoutBounds().getCenterX() / 50d) != s.positionX || (int)(s.getLayoutBounds().getCenterY()) != s.positionY) {
 			grid[s.positionX][s.positionY].remove(s);
