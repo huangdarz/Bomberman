@@ -24,10 +24,10 @@ public class Player extends Sprite {
 	public Player(Scene scene) {
 		super(scene);
 		Image image = new Image("/res/player.png");
-		this.setImage(image);
-		this.setFitWidth(50);
-		this.setFitHeight(50);
-		this.setSmooth(true);
+		setImage(image);
+		setFitWidth(50);
+		setFitHeight(50);
+		setSmooth(true);
 	}
 	
 	/**
@@ -36,7 +36,7 @@ public class Player extends Sprite {
 	@Override
 	public void run() {
 		userMove(5);
-		this.toFront();
+		toFront();
 	}
 	
 	/**

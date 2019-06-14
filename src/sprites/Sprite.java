@@ -6,13 +6,13 @@ import application.GameLoop;
 import javafx.animation.AnimationTimer;
 import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCode;
+import javafx.scene.layout.Pane;
 import scenes.GameScene;
 
 public abstract class Sprite extends ImageView implements GameLoop {
 	AnimationTimer loop;
 	Scene scene;
-  private Pane pane;
+	private Pane pane;
 	public int positionX, positionY;
 	private int velocityX, velocityY;
 	
