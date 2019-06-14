@@ -25,4 +25,6 @@ public abstract class BaseScene extends Scene implements GameLoop {
 	public abstract void userInput();
 	
 	public Pane getPane() {return (Pane) getRoot();}
+	
+	
 }
