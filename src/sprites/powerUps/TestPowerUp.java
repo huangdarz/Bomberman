@@ -3,25 +3,34 @@ package sprites.powerUps;
 import java.util.Random;
 
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import sprites.Sprite;
 
 public class TestPowerUp extends Sprite {
+	Random rand = new Random();
+	
 	boolean locationFreeX = false;
 	boolean locationFreeY = false ;
-	int amount;
+	boolean ifSet = false;
+	int amount = rand.nextInt(5);
 	int randomLocationX;
 	int randomLocationY;
 	
-	Random rand = new Random();
-	
 	public TestPowerUp(Scene scene) {
 		super(scene);
-		// TODO Auto-generated constructor stub
+		Image image = new Image("/res/player.png");
+		setImage(image);
+		setFitWidth(50);
+		setFitHeight(50);
 	}
 	
 	@Override
 	public void run() {
-		choseAmountAndLocation();
+		if (ifSet == false) {
+			choseAmountAndLocation();
+			ifSet = true;
+			System.out.println(ifSet);
+		}
 	}
 
 	
@@ -30,6 +39,8 @@ public class TestPowerUp extends Sprite {
 			randomLocationX = rand.nextInt(13);
 			randomLocationY = rand.nextInt(11);
 			System.out.println(randomLocationX);
+			System.out.println(randomLocationY);
+			System.out.println(amount);
 		}
 	}
 	
@@ -72,8 +83,14 @@ public class TestPowerUp extends Sprite {
 	}
 	
 	private void locationCheckIfFree() {
-		if (randomLocationX % 2 != 0) {
-			locationGeneration();
+		if (randomLocationY != 0 && randomLocationY != 10) {
+			if (randomLocationX % 2 != 0) {
+				locationGeneration();
+			}
+			else {
+				locationFreeX = true;
+				locationFreeY = true;
+			}
 		}
 		else {
 			locationFreeX = true;
@@ -82,11 +99,19 @@ public class TestPowerUp extends Sprite {
 	}
 
 	private void choseAmountAndLocation() {
-		amount = rand.nextInt(6);
-		for (int i = 0; i < amount; i++) {
+		for (int i = 0; i <= amount; ++i) {
 			locationGeneration();
 			checkLocation();
+			locationSetting();
+			
+			locationFreeX = false;
+			locationFreeY = false;
 		}
+	}
+	
+	private void locationSetting() {
+		relocate(((randomLocationX*50)+50), ((randomLocationY*50)+50));
+		System.out.println("Yes!!");
 	}
 	
 }
