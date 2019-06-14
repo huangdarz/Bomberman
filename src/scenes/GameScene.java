@@ -11,11 +11,13 @@ import javafx.scene.shape.Rectangle;
 import sprites.Mob;
 import sprites.Sprite;
 import sprites.TestSprite;
+import sprites.powerUps.TestPowerUp;
 import sprites.wall.UnbreakableWall;
 
 public class GameScene extends BaseScene {
 	
 	Mob mob = new Mob(this);
+	TestPowerUp power = new TestPowerUp(this);
 
 	public ArrayList<Sprite>[][] grid;
 	Dimension2D spriteDimension = new Dimension2D(50d, 50d);
