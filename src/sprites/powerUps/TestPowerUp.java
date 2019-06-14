@@ -6,17 +6,24 @@ import javafx.scene.Scene;
 import sprites.Sprite;
 
 public class TestPowerUp extends Sprite {
+	boolean locationFreeX = false;
+	boolean locationFreeY = false ;
+	int amount;
+	int randomLocationX;
+	int randomLocationY;
+	
+	Random rand = new Random();
+	
 	public TestPowerUp(Scene scene) {
 		super(scene);
 		// TODO Auto-generated constructor stub
 	}
 	
-	boolean locationFreeX = false;
-	boolean locationFreeY = false ;
-	int randomLocationX;
-	int randomLocationY;
-	
-	Random rand = new Random();
+	@Override
+	public void run() {
+		choseAmountAndLocation();
+	}
+
 	
 	private void locationGeneration() {
 		if (locationFreeX == false || locationFreeY == false) {
@@ -26,31 +33,61 @@ public class TestPowerUp extends Sprite {
 		}
 	}
 	
-	private void checkLocationFree() {
-		switch (randomLocationX) {
+	private void checkLocation() {
+		switch (randomLocationY) {
 		case 0:
-			locationFreeX = true;
-			locationFreeY = true;
+			locationCheckIfFree();
+			break;
 		case 1:
-			if (randomLocationY % 2 == 0) {
-				locationFreeX = true;
-				locationFreeY = true;
-			}
-			else {
-				locationGeneration();
-			}
+			locationCheckIfFree();
+			break;
 		case 2:
+			locationCheckIfFree();
+			break;
+		case 3:
+			locationCheckIfFree();
+			break;
+		case 4:
+			locationCheckIfFree();
+			break;
+		case 5:
+			locationCheckIfFree();
+			break;
+		case 6:
+			locationCheckIfFree();
+			break;
+		case 7:
+			locationCheckIfFree();
+			break;
+		case 8:
+			locationCheckIfFree();
+			break;
+		case 9:
+			locationCheckIfFree();
+			break;
+		case 10:
+			locationCheckIfFree();
+			break;
+		}
+	}
+	
+	private void locationCheckIfFree() {
+		if (randomLocationX % 2 != 0) {
+			locationGeneration();
+		}
+		else {
 			locationFreeX = true;
 			locationFreeY = true;
-		case 3:
 		}
 	}
 
-	@Override
-	public void run() {
-		
-		locationGeneration();
-		checkLocationFree();
+	private void choseAmountAndLocation() {
+		amount = rand.nextInt(6);
+		for (int i = 0; i < amount; i++) {
+			locationGeneration();
+			checkLocation();
+		}
 	}
+	
 }
 
