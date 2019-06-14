@@ -33,14 +33,14 @@ public class GameScene extends BaseScene {
 		
 	}
 	
-	private ArrayList<Sprite>[][] create(int gridWidth, int gridHeight) {
-		ArrayList<Sprite>[][] grid = new ArrayList[gridWidth][gridHeight];
-		for(int i = 0; i < gridWidth*gridHeight; i++) {
-			if(i / gridWidth == 0) {
-				
-			}
-		}
-	}
+//	private ArrayList<Sprite>[][] create(int gridWidth, int gridHeight) {
+//		ArrayList<Sprite>[][] grid = new ArrayList[gridWidth][gridHeight];
+//		for(int i = 0; i < gridWidth*gridHeight; i++) {
+//			if(i / gridWidth == 0) {
+//				
+//			}
+//		}
+//	}
 	
 	public static ArrayList<Sprite> getInGrid(int x, int y) {
 		return grid[x][y];
@@ -60,7 +60,7 @@ public class GameScene extends BaseScene {
 	}
 	
 	public static Point2D TransferNearestGrid(Sprite s) {
-		if((int)(s.getLayoutBounds().getCenterX() / 50d) != s.positionX || (int)(s.getLayoutBounds().getCenterY()) != s.positionY) {
+		if((int)((s.getLayoutBounds()).getCenterX() / 50d) != s.positionX || (int)(s.getLayoutBounds().getCenterY()) != s.positionY) {
 			grid[s.positionX][s.positionY].remove(s);
 			grid[(int)(s.getLayoutBounds().getCenterX() / 50d)][(int)(s.getLayoutBounds().getCenterY())].add(s);
 			return new Point2D((int)(s.getLayoutBounds().getCenterX() / 50d), (int)(s.getLayoutBounds().getCenterY()));
