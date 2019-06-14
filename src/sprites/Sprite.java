@@ -100,7 +100,7 @@ public abstract class Sprite extends ImageView implements GameLoop {
 		return new Thread(() -> {
 			boolean shouldRun = true;
 			while(shouldRun) {
-				for(Sprite s : GameScene.getInLocalGrids(positionX, positionY)) {
+				for(Sprite s : ((GameScene) scene).getInLocalGrids(positionX, positionY)) {
 					double distanceX = Math.min(s.getLayoutBounds().getMaxX() - getLayoutBounds().getMinX(), s.getLayoutBounds().getMinX() - getLayoutBounds().getMaxX());
 					double distanceY = Math.min(s.getLayoutBounds().getMaxY() - getLayoutBounds().getMinY(), s.getLayoutBounds().getMinY() - getLayoutBounds().getMaxY());
 					Direction directionX = s.getLayoutBounds().getMaxX() - getLayoutBounds().getMinX() > s.getLayoutBounds().getMinX() - getLayoutBounds().getMaxX() ? Direction.LEFT : Direction.RIGHT;

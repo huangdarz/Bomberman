@@ -1,11 +1,13 @@
 package application;
 	
 import javafx.application.Application;
+import javafx.geometry.Dimension2D;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import scenes.GameScene;
 
 public class Main extends Application {
+	
 	Pane pane;
 	GameScene game;
 	
