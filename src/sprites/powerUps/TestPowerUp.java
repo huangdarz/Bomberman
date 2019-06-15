@@ -82,19 +82,21 @@ public class TestPowerUp extends Sprite {
 		}
 	}
 	
-	private void locationCheckIfFree() {
-		if (randomLocationY != 0 && randomLocationY != 10) {
-			if (randomLocationX % 2 != 0) {
-				locationGeneration();
-			}
-			else {
-				locationFreeX = true;
-				locationFreeY = true;
-			}
+	private void checkXEven() {
+		while (randomLocationX % 2 != 0 && randomLocationY % 2 != 0) {
+			locationGeneration();
 		}
-		else {
+		locationFreeX = true;
+		locationFreeY = true;
+	}
+	
+	private void locationCheckIfFree() {
+		if (randomLocationY == 0 || randomLocationY == 10) {
 			locationFreeX = true;
 			locationFreeY = true;
+		}
+		else {
+			checkXEven();
 		}
 	}
 
