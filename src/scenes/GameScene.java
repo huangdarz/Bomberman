@@ -28,6 +28,7 @@ public class GameScene extends BaseScene {
 		grid = new ArrayList[(int) (width / spriteDimension.getWidth())][(int) (height / spriteDimension.getHeight())];
 		
 		getPane().getChildren().add(mob);
+		getPane().getChildren().add(power);
 	}
 
 	@Override

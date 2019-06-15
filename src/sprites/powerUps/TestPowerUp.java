@@ -26,11 +26,7 @@ public class TestPowerUp extends Sprite {
 	
 	@Override
 	public void run() {
-		if (ifSet == false) {
-			choseAmountAndLocation();
-			ifSet = true;
-			System.out.println(ifSet);
-		}
+		initiateAmountAndLocation();
 	}
 
 	
@@ -44,70 +40,31 @@ public class TestPowerUp extends Sprite {
 		}
 	}
 	
-	private void checkLocation() {
-		switch (randomLocationY) {
-		case 0:
-			locationCheckIfFree();
-			break;
-		case 1:
-			locationCheckIfFree();
-			break;
-		case 2:
-			locationCheckIfFree();
-			break;
-		case 3:
-			locationCheckIfFree();
-			break;
-		case 4:
-			locationCheckIfFree();
-			break;
-		case 5:
-			locationCheckIfFree();
-			break;
-		case 6:
-			locationCheckIfFree();
-			break;
-		case 7:
-			locationCheckIfFree();
-			break;
-		case 8:
-			locationCheckIfFree();
-			break;
-		case 9:
-			locationCheckIfFree();
-			break;
-		case 10:
-			locationCheckIfFree();
-			break;
-		}
-	}
-	
-	private void checkXEven() {
+	private void checkLocationFree() {
 		while (randomLocationX % 2 != 0 && randomLocationY % 2 != 0) {
 			locationGeneration();
 		}
+		
 		locationFreeX = true;
 		locationFreeY = true;
-	}
-	
-	private void locationCheckIfFree() {
-		if (randomLocationY == 0 || randomLocationY == 10) {
-			locationFreeX = true;
-			locationFreeY = true;
-		}
-		else {
-			checkXEven();
-		}
-	}
+	}	
 
-	private void choseAmountAndLocation() {
+	private void amountAndLocation() {
 		for (int i = 0; i <= amount; ++i) {
 			locationGeneration();
-			checkLocation();
+			checkLocationFree();
 			locationSetting();
 			
 			locationFreeX = false;
 			locationFreeY = false;
+		}
+	}
+	
+	private void initiateAmountAndLocation() {
+		if (ifSet == false) {
+			amountAndLocation();
+			ifSet = true;
+			System.out.println(ifSet);
 		}
 	}
 	
