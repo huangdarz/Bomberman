@@ -10,6 +10,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import sprites.Mob;
+import sprites.Player;
 import sprites.Sprite;
 import sprites.TestSprite;
 import sprites.wall.UnbreakableWall;
