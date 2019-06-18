@@ -1,6 +1,7 @@
 package sprites;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -24,10 +25,13 @@ public class Player extends Sprite {
 	public Player(Scene scene) {
 		super(scene);
 		Image image = new Image("/res/player.png");
-		this.setImage(image);
-		this.setFitWidth(50);
-		this.setFitHeight(50);
-		this.setSmooth(true);
+		setImage(image);
+		setFitWidth(40);
+		setFitHeight(40);
+		setLayoutX(50);
+		setLayoutY(50);
+		
+		setSmooth(true);
 	}
 	
 	/**
@@ -35,7 +39,7 @@ public class Player extends Sprite {
 	 */
 	@Override
 	public void run() {
-		userMove(5);
+		userMove(4);
 		this.toFront();
 	}
 	
@@ -44,7 +48,7 @@ public class Player extends Sprite {
 	 * @param key The KeyCode from key event handlers
 	 * @param isPressed Whether key event is pressed or released
 	 */
-	public void moveKeyPressedReleased(KeyCode key, Boolean isPressed) {
+	public synchronized void moveKeyPressedReleased(KeyCode key, boolean isPressed) {
 			switch (key) {
 				case UP:
 					this.setIsMoving(Sprite.Direction.UP, isPressed);
@@ -52,7 +56,7 @@ public class Player extends Sprite {
 				case DOWN:
 					this.setIsMoving(Sprite.Direction.DOWN, isPressed);
 					break;
-				case RIGHT:
+				case RIGHT:	
 					this.setIsMoving(Sprite.Direction.RIGHT, isPressed);
 					break;
 				case LEFT:
@@ -67,17 +71,18 @@ public class Player extends Sprite {
 	 * Checks isMoving booleans to determine movement in that given direction. 
 	 * @param speed The speed of which the player should move
 	 */
-	private void userMove(int speed) {
-		if (this.getIsMoving(Sprite.Direction.UP)) {
+	private synchronized void userMove(int speed) {
+		HashSet<Direction> invalidDirections = getInvalidDirections();
+		if (this.getIsMoving(Sprite.Direction.UP) && !invalidDirections.contains(Sprite.Direction.UP)) {
 			this.move(0, -speed);
 		}
-		if (this.getIsMoving(Sprite.Direction.DOWN)) {
+		if (this.getIsMoving(Sprite.Direction.DOWN) && !invalidDirections.contains(Sprite.Direction.DOWN)) {
 			this.move(0, speed);
 		}
-		if (this.getIsMoving(Sprite.Direction.RIGHT)) {
+		if (this.getIsMoving(Sprite.Direction.RIGHT) && !invalidDirections.contains(Sprite.Direction.RIGHT)) {
 			this.move(speed, 0);
 		}
-		if (this.getIsMoving(Sprite.Direction.LEFT)) {
+		if (this.getIsMoving(Sprite.Direction.LEFT) && !invalidDirections.contains(Sprite.Direction.LEFT)) {
 			this.move(-speed, 0);
 		}
 	}
@@ -87,7 +92,7 @@ public class Player extends Sprite {
 			if (Bomb.getBombsPlaced() < Bomb.getMaxNumBombs()) {
 				getBombs().add(getBombIndex(), new Bomb(getScene()));
 				getPane().getChildren().add(getBombs().get(getBombIndex()));
-				getBombs().get(getBombIndex()).relocate(getLayoutX(), getLayoutY());
+				getBombs().get(getBombIndex()).relocate(positionX*50, positionY*50);
 				getBombs().get(getBombIndex()).toBack();
 				createExplosionThread(getBombs().get(getBombIndex())).start();
 				setBombIndex(getBombIndex()+1);

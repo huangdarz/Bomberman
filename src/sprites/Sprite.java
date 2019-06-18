@@ -1,9 +1,16 @@
 package sprites;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import application.GameLoop;
 import javafx.animation.AnimationTimer;
+import javafx.geometry.Bounds;
+import javafx.geometry.Point2D;
+import javafx.geometry.Point3D;
 import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -18,7 +25,7 @@ public abstract class Sprite extends ImageView implements GameLoop {
 	private int velocityX, velocityY;
 	
 	
-	private Boolean isMovingUp = false, 
+	private boolean isMovingUp = false, 
 					isMovingDown = false, 
 					isMovingRight = false, 
 					isMovingLeft = false;
@@ -28,6 +35,8 @@ public abstract class Sprite extends ImageView implements GameLoop {
 		DOWN,
 		RIGHT,
 		LEFT
+		
+		
 	}
 	
 	public Sprite(Scene scene) {
@@ -38,7 +47,8 @@ public abstract class Sprite extends ImageView implements GameLoop {
 		loop.start();
 	}
 	
-	public void move(int velocityX, int velocityY) {
+	public synchronized void move(int velocityX, int velocityY) {
+		evaluatePosition();
 		this.relocate(this.getLayoutX() + velocityX, this.getLayoutY() + velocityY);
 	}
 	
@@ -96,27 +106,22 @@ public abstract class Sprite extends ImageView implements GameLoop {
 		return null;
 	}
 	
-	public Thread getStayInBoundThread() {
-		return new Thread(() -> {
-			boolean shouldRun = true;
-			while(shouldRun) {
-				for(Sprite s : ((GameScene) scene).getInLocalGrids(positionX, positionY)) {
-					double distanceX = Math.min(s.getLayoutBounds().getMaxX() - getLayoutBounds().getMinX(), s.getLayoutBounds().getMinX() - getLayoutBounds().getMaxX());
-					double distanceY = Math.min(s.getLayoutBounds().getMaxY() - getLayoutBounds().getMinY(), s.getLayoutBounds().getMinY() - getLayoutBounds().getMaxY());
-					Direction directionX = s.getLayoutBounds().getMaxX() - getLayoutBounds().getMinX() > s.getLayoutBounds().getMinX() - getLayoutBounds().getMaxX() ? Direction.LEFT : Direction.RIGHT;
-					Direction directionY = s.getLayoutBounds().getMaxY() - getLayoutBounds().getMinY() > s.getLayoutBounds().getMinY() - getLayoutBounds().getMaxY() ? Direction.UP : Direction.DOWN;
-					if((distanceX < 5) /*&& !(s instanceof Explosion, Mob)*/) {
-						if(directionX == Direction.RIGHT) isMovingRight = false; 
-						else isMovingLeft = false;
-					}
-					if((distanceY < 5) /*&& !(s instanceof Explostion, Mob)*/) {
-						if(directionY == Direction.UP) isMovingUp = false; 
-						else isMovingDown = false; 
-					}
-				}
-			}
-		});
+	public HashSet<Direction> getInvalidDirections() {
+		boolean shouldRun = true;
+		CollisionBounds b = new CollisionBounds(getLayoutX(), getLayoutY(), getLayoutBounds().getWidth(), getLayoutBounds().getHeight());
+		HashSet<Direction> invalidDirections = new HashSet<Sprite.Direction>();
+		for(Sprite s : ((GameScene) scene).getInLocalGrids(positionX, positionY)) {
+			invalidDirections.addAll(b.isTouching(new CollisionBounds(s.getLayoutX(), s.getLayoutY(), s.getLayoutBounds().getWidth(), s.getLayoutBounds().getHeight()), 3));
+		}
+		return invalidDirections;
 	}
+	
+	public void evaluatePosition() {
+		positionX = (int) Math.round(getLayoutX() / 50d);
+		positionY = (int) Math.round(getLayoutY() / 50d);
+		System.out.println("Position: "+positionX+" : "+positionY);
+	}
+	
 	public AnimationTimer getLoop() {return loop;}
 	
 	public Pane getPane() {return pane;}
