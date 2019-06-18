@@ -9,12 +9,14 @@ import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
-import sprites.Player;
+import sprites.Mob;
 import sprites.Sprite;
 import sprites.TestSprite;
 import sprites.wall.UnbreakableWall;
 
 public class GameScene extends BaseScene {
+	
+	Mob mob = new Mob(this);
 
 	public ArrayList<Sprite>[][] grid;
 	Dimension2D spriteDimension = new Dimension2D(50d, 50d);
@@ -69,9 +71,7 @@ public class GameScene extends BaseScene {
 				getPane().getChildren().addAll(grid[c][r]);
 			}
 		}
-//		grid[5][5].add(new UnbreakableWall(this, 5*spriteDimension.getWidth(), 5*spriteDimension.getHeight()));
-//		getPane().getChildren().addAll(grid[5][5]);
-	}
+  }
 	
 	public ArrayList<Sprite> getInGrid(int x, int y) {
 		return grid[x][y];
