@@ -3,9 +3,13 @@ package sprites.bomb;
 import java.util.ArrayList;
 
 import javafx.application.Platform;
+import javafx.geometry.Point2D;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import scenes.GameScene;
 import sprites.Sprite;
+import sprites.wall.BreakableWall;
+import sprites.wall.UnbreakableWall;
 
 public class Bomb extends Sprite {
 	private int range = 2;

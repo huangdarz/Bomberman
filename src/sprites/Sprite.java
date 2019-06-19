@@ -119,7 +119,6 @@ public abstract class Sprite extends ImageView implements GameLoop {
 	public void evaluatePosition() {
 		positionX = (int) Math.round(getLayoutX() / 50d);
 		positionY = (int) Math.round(getLayoutY() / 50d);
-		System.out.println("Position: "+positionX+" : "+positionY);
 	}
 	
 	public AnimationTimer getLoop() {return loop;}

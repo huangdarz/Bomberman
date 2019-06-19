@@ -6,6 +6,7 @@ import java.util.HashSet;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
+import scenes.GameScene;
 import sprites.bomb.Bomb;
 import sprites.bomb.ExplosionThread;
 

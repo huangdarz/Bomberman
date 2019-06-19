@@ -1,14 +1,18 @@
 package scenes;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 import javafx.application.Platform;
 import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
 import sprites.Mob;
 import sprites.Player;
 import sprites.Sprite;
@@ -19,8 +23,11 @@ public class GameScene extends BaseScene {
 	
 	Mob mob = new Mob(this);
 
-	public ArrayList<Sprite>[][] grid;
+	public static boolean debugger = false;
+	public static ArrayList<Sprite>[][] grid;
 	Dimension2D spriteDimension = new Dimension2D(50d, 50d);
+	Text buttonsText = new Text(8, 20, "");
+	HashSet<String> buttonsPressed = new HashSet<String>();
 	
 	Player player = new Player(this);
 	
@@ -28,8 +35,7 @@ public class GameScene extends BaseScene {
 	public GameScene(Pane root, double width, double height) {
 		super(root, width, height);
 		grid = new ArrayList[15][13]; // 15, 13
-		System.out.println("X: "+grid.length+" / Y: "+grid[0].length);
-		System.out.println("###########################################");
+		System.out.println("Grid-Width: "+grid.length+" / Grid-Height: "+grid[0].length);
 		createGridArrays();
 		
 		player.positionX = 1;
@@ -39,16 +45,21 @@ public class GameScene extends BaseScene {
 
 	@Override
 	public void run() {
-		
+		buttonsText.setText("PRESSED: "+buttonsPressed.toString());
+		if(debugger && !getPane().getChildren().contains(buttonsText)) getPane().getChildren().add(buttonsText);
+		if(!debugger && getPane().getChildren().contains(buttonsText)) getPane().getChildren().remove(buttonsText);
 	}
 
 	@Override
 	public void userInput() {
 		setOnKeyPressed(key -> {
+			buttonsPressed.add(key.getCode().toString());
 			player.moveKeyPressedReleased(key.getCode(), true);
 			player.placeBomb(key.getCode());
+			if(key.getCode() == KeyCode.BACK_QUOTE) debugger = !debugger;
 		});
 		setOnKeyReleased(key -> {
+			buttonsPressed.remove(key.getCode().toString());
 			player.moveKeyPressedReleased(key.getCode(), false);
 		});
 		
@@ -74,19 +85,25 @@ public class GameScene extends BaseScene {
 		}
   }
 	
-	public ArrayList<Sprite> getInGrid(int x, int y) {
+	public static ArrayList<Sprite> getInGrid(int x, int y) {
 		return grid[x][y];
 	}
 	
 	public synchronized ArrayList<Sprite> getInLocalGrids(int x, int y) { 
-		int detectionDiameter = 7;
+		final int detectionDiameter = 3; // must be odd, includes center grid cell
 		ArrayList<Sprite> local = new ArrayList<Sprite>();
-//		getPane().getChildren().removeIf(e -> { return (e instanceof Rectangle); });
+
+		getPane().getChildren().removeIf(e -> { return (e instanceof Rectangle); });
+
 		for(int c = 0; c < detectionDiameter; c++) {
 			for(int r = 0; r < detectionDiameter; r++) {
 				try {
-					local.addAll(grid[c +x - 3][r +y - 3]);
-//					getPane().getChildren().add(new Rectangle((c+x-3)*50, (r+y-3)*50, 50, 50));
+					local.addAll(grid[c+x-(int)(detectionDiameter/2)][r+y-(int)(detectionDiameter/2)]);
+					if(debugger) {
+						Rectangle debug = new Rectangle((c+x-(int)(detectionDiameter/2))*50, (r+y-(int)(detectionDiameter/2))*50, 50, 50);
+						debug.setFill(new Color(0.3, 0.3, c == (int)(detectionDiameter/2) && r == (int)(detectionDiameter/2) ? 1.0 : 0.3, 0.7));
+						getPane().getChildren().add(debug);
+					}
 				}
 				catch(ArrayIndexOutOfBoundsException e) {
 					
