@@ -1,14 +1,20 @@
 package scenes;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
+import javafx.application.Platform;
 import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
 import sprites.Mob;
+import sprites.Player;
 import sprites.Sprite;
 import sprites.TestSprite;
 import sprites.wall.UnbreakableWall;
@@ -17,83 +23,108 @@ public class GameScene extends BaseScene {
 	
 	Mob mob = new Mob(this);
 
-	public ArrayList<Sprite>[][] grid;
+	public static boolean debugger = false;
+	public static ArrayList<Sprite>[][] grid;
 	Dimension2D spriteDimension = new Dimension2D(50d, 50d);
+	Text buttonsText = new Text(8, 20, "");
+	HashSet<String> buttonsPressed = new HashSet<String>();
+	
+	Player player = new Player(this);
 	
 	@SuppressWarnings("unchecked")
 	public GameScene(Pane root, double width, double height) {
 		super(root, width, height);
-		grid = new ArrayList[(int) (width / spriteDimension.getWidth())][(int) (height / spriteDimension.getHeight())];
+		grid = new ArrayList[15][13]; // 15, 13
+		System.out.println("Grid-Width: "+grid.length+" / Grid-Height: "+grid[0].length);
+		createGridArrays();
 		
-		getPane().getChildren().add(mob);
+		player.positionX = 1;
+		player.positionY = 1;
+		getPane().getChildren().add(player);
 	}
 
 	@Override
 	public void run() {
-		
+		buttonsText.setText("PRESSED: "+buttonsPressed.toString());
+		if(debugger && !getPane().getChildren().contains(buttonsText)) getPane().getChildren().add(buttonsText);
+		if(!debugger && getPane().getChildren().contains(buttonsText)) getPane().getChildren().remove(buttonsText);
 	}
 
 	@Override
 	public void userInput() {
+		setOnKeyPressed(key -> {
+			buttonsPressed.add(key.getCode().toString());
+			player.moveKeyPressedReleased(key.getCode(), true);
+			player.placeBomb(key.getCode());
+			if(key.getCode() == KeyCode.BACK_QUOTE) debugger = !debugger;
+		});
+		setOnKeyReleased(key -> {
+			buttonsPressed.remove(key.getCode().toString());
+			player.moveKeyPressedReleased(key.getCode(), false);
+		});
 		
 	}
 	
-	public void createGridArrays() {
-//		for(int i = 0; i < grid.length*grid[0].length; i++) {
-//			grid[(int) (i / getWidth())][(int) (i % getWidth())] = new ArrayList<Sprite>();
-//			if((int)(i % getWidth()) == 0 || (int)(i % getWidth()) == getHeight()) {
-//				grid[(int) (i / getWidth())][(int) (i % getWidth())].add(new UnbreakableWall(this));
-//			}
-//			else {
-//				if(i % getWidth() == 0) {
-//					grid[(int) (i / getWidth())][(int) (i % getWidth())].add(new UnbreakableWall(this));
-//				}
-//				else if(i % 2 == 1) {
-//					grid[(int) (i / getWidth())][(int) (i % getWidth())].add(new UnbreakableWall(this));
-//				}
-//			}
-//		}
-		
+	public void createGridArrays() {		
 		for(int c = 0; c < grid.length; c++) {
 			for(int r = 0; r < grid[0].length; r++) {
 				grid[c][r] = new ArrayList<Sprite>();
 				if(c == 0 || c == grid.length - 1) {
-					grid[c][r].add(new UnbreakableWall(this));
+					grid[c][r].add(new UnbreakableWall(this, c * spriteDimension.getWidth(), r * spriteDimension.getHeight()));
 				}
 				else if(r == 0 || r == grid[0].length - 1) {
-					grid[c][r].add(new UnbreakableWall(this));
+					grid[c][r].add(new UnbreakableWall(this, c * spriteDimension.getWidth(), r * spriteDimension.getHeight()));
 				}
 				else {
 					if(r % 2 == 0 && c % 2 == 0) {
-						grid[c][r].add(new UnbreakableWall(this));
+						grid[c][r].add(new UnbreakableWall(this, c * spriteDimension.getWidth(), r * spriteDimension.getHeight()));
 					}
 				}
+				getPane().getChildren().addAll(grid[c][r]);
 			}
 		}
   }
 	
-	public ArrayList<Sprite> getInGrid(int x, int y) {
+	public static ArrayList<Sprite> getInGrid(int x, int y) {
 		return grid[x][y];
 	}
 	
-	public ArrayList<Sprite> getInLocalGrids(int x, int y) { 
+	public synchronized ArrayList<Sprite> getInLocalGrids(int x, int y) { 
+		final int detectionDiameter = 3; // must be odd, includes center grid cell
 		ArrayList<Sprite> local = new ArrayList<Sprite>();
-		for(int i = 0; i < 9; i++) {
-			try {
-				local.addAll(grid[((int) i / 3) +x -1][(i % 3) +y -1]);
-			}
-			catch(ArrayIndexOutOfBoundsException e) {
-				
+
+		getPane().getChildren().removeIf(e -> { return (e instanceof Rectangle); });
+
+		for(int c = 0; c < detectionDiameter; c++) {
+			for(int r = 0; r < detectionDiameter; r++) {
+				try {
+					local.addAll(grid[c+x-(int)(detectionDiameter/2)][r+y-(int)(detectionDiameter/2)]);
+					if(debugger) {
+						Rectangle debug = new Rectangle((c+x-(int)(detectionDiameter/2))*50, (r+y-(int)(detectionDiameter/2))*50, 50, 50);
+						debug.setFill(new Color(0.3, 0.3, c == (int)(detectionDiameter/2) && r == (int)(detectionDiameter/2) ? 1.0 : 0.3, 0.7));
+						getPane().getChildren().add(debug);
+					}
+				}
+				catch(ArrayIndexOutOfBoundsException e) {
+					
+				}
 			}
 		}
 		return local;
 	}
-
+	
+	/**
+	 * used mainly for bomb and mob placement
+	 * 
+	 * @param s
+	 * @return
+	 */
 	public Point2D TransferNearestGrid(Sprite s) {
-		if((int)(s.getLayoutBounds().getCenterX() / 50d) != s.positionX || (int)(s.getLayoutBounds().getCenterY()) != s.positionY) {
+		if((int)(s.getLayoutBounds().getCenterX() / 50) != s.positionX || (int)(s.getLayoutBounds().getCenterY() / 50) != s.positionY) {
 			grid[s.positionX][s.positionY].remove(s);
-			grid[(int)(s.getLayoutBounds().getCenterX() / 50d)][(int)(s.getLayoutBounds().getCenterY())].add(s);
-			return new Point2D((int)(s.getLayoutBounds().getCenterX() / 50d), (int)(s.getLayoutBounds().getCenterY()));
+			grid[(int)(s.getLayoutBounds().getCenterX() / 50)][(int)(s.getLayoutBounds().getCenterY() / 50)].add(s);
+			System.out.println("Position: "+(int)(s.getLayoutBounds().getCenterX() / 50)+" : "+(int)(s.getLayoutBounds().getCenterY() / 50));
+			return new Point2D((int)(s.getLayoutBounds().getCenterX() / 50), (int)(s.getLayoutBounds().getCenterY())/ 50);
 		}
 		return null;
 	}
