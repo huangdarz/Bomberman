@@ -17,11 +17,13 @@ import sprites.Mob;
 import sprites.Player;
 import sprites.Sprite;
 import sprites.TestSprite;
+import sprites.powerUps.TestPowerUp;
 import sprites.wall.UnbreakableWall;
 
 public class GameScene extends BaseScene {
 	
 	Mob mob = new Mob(this);
+	TestPowerUp power = new TestPowerUp(this);
 
 	public static boolean debugger = false;
 	public static ArrayList<Sprite>[][] grid;
@@ -37,7 +39,7 @@ public class GameScene extends BaseScene {
 		grid = new ArrayList[15][13]; // 15, 13
 		System.out.println("Grid-Width: "+grid.length+" / Grid-Height: "+grid[0].length);
 		createGridArrays();
-		
+
 		player.positionX = 1;
 		player.positionY = 1;
 		getPane().getChildren().add(player);
