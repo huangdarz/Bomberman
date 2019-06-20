@@ -23,7 +23,7 @@ import sprites.wall.UnbreakableWall;
 public class GameScene extends BaseScene {
 	
 	Mob mob = new Mob(this);
-//	TestPowerUp power = new TestPowerUp(this);
+	TestPowerUp power = new TestPowerUp(this);
 
 	public static boolean debugger = false;
 	public static ArrayList<Sprite>[][] grid;
@@ -42,7 +42,7 @@ public class GameScene extends BaseScene {
 
 		player.positionX = 1;
 		player.positionY = 1;
-		getPane().getChildren().add(player);
+		getPane().getChildren().addAll(player, power);
 	}
 
 	@Override

@@ -27,8 +27,8 @@ public class TestPowerUp extends Sprite {
 		super(scene);
 		Image image = new Image("/res/player.png");
 		setImage(image);
-		setFitWidth(50);
-		setFitHeight(50);
+		setFitWidth(40);
+		setFitHeight(40);
 	}
 	
 	@Override
@@ -77,14 +77,14 @@ public class TestPowerUp extends Sprite {
 	}
 	
 	private void locationSetting() {
-		relocate(((randomLocationX*50)+50), ((randomLocationY*50)+50));
+		relocate(((randomLocationX*50)+55), ((randomLocationY*50)+55));
 		System.out.println("Yes!!");
 	}
 	
 	private void createNextPowerUp() {
 		if (currentAmount < amount) {
 			TestPowerUp nextPowerUp = new TestPowerUp(getScene());
-			nextPowerUp.relocate(((randomLocationX*50)+50), ((randomLocationY*50)+50));
+			nextPowerUp.relocate(((randomLocationX*50)+55), ((randomLocationY*50)+55));
 			getPane().getChildren().add(nextPowerUp);
 			System.out.println("--------------------------");
 			currentAmount++;
