@@ -20,9 +20,9 @@ public class Mob extends Sprite {
 		super(scene);
 		Image image = new Image("/res/player.png");
 		setImage(image);
-		setFitWidth(50);
-		setFitHeight(50);
-		relocate(50, 50);
+		setFitWidth(40);
+		setFitHeight(40);
+		relocate(55, 55);
 	}
 
 	@Override

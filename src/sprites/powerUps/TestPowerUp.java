@@ -15,6 +15,7 @@ public class TestPowerUp extends Sprite {
 	
 	boolean locationFreeX = false;
 	boolean locationFreeY = false ;
+	boolean preLocationCheck = false;
 	static boolean ifSet = false;
 	static int amount = rand.nextInt(5);
 	static int currentAmount = 0;
@@ -41,6 +42,7 @@ public class TestPowerUp extends Sprite {
 		if (locationFreeX == false || locationFreeY == false) {
 			randomLocationX = rand.nextInt(13);
 			randomLocationY = rand.nextInt(11);
+			preLocationCheck = false;
 			System.out.println("Random Location X: "+((randomLocationX*50)+50));
 			System.out.println("Random Location Y: "+((randomLocationY*50)+50));
 			System.out.println("Amount: "+amount);
@@ -59,7 +61,12 @@ public class TestPowerUp extends Sprite {
 	private void amountAndLocation() {
 		for (int i = 0; i <= amount; i++) {
 			locationGeneration();
+			
 			checkLocationFree();
+			
+			existingLoc[i][0] = randomLocationX;
+			existingLoc[i][1] = randomLocationY;
+			
 			createNextPowerUp();
 			
 			locationFreeX = false;
@@ -74,6 +81,15 @@ public class TestPowerUp extends Sprite {
 			ifSet = true;
 			System.out.println(ifSet);
 		}
+	}
+	
+	private boolean checkPreviousLocations(int i) {
+		for (int a = 0; a <= i; a++) {
+				if (existingLoc[a][0] == randomLocationX && existingLoc[a][1] == randomLocationY) {
+					preLocationCheck = true;
+				}
+		}
+		return preLocationCheck;
 	}
 	
 	private void locationSetting() {
