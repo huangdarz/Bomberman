@@ -29,6 +29,7 @@ public class GameScene extends BaseScene {
 		
 		getPane().getChildren().add(mob);
 		getPane().getChildren().add(power);
+//		power.relocate(1200, 254);
 	}
 
 	@Override
