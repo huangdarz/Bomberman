@@ -23,7 +23,7 @@ import sprites.wall.UnbreakableWall;
 public class GameScene extends BaseScene {
 	
 	Mob mob = new Mob(this);
-	TestPowerUp power = new TestPowerUp(this);
+//	TestPowerUp power = new TestPowerUp(this);
 
 	public static boolean debugger = false;
 	public static ArrayList<Sprite>[][] grid;
