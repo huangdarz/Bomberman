@@ -5,6 +5,8 @@ import javafx.scene.image.Image;
 import sprites.Sprite;
 
 public class Explosion extends Sprite {
+	private boolean shouldExplode = true; 
+	
 	public Explosion(Scene scene) {
 		super(scene);
 		Image image = new Image("/res/explosion.gif");
@@ -18,4 +20,11 @@ public class Explosion extends Sprite {
 		toFront();
 	}
 
+	public void setShouldExplode(boolean shouldExplode) {
+		this.shouldExplode = shouldExplode;
+	}
+	
+	public boolean getShouldExplode() {
+		return shouldExplode;
+	}
 }
