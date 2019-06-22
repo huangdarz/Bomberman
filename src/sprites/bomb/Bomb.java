@@ -41,28 +41,16 @@ public class Bomb extends Sprite {
 		for (int x = 0; x < range*4; x++) {
 			blasts.add(new Explosion(getScene()));
 			if (x < range) {
-				checkBounds((getLayoutX()-getFitWidth()*multiplier)/50, getLayoutY()/50, blasts.get(x));
-				blasts.get(x).relocate(getLayoutX()-getFitWidth()*multiplier, getLayoutY());
-				checkExplosionGrid((getLayoutX()-getFitWidth()*multiplier)/50, getLayoutY()/50, blasts.get(x));
-				checkEmpty(blasts.get(x));
+				calcBomb(getLayoutX()-getFitWidth()*multiplier, getLayoutY(), blasts.get(x));
 				if (x == range - 1) boundExplosion = true;
 			} else if (x < range*2) {
-				checkBounds((getLayoutX())/50, (getLayoutY()-getFitHeight()*multiplier)/50, blasts.get(x));
-				blasts.get(x).relocate(getLayoutX(), getLayoutY()-getFitHeight()*multiplier);
-				checkExplosionGrid((getLayoutX())/50, (getLayoutY()-getFitHeight()*multiplier)/50, blasts.get(x));
-				checkEmpty(blasts.get(x));
+				calcBomb(getLayoutX(), getLayoutY()-getFitHeight()*multiplier, blasts.get(x));
 				if (x == range*2 - 1) boundExplosion = true;
 			} else if (x < range*3) {
-				checkBounds((getLayoutX()+getFitWidth()*multiplier)/50, getLayoutY()/50, blasts.get(x));
-				blasts.get(x).relocate(getLayoutX()+getFitWidth()*multiplier, getLayoutY());
-				checkExplosionGrid((getLayoutX()+getFitWidth()*multiplier)/50, getLayoutY()/50, blasts.get(x));
-				checkEmpty(blasts.get(x));
+				calcBomb(getLayoutX()+getFitWidth()*multiplier, getLayoutY(), blasts.get(x));
 				if (x == range*3 - 1) boundExplosion = true;
 			} else {
-				checkBounds((getLayoutX())/50, (int)(getLayoutY()+getFitHeight()*multiplier)/50, blasts.get(x));
-				blasts.get(x).relocate(getLayoutX(), getLayoutY()+getFitHeight()*multiplier);
-				checkExplosionGrid((getLayoutX())/50, (getLayoutY()+getFitHeight()*multiplier)/50, blasts.get(x));
-				checkEmpty(blasts.get(x));
+				calcBomb(getLayoutX(), getLayoutY()+getFitHeight()*multiplier, blasts.get(x));
 				if (x == range*4 - 1) boundExplosion = true;
 			}
 			blasts.get(x).toBack();
@@ -83,6 +71,13 @@ public class Bomb extends Sprite {
 		
 		Platform.runLater(() -> getPane().getChildren().removeAll(blasts));
 		setBombsPlaced(getBombsPlaced()-1);
+	}
+	
+	private void calcBomb(double x, double y, Explosion e) {
+		checkBounds(x/50, y/50, e);
+		e.relocate(x, y);
+		checkExplosionGrid(x/50, y/50, e);
+		checkEmpty(e);
 	}
 	
 	private void checkBounds(double x, double y, Explosion e) {
