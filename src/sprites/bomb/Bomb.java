@@ -4,13 +4,10 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 import javafx.application.Platform;
-import javafx.geometry.Point2D;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
-import javafx.scene.shape.Rectangle;
 import scenes.GameScene;
 import sprites.Sprite;
-import sprites.wall.BreakableWall;
 import sprites.wall.UnbreakableWall;
 
 public class Bomb extends Sprite {
@@ -77,7 +74,7 @@ public class Bomb extends Sprite {
 		checkBounds(x/50, y/50, e);
 		e.relocate(x, y);
 		checkExplosionGrid(x/50, y/50, e);
-		checkEmpty(e);
+		checkGridForWall(e);
 	}
 	
 	private void checkBounds(double x, double y, Explosion e) {
@@ -85,12 +82,14 @@ public class Bomb extends Sprite {
 			activeSprites = GameScene.getInGrid((int)x, (int)y);
 			boundExplosion = false;
 		}
-		checkEmpty(e);
+		checkGridForWall(e);
 	}
 	
-	private void checkEmpty(Explosion e) {
-		if (!activeSprites.isEmpty()) {
-			e.setShouldExplode(false);
+	private void checkGridForWall(Explosion e) {
+		for (Sprite s : activeSprites) {
+			if (s instanceof UnbreakableWall) {
+				e.setShouldExplode(false);
+			}
 		}
 	}
 	
