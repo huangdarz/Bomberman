@@ -20,8 +20,8 @@ public class Mob extends Sprite {
 		super(scene);
 		Image image = new Image("/res/player.png");
 		setImage(image);
-		setFitWidth(50);
-		setFitHeight(50);
+		setFitWidth(40);
+		setFitHeight(40);
 		relocate(50, 50);
 	}
 
@@ -67,17 +67,28 @@ public class Mob extends Sprite {
 	private void switchRandomDirection() {
 		switch (randomDirection) {
 		case 0:
-			move(0, -speed);
+			if(!getInvalidDirections().contains(Direction.UP)) {
+				move(0, -speed);
+			}
 			break;
+			
 		case 1:
-			move(0, speed);
+			if (!getInvalidDirections().contains(Direction.DOWN)) {
+				move(0, speed);
+			}
 			break;
+			
 		case 2:
-			move(speed, 0);
+			if (!getInvalidDirections().contains(Direction.RIGHT)) {
+				move(speed, 0);
+			}
 			break;
+			
 		case 3:
-			move(-speed, 0);
+			if (!getInvalidDirections().contains(Direction.LEFT)) {
+				move(-speed, 0);
+			}
 			break;
-	}
+		}
 	}
 }
