@@ -11,19 +11,24 @@ import sprites.Sprite;
  * @author Michael Legovich 
  */
 public class TestPowerUp extends Sprite {
+/** 
+ * Declares all variables and arrays for all the methods
+ */
 	static Random rand = new Random();
 	
-	boolean locationFreeX = false;
-	boolean locationFreeY = false ;
-	boolean preLocationCheck = false;
+	boolean existingPowerUpLocation = false;
 	static boolean ifSet = false;
-	static int amount = rand.nextInt(5);
-	static int currentAmount = 0;
+	static int amountOfPowerUps = rand.nextInt(5);
+	static int currentAmountOfPowerUps = 0;
 	static int randomLocationX;
 	static int randomLocationY;
 	
-	static int existingLoc[][] = new int[amount][1];
+	static int existingLocations[][] = new int[amountOfPowerUps+1][2];
 	
+/**
+ * Sets image and size
+ * @param scene
+ */
 	public TestPowerUp(Scene scene) {
 		super(scene);
 		Image image = new Image("/res/player.png");
@@ -32,78 +37,103 @@ public class TestPowerUp extends Sprite {
 		setFitHeight(40);
 	}
 	
+/**
+ * Repeating initiateAmountAndLocation
+ */
 	@Override
 	public void run() {
 		initiateAmountAndLocation();
 	}
 
-	
+/**
+ * 	Randomly generates location variables, and resets other variables
+ */
 	private void locationGeneration() {
-		if (locationFreeX == false || locationFreeY == false) {
-			randomLocationX = rand.nextInt(13);
-			randomLocationY = rand.nextInt(11);
-			preLocationCheck = false;
-			System.out.println("Random Location X: "+((randomLocationX*50)+50));
-			System.out.println("Random Location Y: "+((randomLocationY*50)+50));
-			System.out.println("Amount: "+amount);
-		}
+		randomLocationX = rand.nextInt(13);
+		randomLocationY = rand.nextInt(11);
+		existingPowerUpLocation = false;
 	}
 	
+/**
+ * Checks if the generated location is applicable, as both location can't be odd
+ */
 	private void checkLocationFree() {
 		while (randomLocationX % 2 != 0 && randomLocationY % 2 != 0) {
 			locationGeneration();
 		}
-		
-		locationFreeX = true;
-		locationFreeY = true;
 	}	
 
+/**
+ * Main loop for all methods made, these being used for each individual generation of a power up
+ * It also sets the good location to the array, and use to check if another power might be 
+ * placed on top
+ */
 	private void amountAndLocation() {
-		for (int i = 0; i <= amount; i++) {
+		for (int i = 0; i <= amountOfPowerUps; i++) {
 			locationGeneration();
 			
 			checkLocationFree();
 			
-			existingLoc[i][0] = randomLocationX;
-			existingLoc[i][1] = randomLocationY;
+			if(checkPreviousLocations(i)) {
+				while (checkPreviousLocations(i) == true) {
+					locationGeneration();
+					
+					checkLocationFree();
+				}
+			}
+
+			existingLocations[i][0] = randomLocationX;
+			existingLocations[i][1] = randomLocationY;
 			
 			createNextPowerUp();
-			
-			locationFreeX = false;
-			locationFreeY = false;
 		}
 	}
 	
+/**
+ * Only runs the amountAndLocation method and initialLocationSetting once
+ */
 	private void initiateAmountAndLocation() {
 		if (ifSet == false) {
 			amountAndLocation();
-			locationSetting();
+			
+			initialLocationSetting();
+			
 			ifSet = true;
-			System.out.println(ifSet);
 		}
 	}
 	
+/**
+ * Checking if a given location has a power up already placed
+ * @param i
+ * @return
+ */
 	private boolean checkPreviousLocations(int i) {
-		for (int a = 0; a <= i; a++) {
-				if (existingLoc[a][0] == randomLocationX && existingLoc[a][1] == randomLocationY) {
-					preLocationCheck = true;
+		if (i != 0) {
+			for (int a = 0; a < i; a++) {
+				if (existingLocations[a][0] == randomLocationX && existingLocations[a][1] == randomLocationY) {
+					existingPowerUpLocation = true;
 				}
+			}
 		}
-		return preLocationCheck;
+		return existingPowerUpLocation;
 	}
 	
-	private void locationSetting() {
+/**
+ * Placing on the map the first power up
+ */
+	private void initialLocationSetting() {
 		relocate(((randomLocationX*50)+55), ((randomLocationY*50)+55));
-		System.out.println("Yes!!");
 	}
 	
+/**
+ * Placing on the map of the other power ups
+ */
 	private void createNextPowerUp() {
-		if (currentAmount < amount) {
+		if (currentAmountOfPowerUps < amountOfPowerUps) {
 			TestPowerUp nextPowerUp = new TestPowerUp(getScene());
 			nextPowerUp.relocate(((randomLocationX*50)+55), ((randomLocationY*50)+55));
 			getPane().getChildren().add(nextPowerUp);
-			System.out.println("--------------------------");
-			currentAmount++;
+			currentAmountOfPowerUps++;
 		}
 		
 	}
