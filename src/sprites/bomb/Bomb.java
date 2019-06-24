@@ -35,6 +35,20 @@ public class Bomb extends Sprite {
 	public void explode() {
 		int multiplier = 1;
 		LinkedList<Explosion> blasts = new LinkedList<Explosion>();
+		blastLoop(blasts, multiplier);
+		blasts.add(new Explosion(getScene()));
+		blasts.getLast().relocate(getLayoutX(), getLayoutY());
+		LinkedList<Explosion> toExplode = createToExplode(blasts);
+		Platform.runLater(() -> {
+			getPane().getChildren().addAll(toExplode);
+			getPane().getChildren().remove(this);
+		});
+		timer(750);
+		Platform.runLater(() -> getPane().getChildren().removeAll(blasts));
+		setBombsPlaced(getBombsPlaced()-1);
+	}
+	
+	private void blastLoop(LinkedList<Explosion> blasts, int multiplier) {
 		for (int x = 0; x < range*4; x++) {
 			blasts.add(new Explosion(getScene()));
 			if (x < range) {
@@ -54,20 +68,6 @@ public class Bomb extends Sprite {
 			multiplier++;
 			if (multiplier > range) multiplier = 1;
 		}
-		blasts.add(new Explosion(getScene()));
-		blasts.getLast().relocate(getLayoutX(), getLayoutY());
-		
-		LinkedList<Explosion> toExplode = createToExplode(blasts);
-		
-		Platform.runLater(() -> {
-			getPane().getChildren().addAll(toExplode);
-			getPane().getChildren().remove(this);
-		});
-		
-		timer(750);
-		
-		Platform.runLater(() -> getPane().getChildren().removeAll(blasts));
-		setBombsPlaced(getBombsPlaced()-1);
 	}
 	
 	private void calcBomb(double x, double y, Explosion e) {
