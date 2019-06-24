@@ -34,28 +34,28 @@ public class Bomb extends Sprite {
 	
 	public void explode() {
 		int multiplier = 1;
-		ArrayList<Explosion> blasts = new ArrayList<Explosion>();
+		LinkedList<Explosion> blasts = new LinkedList<Explosion>();
 		for (int x = 0; x < range*4; x++) {
 			blasts.add(new Explosion(getScene()));
 			if (x < range) {
-				calcBomb(getLayoutX()-getFitWidth()*multiplier, getLayoutY(), blasts.get(x));
+				calcBomb(getLayoutX()-getFitWidth()*multiplier, getLayoutY(), blasts.getLast());
 				if (x == range - 1) boundExplosion = true;
 			} else if (x < range*2) {
-				calcBomb(getLayoutX(), getLayoutY()-getFitHeight()*multiplier, blasts.get(x));
+				calcBomb(getLayoutX(), getLayoutY()-getFitHeight()*multiplier, blasts.getLast());
 				if (x == range*2 - 1) boundExplosion = true;
 			} else if (x < range*3) {
-				calcBomb(getLayoutX()+getFitWidth()*multiplier, getLayoutY(), blasts.get(x));
+				calcBomb(getLayoutX()+getFitWidth()*multiplier, getLayoutY(), blasts.getLast());
 				if (x == range*3 - 1) boundExplosion = true;
 			} else {
-				calcBomb(getLayoutX(), getLayoutY()+getFitHeight()*multiplier, blasts.get(x));
+				calcBomb(getLayoutX(), getLayoutY()+getFitHeight()*multiplier, blasts.getLast());
 				if (x == range*4 - 1) boundExplosion = true;
 			}
-			blasts.get(x).toBack();
+			blasts.getLast().toBack();
 			multiplier++;
 			if (multiplier > range) multiplier = 1;
 		}
 		blasts.add(new Explosion(getScene()));
-		blasts.get(range*4).relocate(getLayoutX(), getLayoutY());
+		blasts.getLast().relocate(getLayoutX(), getLayoutY());
 		
 		LinkedList<Explosion> toExplode = createToExplode(blasts);
 		
@@ -101,7 +101,7 @@ public class Bomb extends Sprite {
 		}
 	}
 	
-	private LinkedList<Explosion> createToExplode(ArrayList<Explosion> b) {
+	private LinkedList<Explosion> createToExplode(LinkedList<Explosion> b) {
 		LinkedList<Explosion> toExplode = new LinkedList<Explosion>();
 		for (Explosion e : b) {
 			if (e.getShouldExplode()) {
