@@ -11,6 +11,7 @@ import javafx.animation.AnimationTimer;
 import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
 import javafx.geometry.Point3D;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -107,7 +108,6 @@ public abstract class Sprite extends ImageView implements GameLoop {
 	}
 	
 	public HashSet<Direction> getInvalidDirections() {
-		boolean shouldRun = true;
 		CollisionBounds b = new CollisionBounds(getLayoutX(), getLayoutY(), getLayoutBounds().getWidth(), getLayoutBounds().getHeight());
 		HashSet<Direction> invalidDirections = new HashSet<Sprite.Direction>();
 		for(Sprite s : ((GameScene) scene).getInLocalGrids(positionX, positionY)) {
