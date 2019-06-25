@@ -69,7 +69,8 @@ public class CollisionBounds extends Bounds {
 	}
 	
 	// TODO verify calculations, Math.abs(getMax - b.getMin) <= threshold
-	public synchronized ArrayList<Sprite.Direction> isTouching(Bounds b, int threshold) {
+	@SuppressWarnings("serial")
+	public synchronized ArrayList<Sprite.Direction> isTouching(CollisionBounds b, int threshold) {
 		return new ArrayList<Sprite.Direction>() {{
 			if(Math.abs(getMinX() - b.getMaxX()) <= threshold && Math.min(Math.abs(getMaxY() - b.getMaxY()), Math.abs(getMinY() - b.getMinY())) < getHeight()) add(Sprite.Direction.LEFT);
 			if(Math.abs(-getMaxX() + b.getMinX()) <= threshold && Math.min(Math.abs(getMaxY() - b.getMaxY()), Math.abs(getMinY() - b.getMinY())) < getHeight()) add(Sprite.Direction.RIGHT);

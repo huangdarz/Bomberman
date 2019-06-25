@@ -7,7 +7,13 @@ import javafx.application.Platform;
 import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundPosition;
+import javafx.scene.layout.BackgroundRepeat;
+import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
@@ -26,23 +32,26 @@ public class GameScene extends BaseScene {
 //	TestPowerUp power = new TestPowerUp(this);
 
 	public static boolean debugger = false;
-	public static ArrayList<Sprite>[][] grid;
+	public static ArrayList<Sprite>[][] grid = new ArrayList[15][13];
 	Dimension2D spriteDimension = new Dimension2D(50d, 50d);
-	Text buttonsText = new Text(8, 20, "");
+	Text buttonsText = new Text(8, 640, "");
 	HashSet<String> buttonsPressed = new HashSet<String>();
+	public static int score, lives;
 	
 	Player player = new Player(this);
 	
 	@SuppressWarnings("unchecked")
 	public GameScene(Pane root, double width, double height) {
 		super(root, width, height);
-		grid = new ArrayList[15][13]; // 15, 13
 		System.out.println("Grid-Width: "+grid.length+" / Grid-Height: "+grid[0].length);
 		createGridArrays();
 
 		player.positionX = 1;
 		player.positionY = 1;
+//		getPane().setBackground(new Background(new BackgroundImage(new Image(""), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT)));
 		getPane().getChildren().add(player);
+		getPane().getChildren().add(new Text(width-85, 25, "Score: "+score));
+		getPane().getChildren().add(new Text(15, 25, "Lives: "+lives));
 	}
 
 	@Override
@@ -77,10 +86,8 @@ public class GameScene extends BaseScene {
 				else if(r == 0 || r == grid[0].length - 1) {
 					grid[c][r].add(new UnbreakableWall(this, c * spriteDimension.getWidth(), r * spriteDimension.getHeight()));
 				}
-				else {
-					if(r % 2 == 0 && c % 2 == 0) {
-						grid[c][r].add(new UnbreakableWall(this, c * spriteDimension.getWidth(), r * spriteDimension.getHeight()));
-					}
+				else if(r % 2 == 0 && c % 2 == 0) {
+					grid[c][r].add(new UnbreakableWall(this, c * spriteDimension.getWidth(), r * spriteDimension.getHeight()));
 				}
 				getPane().getChildren().addAll(grid[c][r]);
 			}
@@ -129,5 +136,13 @@ public class GameScene extends BaseScene {
 			return new Point2D((int)(s.getLayoutBounds().getCenterX() / 50), (int)(s.getLayoutBounds().getCenterY())/ 50);
 		}
 		return null;
+	}
+	
+	public static synchronized void sumScore(int sumScore) {
+		score += sumScore;
+	}
+	
+	public static synchronized void sumLives(int sumLives) {
+		lives += sumLives;
 	}
 }
