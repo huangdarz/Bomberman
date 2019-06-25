@@ -5,6 +5,10 @@ import java.util.Random;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 
+/** 
+ * The movement of the mob 
+ * @author Michael Legovich 
+ */
 public class Mob extends Sprite {
 /**
  * Setting all variables
