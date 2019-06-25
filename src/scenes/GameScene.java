@@ -48,7 +48,7 @@ public class GameScene extends BaseScene {
 		player.positionX = 1;
 		player.positionY = 1;
 //		getPane().setBackground(new Background(new BackgroundImage(new Image(""), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT)));
-		getPane().getChildren().add(player);
+		getPane().getChildren().addAll(player, mob);
 		getPane().getChildren().add(new Text(width-85, 25, "Score: "+score));
 		getPane().getChildren().add(new Text(15, 25, "Lives: "+lives));
 	}

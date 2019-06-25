@@ -38,7 +38,7 @@ public class Mob extends Sprite {
 		if (getPosition == true) {
 			currentX = getLayoutX();
 			currentY = getLayoutY();
-			randomLength = rand.nextInt(3);
+			randomLength = rand.nextInt(4);
 			randomDirection = rand.nextInt(4);
 			getPosition = false;
 		}
@@ -61,33 +61,37 @@ public class Mob extends Sprite {
 		case 2:
 			positionChecker(150);
 			break;
+		case 3:
+			positionChecker(200);
+			break;
+		}
+	}
+	
+	private void checkCollision(Direction directionChosen, int speedX, int speedY) {
+		if(!getInvalidDirections().contains(directionChosen)) {
+			move(speedX, speedY);
+		}
+		else {
+			getPosition = true;
 		}
 	}
 	
 	private void switchRandomDirection() {
 		switch (randomDirection) {
 		case 0:
-			if(!getInvalidDirections().contains(Direction.UP)) {
-				move(0, -speed);
-			}
+			checkCollision(Direction.UP, 0, -speed);
 			break;
 			
 		case 1:
-			if (!getInvalidDirections().contains(Direction.DOWN)) {
-				move(0, speed);
-			}
+			checkCollision(Direction.DOWN, 0, speed);
 			break;
 			
 		case 2:
-			if (!getInvalidDirections().contains(Direction.RIGHT)) {
-				move(speed, 0);
-			}
+			checkCollision(Direction.RIGHT, speed, 0);
 			break;
 			
 		case 3:
-			if (!getInvalidDirections().contains(Direction.LEFT)) {
-				move(-speed, 0);
-			}
+			checkCollision(Direction.LEFT, -speed, 0);
 			break;
 		}
 	}
