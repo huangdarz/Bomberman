@@ -14,7 +14,7 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		pane = new Pane();
-		game = new GameScene(pane, 1280, 720);
+		game = new GameScene(pane, GameScene.grid.length*50-12, GameScene.grid[0].length*50-12);
 		
 		primaryStage.setScene(game);
 		primaryStage.setTitle("Bomberman");
