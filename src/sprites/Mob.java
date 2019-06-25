@@ -6,16 +6,22 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 
 public class Mob extends Sprite {
+/**
+ * Setting all variables
+ */
+	Random rand = new Random();
+	
 	boolean getPosition = true;
 	double currentX;
 	double currentY;
 	int speed = 4;
 	int randomDirection;
 	int randomLength;
-
 	
-	Random rand = new Random();
-	
+/**
+ * Setting the objects size and location
+ * @param scene
+ */
 	public Mob(Scene scene) {
 		super(scene);
 		Image image = new Image("/res/player.png");
@@ -25,6 +31,9 @@ public class Mob extends Sprite {
 		relocate(50, 50);
 	}
 
+/**
+ * Repeats the methods infinitely
+ */
 	@Override
 	public void run() {
 		reroll();
@@ -33,7 +42,10 @@ public class Mob extends Sprite {
 		
 		switchRandomDirection();
 	}
-	
+
+/**
+ * Checking if the movement position has been reached and resting the vairables
+ */
 	private void reroll() {
 		if (getPosition == true) {
 			currentX = getLayoutX();
@@ -43,13 +55,21 @@ public class Mob extends Sprite {
 			getPosition = false;
 		}
 	}
-	
+
+/**
+ * Checks that the position of the mob has move the desired amount, and if yes
+ * allows the variables to be reset
+ * @param position
+ */
 	private void positionChecker(int position) {
 		if (Math.abs(getLayoutX()-currentX) >= position || Math.abs(getLayoutY()-currentY) >= position) {
 			getPosition = true;
 		} 
 	}
 
+/**
+ * Deciding how far to travel in a set direction, based on the number randomly found
+ */
 	private void switchRandomLength() {
 		switch (randomLength) {
 		case 0:
@@ -67,6 +87,10 @@ public class Mob extends Sprite {
 		}
 	}
 	
+/**
+ * Checking if the mob is colliding with another object, mainly walls or boundaries, if it isn't 
+ * make it move, otherwise rest the variables
+ */
 	private void checkCollision(Direction directionChosen, int speedX, int speedY) {
 		if(!getInvalidDirections().contains(directionChosen)) {
 			move(speedX, speedY);
@@ -76,6 +100,9 @@ public class Mob extends Sprite {
 		}
 	}
 	
+/**
+ * Deciding which direction to travel in
+ */
 	private void switchRandomDirection() {
 		switch (randomDirection) {
 		case 0:
