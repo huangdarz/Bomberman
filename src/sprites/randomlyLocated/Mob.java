@@ -1,11 +1,12 @@
-package sprites;
+package sprites.randomlyLocated;
 
 import java.util.Random;
 
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import sprites.Sprite;
 
-public class Mob extends Sprite {
+public class Mob extends RandomLocationGeneration {
 	boolean getPosition = true;
 	double currentX;
 	double currentY;

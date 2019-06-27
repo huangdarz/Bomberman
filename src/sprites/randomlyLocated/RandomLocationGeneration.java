@@ -1,4 +1,4 @@
-package sprites.powerUps;
+package sprites.randomlyLocated;
 
 import java.util.Random;
 
@@ -7,10 +7,10 @@ import javafx.scene.image.Image;
 import sprites.Sprite;
 
 /** 
- * The Location generation and checking if free for a power-up  
+ * The Location generation and checking if free 
  * @author Michael Legovich 
  */
-public class TestPowerUp extends Sprite {
+public class RandomLocationGeneration extends Sprite {
 /** 
  * Declares all variables and arrays for all the methods
  */
@@ -29,7 +29,7 @@ public class TestPowerUp extends Sprite {
  * Sets image and size
  * @param scene
  */
-	public TestPowerUp(Scene scene) {
+	public RandomLocationGeneration(Scene scene) {
 		super(scene);
 		Image image = new Image("/res/player.png");
 		setImage(image);
@@ -130,7 +130,7 @@ public class TestPowerUp extends Sprite {
  */
 	private void createNextPowerUp() {
 		if (currentAmountOfPowerUps < amountOfPowerUps) {
-			TestPowerUp nextPowerUp = new TestPowerUp(getScene());
+			RandomLocationGeneration nextPowerUp = new RandomLocationGeneration(getScene());
 			nextPowerUp.relocate(((randomLocationX*50)+55), ((randomLocationY*50)+55));
 			getPane().getChildren().add(nextPowerUp);
 			currentAmountOfPowerUps++;

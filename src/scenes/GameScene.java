@@ -19,17 +19,17 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
-import sprites.Mob;
 import sprites.Player;
 import sprites.Sprite;
 import sprites.TestSprite;
-import sprites.powerUps.TestPowerUp;
+import sprites.randomlyLocated.Mob;
+import sprites.randomlyLocated.RandomLocationGeneration;
 import sprites.wall.UnbreakableWall;
 
 public class GameScene extends BaseScene {
 
 	Mob mob = new Mob(this);
-	TestPowerUp power = new TestPowerUp(this);
+	RandomLocationGeneration power = new RandomLocationGeneration(this);
 
 	public static boolean debugger = false;
 	public static ArrayList<Sprite>[][] grid = new ArrayList[15][13];
