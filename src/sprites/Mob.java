@@ -48,7 +48,7 @@ public class Mob extends Sprite {
 	}
 
 /**
- * Checking if the movement position has been reached and resting the vairables
+ * Checking if the movement position has been reached and resting the variables
  */
 	private void reroll() {
 		if (getPosition == true) {
