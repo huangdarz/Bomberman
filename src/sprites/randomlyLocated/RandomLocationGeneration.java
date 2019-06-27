@@ -128,14 +128,7 @@ public class RandomLocationGeneration extends Sprite {
 /**
  * Placing on the map of the other power ups
  */
-	private void createNextPowerUp() {
-		if (currentAmountOfPowerUps < amountOfPowerUps) {
-			RandomLocationGeneration nextPowerUp = new RandomLocationGeneration(getScene());
-			nextPowerUp.relocate(((randomLocationX*50)+55), ((randomLocationY*50)+55));
-			getPane().getChildren().add(nextPowerUp);
-			currentAmountOfPowerUps++;
-		}
-		
+	protected void createNextPowerUp() {
 	}
 	
 }

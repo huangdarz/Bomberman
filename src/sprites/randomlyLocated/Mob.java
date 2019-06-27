@@ -4,9 +4,10 @@ import java.util.Random;
 
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
-import sprites.Sprite;
 
 public class Mob extends RandomLocationGeneration {
+	Random rand = new Random();
+	
 	boolean getPosition = true;
 	double currentX;
 	double currentY;
@@ -117,5 +118,15 @@ public class Mob extends RandomLocationGeneration {
 			checkCollision(Direction.LEFT, -speed, 0);
 			break;
 		}
+	}
+	@Override
+	protected void createNextPowerUp() {
+		if (currentAmountOfPowerUps < amountOfPowerUps) {
+			RandomLocationGeneration nextPowerUp = new RandomLocationGeneration(getScene());
+			nextPowerUp.relocate(((randomLocationX*50)+55), ((randomLocationY*50)+55));
+			getPane().getChildren().add(nextPowerUp);
+			currentAmountOfPowerUps++;
+		}
+		
 	}
 }
