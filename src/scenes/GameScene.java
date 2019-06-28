@@ -22,6 +22,7 @@ import javafx.scene.text.Text;
 import sprites.Player;
 import sprites.Sprite;
 import sprites.TestSprite;
+import sprites.randomlyLocated.InfiniteBombsPowerUp;
 import sprites.randomlyLocated.Mob;
 import sprites.randomlyLocated.RandomLocationGeneration;
 import sprites.wall.UnbreakableWall;
@@ -29,7 +30,7 @@ import sprites.wall.UnbreakableWall;
 public class GameScene extends BaseScene {
 
 	Mob mob = new Mob(this);
-	RandomLocationGeneration power = new RandomLocationGeneration(this);
+	InfiniteBombsPowerUp infPowUp = new InfiniteBombsPowerUp(this);
 
 	public static boolean debugger = false;
 	public static ArrayList<Sprite>[][] grid = new ArrayList[15][13];
@@ -49,7 +50,8 @@ public class GameScene extends BaseScene {
 		player.positionX = 1;
 		player.positionY = 1;
 //		getPane().setBackground(new Background(new BackgroundImage(new Image(""), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT)));
-		getPane().getChildren().addAll(player, power);
+
+		getPane().getChildren().addAll(player, mob, infPowUp);
 		getPane().getChildren().add(new Text(width-85, 25, "Score: "+score));
 		getPane().getChildren().add(new Text(15, 25, "Lives: "+lives));
 	}

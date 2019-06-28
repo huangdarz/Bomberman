@@ -1,41 +1,25 @@
-package sprites.randomlyLocated;
+package sprites;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.Random;
 
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
-import sprites.Sprite;
 
-/** 
- * The Location generation and checking if free 
- * @author Michael Legovich 
- */
-public class RandomLocationGeneration extends Sprite {
-/** 
- * Declares all variables and arrays for all the methods
- */
+public class RandomLocation {
 	static Random rand = new Random();
 	
 	boolean existingPowerUpLocation = false;
 	boolean ifSet = false;
-    int amountOfPowerUps = rand.nextInt(5);
-	int currentAmountOfPowerUps = 0;
-	int randomLocationX;
-	int randomLocationY;
+    public int amountOfPowerUps = rand.nextInt(5);
+	public int currentAmountOfPowerUps = 0;
+	public int randomLocationX;
+	public int randomLocationY;
 	int existingLocations[][] = new int[amountOfPowerUps+1][2];
-	
-	public RandomLocationGeneration(Scene scene) {
-		super(scene);
-	}
-	
 	Sprite sprite;
-	
-	public RandomLocationGeneration(Scene scene, Sprite s) {
-		super(scene);
+
+	public RandomLocation(Sprite s) {
 		this.sprite = s;
 	}
-
+	
 /**
  * 	Randomly generates location variables, and resets other variables
  */
@@ -76,14 +60,13 @@ public class RandomLocationGeneration extends Sprite {
 			existingLocations[i][0] = randomLocationX;
 			existingLocations[i][1] = randomLocationY;
 			
-			createNextPowerUp();
 		}
 	}
 	
 /**
  * Only runs the amountAndLocation method and initialLocationSetting once
  */
-	protected void initiateAmountAndLocation() {
+	public void initiateAmountAndLocation() {
 		if (ifSet == false) {
 			amountAndLocation();
 			
@@ -115,20 +98,4 @@ public class RandomLocationGeneration extends Sprite {
 	private void initialLocationSetting() {
 		sprite.relocate(((randomLocationX*50)+55), ((randomLocationY*50)+55));
 	}
-	
-/**
- * Placing on the map of the other power ups
- */
-	protected void createNextPowerUp() {
-		if (currentAmountOfPowerUps < amountOfPowerUps) {
-		}
-	}
-
-	@Override
-	public void run() {
-		// TODO Auto-generated method stub
-		
-	}
-	
 }
-

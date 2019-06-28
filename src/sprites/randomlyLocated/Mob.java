@@ -4,8 +4,10 @@ import java.util.Random;
 
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import sprites.RandomLocation;
+import sprites.Sprite;
 
-public class Mob extends RandomLocationGeneration {
+public class Mob extends Sprite {
 	Random rand = new Random();
 	
 	boolean getPosition = true;
@@ -14,6 +16,8 @@ public class Mob extends RandomLocationGeneration {
 	int speed = 4;
 	int randomDirection;
 	int randomLength;
+	
+	static RandomLocation r;
 
 /**
  * Setting the objects size and location
@@ -26,6 +30,7 @@ public class Mob extends RandomLocationGeneration {
 		setFitWidth(40);
 		setFitHeight(40);
 		relocate(55, 55);
+		r = new RandomLocation(this);
 	}
 
 /**
@@ -38,6 +43,10 @@ public class Mob extends RandomLocationGeneration {
 		switchRandomLength();
 
 		switchRandomDirection();
+
+		r.initiateAmountAndLocation();
+		
+		spawnNextMobs();
 	}
 
 /**
@@ -119,14 +128,16 @@ public class Mob extends RandomLocationGeneration {
 			break;
 		}
 	}
-	@Override
-	protected void createNextPowerUp() {
-		if (currentAmountOfPowerUps < amountOfPowerUps) {
-			RandomLocationGeneration nextPowerUp = new RandomLocationGeneration(getScene());
-			nextPowerUp.relocate(((randomLocationX*50)+55), ((randomLocationY*50)+55));
-			getPane().getChildren().add(nextPowerUp);
-			currentAmountOfPowerUps++;
+	
+	public void spawnNextMobs() {
+		if (r.currentAmountOfPowerUps < r.amountOfPowerUps) {
+			Mob nextMob = new Mob(getScene());
+			nextMob.relocate(((r.randomLocationX*50)+55), ((r.randomLocationY*50)+55));
+			getPane().getChildren().add(nextMob);
+			r.currentAmountOfPowerUps++;
+			System.out.println(r.currentAmountOfPowerUps);
+			System.out.println(r.amountOfPowerUps);
 		}
-		
 	}
+
 }
