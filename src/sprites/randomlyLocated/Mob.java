@@ -25,10 +25,11 @@ public class Mob extends RandomLocationGeneration {
 		setImage(image);
 		setFitWidth(40);
 		setFitHeight(40);
+		relocate(55, 55);
 	}
 
 /**
- * Repeats the methods it contains infinitely
+ * Repeats the methods infinitely
  */
 	@Override
 	public void run() {
@@ -37,8 +38,6 @@ public class Mob extends RandomLocationGeneration {
 		switchRandomLength();
 
 		switchRandomDirection();
-		
-		initiateAmountAndLocation();
 	}
 
 /**
@@ -120,16 +119,12 @@ public class Mob extends RandomLocationGeneration {
 			break;
 		}
 	}
-	
-/**
- * Generating a new image for the mob, using the location generated in RandomLocationGeneration
- */
 	@Override
 	protected void createNextPowerUp() {
 		if (currentAmountOfPowerUps < amountOfPowerUps) {
-			Mob nextMob = new Mob(getScene());
-			nextMob.relocate(((randomLocationX*50)+55), ((randomLocationY*50)+55));
-			getPane().getChildren().add(nextMob);
+			RandomLocationGeneration nextPowerUp = new RandomLocationGeneration(getScene());
+			nextPowerUp.relocate(((randomLocationX*50)+55), ((randomLocationY*50)+55));
+			getPane().getChildren().add(nextPowerUp);
 			currentAmountOfPowerUps++;
 		}
 		

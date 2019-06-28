@@ -3,6 +3,7 @@ package sprites.randomlyLocated;
 import java.util.Random;
 
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import sprites.Sprite;
 
 /** 
@@ -23,13 +24,25 @@ public class RandomLocationGeneration extends Sprite {
 	static int randomLocationY;
 	
 	static int existingLocations[][] = new int[amountOfPowerUps+1][2];
-
+	
+/**
+ * Sets image and size
+ * @param scene
+ */
 	public RandomLocationGeneration(Scene scene) {
 		super(scene);
+		Image image = new Image("/res/player.png");
+		setImage(image);
+		setFitWidth(40);
+		setFitHeight(40);
 	}
 	
+/**
+ * Repeating initiateAmountAndLocation
+ */
 	@Override
-	public void run() {	
+	public void run() {
+		initiateAmountAndLocation();
 	}
 
 /**
@@ -79,7 +92,7 @@ public class RandomLocationGeneration extends Sprite {
 /**
  * Only runs the amountAndLocation method and initialLocationSetting once
  */
-	protected void initiateAmountAndLocation() {
+	private void initiateAmountAndLocation() {
 		if (ifSet == false) {
 			amountAndLocation();
 			
@@ -113,7 +126,7 @@ public class RandomLocationGeneration extends Sprite {
 	}
 	
 /**
- * Method to be override when it used in another class 
+ * Placing on the map of the other power ups
  */
 	protected void createNextPowerUp() {
 	}
