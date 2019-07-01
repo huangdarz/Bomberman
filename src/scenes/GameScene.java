@@ -3,6 +3,7 @@ package scenes;
 import java.util.ArrayList;
 import java.util.HashSet;
 
+import application.Main;
 import javafx.application.Platform;
 import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
@@ -39,7 +40,7 @@ public class GameScene extends BaseScene {
 	public static ArrayList<Sprite>[][] grid = new ArrayList[15][13];
 	Dimension2D spriteDimension = new Dimension2D(50d, 50d);
 	Text buttonsText = new Text(8, 640, "");
-	HashSet<String> buttonsPressed = new HashSet<String>();
+	public HashSet<String> buttonsPressed = new HashSet<String>();
 	public static int score, lives;
 
 	Player player = new Player(this);
@@ -72,7 +73,13 @@ public class GameScene extends BaseScene {
 			buttonsPressed.add(key.getCode().toString());
 			player.moveKeyPressedReleased(key.getCode(), true);
 			player.placeBomb(key.getCode());
-			if(key.getCode() == KeyCode.BACK_QUOTE) debugger = !debugger;
+			if(key.getCode() == KeyCode.BACK_QUOTE) {
+				debugger = !debugger;
+			}
+			if(key.getCode() == KeyCode.ESCAPE) {
+				Main.primaryStage.setScene(Main.pause);
+				System.out.println(Main.primaryStage.getScene());
+			}
 		});
 		setOnKeyReleased(key -> {
 			buttonsPressed.remove(key.getCode().toString());
