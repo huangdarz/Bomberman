@@ -15,7 +15,6 @@ public class ExplosionThread extends Thread {
 			e.printStackTrace();
 		}
 		b.explode();
-		System.out.println(currentThread().getName());
 		interrupt();
 	}
 	
