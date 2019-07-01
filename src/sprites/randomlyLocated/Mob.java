@@ -128,7 +128,10 @@ public class Mob extends Sprite {
 			break;
 		}
 	}
-	
+
+/**
+ * Generating a new image for the mob, using the location generated in RandomLocation
+ */	
 	public void spawnNextMobs() {
 		if (r.currentAmountOfPowerUps < r.amountOfPowerUps) {
 			Mob nextMob = new Mob(getScene());

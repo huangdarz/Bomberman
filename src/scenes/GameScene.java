@@ -24,7 +24,6 @@ import sprites.Sprite;
 import sprites.TestSprite;
 import sprites.randomlyLocated.InfiniteBombsPowerUp;
 import sprites.randomlyLocated.Mob;
-import sprites.randomlyLocated.RandomLocationGeneration;
 import sprites.wall.UnbreakableWall;
 
 public class GameScene extends BaseScene {

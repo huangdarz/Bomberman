@@ -2,8 +2,6 @@ package sprites;
 
 import java.util.Random;
 
-import javafx.scene.Scene;
-
 public class RandomLocation {
 	static Random rand = new Random();
 	
@@ -39,7 +37,7 @@ public class RandomLocation {
 	}	
 
 /**
- * Main loop for all methods made, these being used for each individual generation of a power up
+ * Main loop for all methods made, these being used for each individual generation of an object
  * It also sets the good location to the array, and use to check if another power might be 
  * placed on top
  */
@@ -77,7 +75,7 @@ public class RandomLocation {
 	}
 	
 /**
- * Checking if a given location has a power up already placed
+ * Checking if a given location has a object has already be placed
  * @param i
  * @return
  */
@@ -93,7 +91,7 @@ public class RandomLocation {
 	}
 	
 /**
- * Placing on the map the first power up
+ * Placing on the map the first object
  */
 	private void initialLocationSetting() {
 		sprite.relocate(((randomLocationX*50)+55), ((randomLocationY*50)+55));

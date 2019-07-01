@@ -12,8 +12,8 @@ public class InfiniteBombsPowerUp extends Sprite {
 		super(scene);
 		Image image = new Image("/res/sample_blue.png");
 		setImage(image);
-		setFitWidth(50);
-		setFitHeight(50);
+		setFitWidth(40);
+		setFitHeight(40);
 		r = new RandomLocation(this);
 	}
 
@@ -24,18 +24,8 @@ public class InfiniteBombsPowerUp extends Sprite {
 	}
 
 /**
- * Generating a new image for the mob, using the location generated in RandomLocationGeneration
- */
-//	@Override
-//	protected void createNextPowerUp() {
-//		if (currentAmountOfPowerUps < amountOfPowerUps) {
-//			InfiniteBombsPowerUp nextInfPowUp = new InfiniteBombsPowerUp(getScene());
-//			nextInfPowUp.relocate(((randomLocationX*50)+55), ((randomLocationY*50)+55));
-//			getPane().getChildren().add(nextInfPowUp);
-//			currentAmountOfPowerUps++;
-//		}
-//	}
-	
+ * Generating a new image for the mob, using the location generated in RandomLocation
+ */	
 	public void spawnNextInfBombPowerUp() {
 		if (r.currentAmountOfPowerUps < r.amountOfPowerUps) {
 			InfiniteBombsPowerUp inf = new InfiniteBombsPowerUp(getScene());
