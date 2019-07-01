@@ -24,13 +24,17 @@ import sprites.Mob;
 import sprites.Player;
 import sprites.Sprite;
 import sprites.TestSprite;
-import sprites.powerUps.TestPowerUp;
+import sprites.differentPowerUps.BiggerBombsPowerUp;
+import sprites.differentPowerUps.DoublePointsPowerUp;
+import sprites.differentPowerUps.InfiniteBombsPowerUp;
 import sprites.wall.UnbreakableWall;
 
 public class GameScene extends BaseScene {
-	
+
 	Mob mob = new Mob(this);
-//	TestPowerUp power = new TestPowerUp(this);
+	InfiniteBombsPowerUp infPowUp = new InfiniteBombsPowerUp(this);
+	BiggerBombsPowerUp bigPowUp= new BiggerBombsPowerUp(this);
+	DoublePointsPowerUp duoPowUp = new DoublePointsPowerUp(this);
 
 	public static boolean debugger = false;
 	public static ArrayList<Sprite>[][] grid = new ArrayList[15][13];
@@ -38,9 +42,9 @@ public class GameScene extends BaseScene {
 	Text buttonsText = new Text(8, 640, "");
 	public HashSet<String> buttonsPressed = new HashSet<String>();
 	public static int score, lives;
-	
+
 	Player player = new Player(this);
-	
+
 	@SuppressWarnings("unchecked")
 	public GameScene(Pane root, double width, double height) {
 		super(root, width, height);
@@ -50,7 +54,8 @@ public class GameScene extends BaseScene {
 		player.positionX = 1;
 		player.positionY = 1;
 //		getPane().setBackground(new Background(new BackgroundImage(new Image(""), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT)));
-		getPane().getChildren().add(player);
+
+		getPane().getChildren().addAll(player, mob, infPowUp, bigPowUp, duoPowUp);
 		getPane().getChildren().add(new Text(width-85, 25, "Score: "+score));
 		getPane().getChildren().add(new Text(15, 25, "Lives: "+lives));
 	}
@@ -80,10 +85,10 @@ public class GameScene extends BaseScene {
 			buttonsPressed.remove(key.getCode().toString());
 			player.moveKeyPressedReleased(key.getCode(), false);
 		});
-		
+
 	}
-	
-	public void createGridArrays() {		
+
+	public void createGridArrays() {
 		for(int c = 0; c < grid.length; c++) {
 			for(int r = 0; r < grid[0].length; r++) {
 				grid[c][r] = new ArrayList<Sprite>();
@@ -100,12 +105,12 @@ public class GameScene extends BaseScene {
 			}
 		}
   }
-	
+
 	public static ArrayList<Sprite> getInGrid(int x, int y) {
 		return grid[x][y];
 	}
-	
-	public synchronized ArrayList<Sprite> getInLocalGrids(int x, int y) { 
+
+	public synchronized ArrayList<Sprite> getInLocalGrids(int x, int y) {
 		final int detectionDiameter = 3; // must be odd, includes center grid cell
 		ArrayList<Sprite> local = new ArrayList<Sprite>();
 
@@ -122,16 +127,16 @@ public class GameScene extends BaseScene {
 					}
 				}
 				catch(ArrayIndexOutOfBoundsException e) {
-					
+
 				}
 			}
 		}
 		return local;
 	}
-	
+
 	/**
 	 * used mainly for bomb and mob placement
-	 * 
+	 *
 	 * @param s
 	 * @return
 	 */
@@ -144,11 +149,11 @@ public class GameScene extends BaseScene {
 		}
 		return null;
 	}
-	
+
 	public static synchronized void sumScore(int sumScore) {
 		score += sumScore;
 	}
-	
+
 	public static synchronized void sumLives(int sumLives) {
 		lives += sumLives;
 	}
