@@ -1,11 +1,9 @@
-package sprites.randomlyLocated;
+package sprites;
 
 import java.util.Random;
 
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
-import sprites.RandomLocation;
-import sprites.Sprite;
 
 public class Mob extends Sprite {
 	Random rand = new Random();
