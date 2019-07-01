@@ -5,14 +5,7 @@ import java.util.Random;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 
-/** 
- * The movement of the mob 
- * @author Michael Legovich 
- */
 public class Mob extends Sprite {
-/**
- * Setting all variables
- */
 	Random rand = new Random();
 	
 	boolean getPosition = true;
@@ -22,6 +15,8 @@ public class Mob extends Sprite {
 	int randomDirection;
 	int randomLength;
 	
+	static RandomLocation r;
+
 /**
  * Setting the objects size and location
  * @param scene
@@ -32,7 +27,8 @@ public class Mob extends Sprite {
 		setImage(image);
 		setFitWidth(40);
 		setFitHeight(40);
-		relocate(50, 50);
+		relocate(55, 55);
+		r = new RandomLocation(this);
 	}
 
 /**
@@ -41,10 +37,14 @@ public class Mob extends Sprite {
 	@Override
 	public void run() {
 		reroll();
-		
+
 		switchRandomLength();
-		
+
 		switchRandomDirection();
+
+		r.initiateAmountAndLocation();
+		
+		spawnNextMobs();
 	}
 
 /**
@@ -68,7 +68,7 @@ public class Mob extends Sprite {
 	private void positionChecker(int position) {
 		if (Math.abs(getLayoutX()-currentX) >= position || Math.abs(getLayoutY()-currentY) >= position) {
 			getPosition = true;
-		} 
+		}
 	}
 
 /**
@@ -90,9 +90,9 @@ public class Mob extends Sprite {
 			break;
 		}
 	}
-	
+
 /**
- * Checking if the mob is colliding with another object, mainly walls or boundaries, if it isn't 
+ * Checking if the mob is colliding with another object, mainly walls or boundaries, if it isn't
  * make it move, otherwise rest the variables
  */
 	private void checkCollision(Direction directionChosen, int speedX, int speedY) {
@@ -103,7 +103,7 @@ public class Mob extends Sprite {
 			getPosition = true;
 		}
 	}
-	
+
 /**
  * Deciding which direction to travel in
  */
@@ -112,18 +112,33 @@ public class Mob extends Sprite {
 		case 0:
 			checkCollision(Direction.UP, 0, -speed);
 			break;
-			
+
 		case 1:
 			checkCollision(Direction.DOWN, 0, speed);
 			break;
-			
+
 		case 2:
 			checkCollision(Direction.RIGHT, speed, 0);
 			break;
-			
+
 		case 3:
 			checkCollision(Direction.LEFT, -speed, 0);
 			break;
 		}
 	}
+
+/**
+ * Generating a new image for the mob, using the location generated in RandomLocation
+ */	
+	public void spawnNextMobs() {
+		if (r.currentAmountOfPowerUps < r.amountOfPowerUps) {
+			Mob nextMob = new Mob(getScene());
+			nextMob.relocate(((r.randomLocationX*50)+55), ((r.randomLocationY*50)+55));
+			getPane().getChildren().add(nextMob);
+			r.currentAmountOfPowerUps++;
+			System.out.println(r.currentAmountOfPowerUps);
+			System.out.println(r.amountOfPowerUps);
+		}
+	}
+
 }

@@ -23,12 +23,17 @@ import sprites.Mob;
 import sprites.Player;
 import sprites.Sprite;
 import sprites.TestSprite;
-import sprites.powerUps.TestPowerUp;
+import sprites.differentPowerUps.BiggerBombsPowerUp;
+import sprites.differentPowerUps.DoublePointsPowerUp;
+import sprites.differentPowerUps.InfiniteBombsPowerUp;
 import sprites.wall.UnbreakableWall;
 
 public class GameScene extends BaseScene {
 
 	Mob mob = new Mob(this);
+	InfiniteBombsPowerUp infPowUp = new InfiniteBombsPowerUp(this);
+	BiggerBombsPowerUp bigPowUp= new BiggerBombsPowerUp(this);
+	DoublePointsPowerUp duoPowUp = new DoublePointsPowerUp(this);
 
 	public static boolean debugger = false;
 	public static ArrayList<Sprite>[][] grid = new ArrayList[15][13];
@@ -48,7 +53,8 @@ public class GameScene extends BaseScene {
 		player.positionX = 1;
 		player.positionY = 1;
 //		getPane().setBackground(new Background(new BackgroundImage(new Image(""), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT)));
-		getPane().getChildren().addAll(player, mob);
+
+		getPane().getChildren().addAll(player, mob, infPowUp, bigPowUp, duoPowUp);
 		getPane().getChildren().add(new Text(width-85, 25, "Score: "+score));
 		getPane().getChildren().add(new Text(15, 25, "Lives: "+lives));
 	}
