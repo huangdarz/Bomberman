@@ -10,6 +10,10 @@ import scenes.GameScene;
 import sprites.Sprite;
 import sprites.wall.UnbreakableWall;
 
+/**
+ * Bomb class that calculates its own explosion
+ * @author Darin Huang
+ */
 public class Bomb extends Sprite {
 	private int range = 2;
 	private boolean boundExplosion = true;
@@ -19,12 +23,17 @@ public class Bomb extends Sprite {
 	
 	ArrayList<Sprite> activeSprites = new ArrayList<Sprite>();
 	
+	/**
+	 * Default constructor 
+	 * @param scene The scene this object is added to
+	 */
 	public Bomb(Scene scene) {
 		super(scene);
 		Image image = new Image("/res/bomb.png");
 		this.setImage(image);
 		this.setFitWidth(50);
 		this.setFitHeight(50);
+		getLoop().stop();
 	}
 
 	@Override
@@ -32,6 +41,10 @@ public class Bomb extends Sprite {
 		
 	}
 	
+	/**
+	 * Main handler for the bomb's explosion that interacts with the Application thread to add
+	 * the required explosions. 
+	 */
 	public void explode() {
 		int multiplier = 1;
 		LinkedList<Explosion> blasts = new LinkedList<Explosion>();
@@ -48,20 +61,25 @@ public class Bomb extends Sprite {
 		setBombsPlaced(getBombsPlaced()-1);
 	}
 	
+	/**
+	 * Main loop handler for calculating the required explosions. 
+	 * @param blasts The linked list that the explosions are added to and accessed.
+	 * @param multiplier The multiplier to main equal distance between explosions. 
+	 */
 	private void blastLoop(LinkedList<Explosion> blasts, int multiplier) {
 		for (int x = 0; x < range*4; x++) {
 			blasts.add(new Explosion(getScene()));
 			if (x < range) {
-				calcBomb(getLayoutX()-getFitWidth()*multiplier, getLayoutY(), blasts.getLast());
+				calcExplosion(getLayoutX()-getFitWidth()*multiplier, getLayoutY(), blasts.getLast());
 				if (x == range - 1) boundExplosion = true;
 			} else if (x < range*2) {
-				calcBomb(getLayoutX(), getLayoutY()-getFitHeight()*multiplier, blasts.getLast());
+				calcExplosion(getLayoutX(), getLayoutY()-getFitHeight()*multiplier, blasts.getLast());
 				if (x == range*2 - 1) boundExplosion = true;
 			} else if (x < range*3) {
-				calcBomb(getLayoutX()+getFitWidth()*multiplier, getLayoutY(), blasts.getLast());
+				calcExplosion(getLayoutX()+getFitWidth()*multiplier, getLayoutY(), blasts.getLast());
 				if (x == range*3 - 1) boundExplosion = true;
 			} else {
-				calcBomb(getLayoutX(), getLayoutY()+getFitHeight()*multiplier, blasts.getLast());
+				calcExplosion(getLayoutX(), getLayoutY()+getFitHeight()*multiplier, blasts.getLast());
 				if (x == range*4 - 1) boundExplosion = true;
 			}
 			blasts.getLast().toBack();
@@ -70,13 +88,25 @@ public class Bomb extends Sprite {
 		}
 	}
 	
-	private void calcBomb(double x, double y, Explosion e) {
+	/**
+	 * Handler for each separate functions to calculate the explosion's position
+	 * @param x The explosion's corresponding x position
+	 * @param y The explosion's corresponding y position
+	 * @param e The explosion that the calculations are for
+	 */
+	private void calcExplosion(double x, double y, Explosion e) {
 		checkBounds(x/50, y/50, e);
 		e.relocate(x, y);
-		checkExplosionGrid(x/50, y/50, e);
+		getExplosionGrid(x/50, y/50, e);
 		checkGridForWall(e);
 	}
 	
+	/**
+	 * Checks one grid away from the bombs location for a wall. 
+	 * @param x The explosion's corresponding x position
+	 * @param y The explosion's corresponding y position
+	 * @param e The explosion that the calculations are for
+	 */
 	private void checkBounds(double x, double y, Explosion e) {
 		if (boundExplosion) {
 			activeSprites = GameScene.getInGrid((int)x, (int)y);
@@ -85,6 +115,10 @@ public class Bomb extends Sprite {
 		checkGridForWall(e);
 	}
 	
+	/**
+	 * Checks the grid for any instance of an UnbreakableWall to then stop the explosion
+	 * @param e The explosion that the calculations are for
+	 */
 	private void checkGridForWall(Explosion e) {
 		for (Sprite s : activeSprites) {
 			if (s instanceof UnbreakableWall) {
@@ -93,7 +127,13 @@ public class Bomb extends Sprite {
 		}
 	}
 	
-	private void checkExplosionGrid(double x, double y, Explosion ex) {
+	/**
+	 * Gets the corresponding grids in the GameScene 
+	 * @param x The explosion's corresponding x position
+	 * @param y The explosion's corresponding y position
+	 * @param ex The explosion that the calculations are for
+	 */
+	private void getExplosionGrid(double x, double y, Explosion ex) {
 		try {
 			activeSprites = GameScene.getInGrid((int)x, (int)y);
 		} catch(ArrayIndexOutOfBoundsException e) {
@@ -101,6 +141,11 @@ public class Bomb extends Sprite {
 		}
 	}
 	
+	/**
+	 * Creates new list of the explosions that will explode
+	 * @param b The pre-existing explosions list
+	 * @return Linked list of explosions that will explode
+	 */
 	private LinkedList<Explosion> createToExplode(LinkedList<Explosion> b) {
 		LinkedList<Explosion> toExplode = new LinkedList<Explosion>();
 		for (Explosion e : b) {
@@ -111,6 +156,10 @@ public class Bomb extends Sprite {
 		return toExplode;
 	}
 	
+	/**
+	 * Sleeps for the given amount of time
+	 * @param timeMillis The time to sleep in millisenconds
+	 */
 	private void timer(int timeMillis) {
 		long startTime = System.currentTimeMillis();
 		long finishTime = System.currentTimeMillis();
