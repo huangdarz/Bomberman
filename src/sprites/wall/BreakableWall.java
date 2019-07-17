@@ -8,12 +8,15 @@ public class BreakableWall extends Sprite {
 
 	public BreakableWall(Scene scene) {
 		super(scene);
-//		Image image = new Image("/res/breakable-wall.png");
+		Image image = new Image("/res/cobble.png");
+		setImage(image);
+		setFitWidth(50);
+		setFitHeight(50);
 	}
 
 	@Override
 	public void run() {
-		
+		toFront();
 	}
 
 }
