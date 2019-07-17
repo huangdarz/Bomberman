@@ -20,6 +20,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
+import level.LevelCreator;
 import sprites.Mob;
 import sprites.Player;
 import sprites.Sprite;
@@ -31,10 +32,10 @@ import sprites.wall.UnbreakableWall;
 
 public class GameScene extends BaseScene {
 
-	Mob mob = new Mob(this);
-	InfiniteBombsPowerUp infPowUp = new InfiniteBombsPowerUp(this);
-	BiggerBombsPowerUp bigPowUp= new BiggerBombsPowerUp(this);
-	DoublePointsPowerUp duoPowUp = new DoublePointsPowerUp(this);
+//	Mob mob = new Mob(this);
+//	InfiniteBombsPowerUp infPowUp = new InfiniteBombsPowerUp(this);
+//	BiggerBombsPowerUp bigPowUp= new BiggerBombsPowerUp(this);
+//	DoublePointsPowerUp duoPowUp = new DoublePointsPowerUp(this);
 
 	public static boolean debugger = false;
 	public static ArrayList<Sprite>[][] grid = new ArrayList[15][13];
@@ -51,11 +52,13 @@ public class GameScene extends BaseScene {
 		System.out.println("Grid-Width: "+grid.length+" / Grid-Height: "+grid[0].length);
 		createGridArrays();
 
+		LevelCreator.level(1).create(this, getPane());
+		
 		player.positionX = 1;
 		player.positionY = 1;
 //		getPane().setBackground(new Background(new BackgroundImage(new Image(""), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT)));
 
-		getPane().getChildren().addAll(player, mob, infPowUp, bigPowUp, duoPowUp);
+		getPane().getChildren().addAll(player);
 		getPane().getChildren().add(new Text(width-85, 25, "Score: "+score));
 		getPane().getChildren().add(new Text(15, 25, "Lives: "+lives));
 	}
