@@ -15,7 +15,6 @@ public class Mob extends Sprite {
 	int randomDirection;
 	int randomLength;
 	
-	static RandomLocation r;
 
 /**
  * Setting the objects size and location
@@ -28,7 +27,6 @@ public class Mob extends Sprite {
 		setFitWidth(40);
 		setFitHeight(40);
 		relocate(55, 55);
-		r = new RandomLocation(this);
 	}
 
 /**
@@ -41,10 +39,6 @@ public class Mob extends Sprite {
 		switchRandomLength();
 
 		switchRandomDirection();
-
-		r.initiateAmountAndLocation();
-		
-		spawnNextMobs();
 	}
 
 /**
@@ -124,20 +118,6 @@ public class Mob extends Sprite {
 		case 3:
 			checkCollision(Direction.LEFT, -speed, 0);
 			break;
-		}
-	}
-
-/**
- * Generating a new image for the mob, using the location generated in RandomLocation
- */	
-	public void spawnNextMobs() {
-		if (r.currentAmountOfPowerUps < r.amountOfPowerUps) {
-			Mob nextMob = new Mob(getScene());
-			nextMob.relocate(((r.randomLocationX*50)+55), ((r.randomLocationY*50)+55));
-			getPane().getChildren().add(nextMob);
-			r.currentAmountOfPowerUps++;
-			System.out.println(r.currentAmountOfPowerUps);
-			System.out.println(r.amountOfPowerUps);
 		}
 	}
 
