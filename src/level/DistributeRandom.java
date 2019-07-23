@@ -24,7 +24,7 @@ public class DistributeRandom {
 		this.rand = random;
 		this.randAmount = max - min + 1;
 		shouldRun = true;
-		existingPowerUpLocation = false;
+//		existingPowerUpLocation = false;
 		currentAmount = 0;
 		amount = rand.nextInt(randAmount) + min;
 		existingLocations = new int[amount+1][2];
@@ -41,11 +41,10 @@ public class DistributeRandom {
 //				System.out.println("Locations: " + locations + " " + amount);
 //				System.out.printf("X: %d - Y: %d\n", randomLocationX, randomLocationY);
 				currentAmount++;
-			} else {
-				for(int i = 0; i < amount+1; i++)
-				   {
-				      for(int j = 0; j < 2; j++)
-				      {
+			} 
+			else {
+				for(int i = 0; i < amount+1; i++) {
+				      for(int j = 0; j < 2; j++) {
 				         System.out.printf(" Location %d ", existingLocations[i][j]);
 				      }
 				      System.out.println();
@@ -58,7 +57,6 @@ public class DistributeRandom {
 	private void locationGeneration() {
 		randomLocationX = rand.nextInt(13);
 		randomLocationY = rand.nextInt(11);
-		existingPowerUpLocation = false;
 	}
 
 	private void checkLocationFree() {
@@ -73,12 +71,10 @@ public class DistributeRandom {
 			
 			checkLocationFree();
 			
-			if(checkPreviousLocations(i)) {
-				while (checkPreviousLocations(i) == true) {
-					locationGeneration();
-					
-					checkLocationFree();
-				}
+			while (checkPreviousLocations(i) == true) {
+				locationGeneration();
+				
+				checkLocationFree();
 			}
 
 			existingLocations[i][0] = randomLocationX;
@@ -95,13 +91,12 @@ public class DistributeRandom {
 		if (i != 0) {
 			for (int a = 0; a < i; a++) {
 				if (existingLocations[a][0] == randomLocationX && existingLocations[a][1] == randomLocationY) {
-					existingPowerUpLocation = true;
-				} else {
-					existingPowerUpLocation = false;
-				}
+					return true;
+				} 
 			}
+			return false;
 		}
-		return existingPowerUpLocation;
+		return false;
 	}
 	
 	public LinkedList<Location> getLocations() {
