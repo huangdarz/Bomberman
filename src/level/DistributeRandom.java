@@ -8,8 +8,8 @@ public class DistributeRandom {
 	private int randAmount;
 	
 	private boolean 
-		shouldRun,
-		existingPowerUpLocation;
+		shouldRun;
+	//	existingPowerUpLocation;
 	
 	public int
 		amount,
@@ -34,15 +34,15 @@ public class DistributeRandom {
 	private void generate() {
 		while (shouldRun) {
 			if (currentAmount < amount) {
-				initiateAmountAndLocation();
-				locations.add(new Location(randomLocationX, randomLocationY));
+//				initiateAmountAndLocation();
+//				locations.add(new Location(randomLocationX, randomLocationY));
 //				System.out.println("-----[Level.run()]-----");
-				System.out.println("Current amount: " + currentAmount + " " + amount);
+//				System.out.println("Current amount: " + currentAmount + " " + amount);
 //				System.out.println("Locations: " + locations + " " + amount);
 //				System.out.printf("X: %d - Y: %d\n", randomLocationX, randomLocationY);
-				currentAmount++;
-			} 
-			else {
+//				currentAmount++;
+//			} 
+//			else {
 				for(int i = 0; i < amount+1; i++) {
 				      for(int j = 0; j < 2; j++) {
 				         System.out.printf(" Location %d ", existingLocations[i][j]);
@@ -76,31 +76,37 @@ public class DistributeRandom {
 				
 				checkLocationFree();
 			}
-
+//			System.out.println(randomLocationX);
+//			System.out.println(randomLocationY);
 			existingLocations[i][0] = randomLocationX;
 			existingLocations[i][1] = randomLocationY;
+			
+			locations.add(new Location(randomLocationX, randomLocationY));
 			
 		}
 	}
 	
-	private void initiateAmountAndLocation() {
-		amountAndLocation();
-	}
+//	private void initiateAmountAndLocation() {
+//		amountAndLocation();
+//	}
 	
 	private boolean checkPreviousLocations(int i) {
 		if (i != 0) {
 			for (int a = 0; a < i; a++) {
+				System.out.println(a);
 				if (existingLocations[a][0] == randomLocationX && existingLocations[a][1] == randomLocationY) {
+				//	System.out.println("true");
 					return true;
 				} 
 			}
+//			System.out.println("All false");
 			return false;
 		}
 		return false;
 	}
 	
 	public LinkedList<Location> getLocations() {
-		generate();
+		amountAndLocation();
 		return locations;
 	}
 

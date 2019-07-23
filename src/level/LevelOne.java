@@ -19,7 +19,7 @@ public class LevelOne implements Level {
 		mobRand;
 	
 	public LevelOne() {
-		wallRand = new DistributeRandom(new Random(), 95, 110);
+		wallRand = new DistributeRandom(new Random(), 80, 95);
 //		duoRand = new DistributeRandom(new Random(), 0, 5);
 //		bigRand = new DistributeRandom(new Random(), 0, 5);
 //		infRand = new DistributeRandom(new Random(), 0, 5);
