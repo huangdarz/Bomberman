@@ -7,10 +7,6 @@ public class DistributeRandom {
 	private Random rand;
 	private int randAmount;
 	
-	private boolean 
-		shouldRun;
-	//	existingPowerUpLocation;
-	
 	public int
 		amount,
 		randomLocationX,
@@ -23,35 +19,10 @@ public class DistributeRandom {
 	public DistributeRandom(Random random, int min, int max) {
 		this.rand = random;
 		this.randAmount = max - min + 1;
-		shouldRun = true;
-//		existingPowerUpLocation = false;
 		currentAmount = 0;
 		amount = rand.nextInt(randAmount) + min;
 		existingLocations = new int[amount+1][2];
 		locations = new LinkedList<Location>();
-	}
-	
-	private void generate() {
-		while (shouldRun) {
-			if (currentAmount < amount) {
-//				initiateAmountAndLocation();
-//				locations.add(new Location(randomLocationX, randomLocationY));
-//				System.out.println("-----[Level.run()]-----");
-//				System.out.println("Current amount: " + currentAmount + " " + amount);
-//				System.out.println("Locations: " + locations + " " + amount);
-//				System.out.printf("X: %d - Y: %d\n", randomLocationX, randomLocationY);
-//				currentAmount++;
-//			} 
-//			else {
-				for(int i = 0; i < amount+1; i++) {
-				      for(int j = 0; j < 2; j++) {
-				         System.out.printf(" Location %d ", existingLocations[i][j]);
-				      }
-				      System.out.println();
-				   }
-				shouldRun = false;
-			}
-		}
 	}
 	
 	private void locationGeneration() {
@@ -76,8 +47,6 @@ public class DistributeRandom {
 				
 				checkLocationFree();
 			}
-//			System.out.println(randomLocationX);
-//			System.out.println(randomLocationY);
 			existingLocations[i][0] = randomLocationX;
 			existingLocations[i][1] = randomLocationY;
 			
@@ -86,20 +55,23 @@ public class DistributeRandom {
 		}
 	}
 	
-//	private void initiateAmountAndLocation() {
-//		amountAndLocation();
-//	}
-	
 	private boolean checkPreviousLocations(int i) {
 		if (i != 0) {
+			if (randomLocationX == 0 && randomLocationY == 0) {
+				return true;
+			}
+			if (randomLocationX == 1 && randomLocationY == 0) {
+				return true;
+			}
+			if (randomLocationX == 0 && randomLocationY == 1) {
+				return true;
+			}
 			for (int a = 0; a < i; a++) {
 				System.out.println(a);
 				if (existingLocations[a][0] == randomLocationX && existingLocations[a][1] == randomLocationY) {
-				//	System.out.println("true");
 					return true;
 				} 
 			}
-//			System.out.println("All false");
 			return false;
 		}
 		return false;
