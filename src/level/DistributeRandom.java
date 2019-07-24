@@ -67,7 +67,6 @@ public class DistributeRandom {
 				return true;
 			}
 			for (int a = 0; a < i; a++) {
-				System.out.println(a);
 				if (existingLocations[a][0] == randomLocationX && existingLocations[a][1] == randomLocationY) {
 					return true;
 				} 

@@ -32,7 +32,6 @@ public class LevelOne implements Level {
 			BreakableWall wall = new BreakableWall(scene);
 			wall.relocate(l.getWallX(), l.getWallY());
 			pane.getChildren().add(wall);
-			System.out.printf("Wall X: %d - Wall Y: %d\n", (l.getX()*50)+50, (l.getY()*50)+50);
 		}
 	}
 
