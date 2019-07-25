@@ -52,7 +52,6 @@ public class GameScene extends BaseScene {
 		System.out.println("Grid-Width: "+grid.length+" / Grid-Height: "+grid[0].length);
 		createGridArrays();
 
-		LevelCreator.level(1).create(this, getPane());
 		
 		player.positionX = 1;
 		player.positionY = 1;
@@ -104,6 +103,11 @@ public class GameScene extends BaseScene {
 				else if(r % 2 == 0 && c % 2 == 0) {
 					grid[c][r].add(new UnbreakableWall(this, c * spriteDimension.getWidth(), r * spriteDimension.getHeight()));
 				}
+			}
+		}
+		LevelCreator.level(1).create(this, getPane());
+		for(int c = 0; c < grid.length; c++) {
+			for(int r = 0; r < grid[0].length; r++) {
 				getPane().getChildren().addAll(grid[c][r]);
 			}
 		}
