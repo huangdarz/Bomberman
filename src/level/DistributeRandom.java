@@ -7,22 +7,34 @@ public class DistributeRandom {
 	private Random rand;
 	private int randAmount;
 	
-	public int
+	private int
 		amount,
 		randomLocationX,
 		randomLocationY,
-		currentAmount,
 		existingLocations[][];
-	
+		
 	private LinkedList<Location> locations;
 	
-	public DistributeRandom(Random random, int min, int max) {
-		this.rand = random;
+	public DistributeRandom(int min, int max) {
+		this.rand = new Random();
 		this.randAmount = max - min + 1;
-		currentAmount = 0;
 		amount = rand.nextInt(randAmount) + min;
 		existingLocations = new int[amount+1][2];
 		locations = new LinkedList<Location>();
+		generate();
+	}
+	
+	public DistributeRandom(int min, int max, int[][] existingLocations) {
+		this.rand = new Random();
+		this.randAmount = max - min + 1;
+		amount = rand.nextInt(randAmount) + min;
+		this.existingLocations = new int[existingLocations.length+amount+1][2];
+		for (int a = 0; a < existingLocations.length; a++) {
+			this.existingLocations[this.existingLocations.length-a-1][0] = existingLocations[a][0];
+			this.existingLocations[this.existingLocations.length-a-1][1] = existingLocations[a][1];
+		}
+		locations = new LinkedList<Location>();
+		generate();
 	}
 	
 	private void locationGeneration() {
@@ -47,6 +59,7 @@ public class DistributeRandom {
 				
 				checkLocationFree();
 			}
+						
 			existingLocations[i][0] = randomLocationX;
 			existingLocations[i][1] = randomLocationY;
 			
@@ -56,29 +69,31 @@ public class DistributeRandom {
 	}
 	
 	private boolean checkPreviousLocations(int i) {
-		if (i != 0) {
-			if (randomLocationX == 0 && randomLocationY == 0) {
+		if (randomLocationX == 0 && randomLocationY == 0) {
+			return true;
+		}
+		if (randomLocationX == 1 && randomLocationY == 0) {
+			return true;
+		}
+		if (randomLocationX == 0 && randomLocationY == 1) {
+			return true;
+		}
+		for (int a = 0; a < existingLocations.length; a++) {
+			if (existingLocations[a][0] == randomLocationX && existingLocations[a][1] == randomLocationY) {
 				return true;
-			}
-			if (randomLocationX == 1 && randomLocationY == 0) {
-				return true;
-			}
-			if (randomLocationX == 0 && randomLocationY == 1) {
-				return true;
-			}
-			for (int a = 0; a < i; a++) {
-				if (existingLocations[a][0] == randomLocationX && existingLocations[a][1] == randomLocationY) {
-					return true;
-				} 
-			}
-			return false;
+			} 
 		}
 		return false;
 	}
 	
 	public LinkedList<Location> getLocations() {
-		amountAndLocation();
 		return locations;
 	}
+	
+	public void generate() {
+		amountAndLocation();
+	}
+	
+	public int[][] getExistingLocations() {return existingLocations;}
 
 }
