@@ -27,21 +27,12 @@ public class CheckExplodable {
 	public void check() {
 		for(int c = 0; c < grid.length; c++) {
 			for(int r = 0; r < grid[0].length; r++) {
-				for (Sprite s : grid[c][r]) {
-					if (s instanceof Explosion) {
-						hasExplosion = true;
-					}
-				}
-				for (Sprite s : grid[c][r]) {
-					if (s instanceof Explodable && hasExplosion) {
-						explodables.add(s);
-					}
-				}
+				grid[c][r].forEach(s -> {if (s instanceof Explosion) hasExplosion = true;});
+				grid[c][r].forEach(s -> {if (s instanceof Explodable && hasExplosion) explodables.add(s);});
 				hasExplosion = false;
 				grid[c][r].removeAll(explodables);
 				pane.getChildren().removeAll(explodables);
 				explodables.clear();
-				
 			}
 		}
 	}
