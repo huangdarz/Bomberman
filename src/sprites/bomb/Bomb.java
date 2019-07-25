@@ -8,6 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import scenes.GameScene;
 import sprites.Sprite;
+import sprites.wall.BreakableWall;
 import sprites.wall.UnbreakableWall;
 
 /**
@@ -52,12 +53,14 @@ public class Bomb extends Sprite {
 		blasts.add(new Explosion(getScene()));
 		blasts.getLast().relocate(getLayoutX(), getLayoutY());
 		LinkedList<Explosion> toExplode = createToExplode(blasts);
+		
 		Platform.runLater(() -> {
 			getPane().getChildren().addAll(toExplode);
 			getPane().getChildren().remove(this);
 		});
 		timer(750);
 		Platform.runLater(() -> getPane().getChildren().removeAll(blasts));
+		removeGridPos(toExplode);
 		setBombsPlaced(getBombsPlaced()-1);
 	}
 	
@@ -151,9 +154,20 @@ public class Bomb extends Sprite {
 		for (Explosion e : b) {
 			if (e.getShouldExplode()) {
 				toExplode.add(e);
+				addGridPos((int) e.getLayoutX()/50, (int) e.getLayoutY()/50, e);
 			}
 		}
 		return toExplode;
+	}
+	
+	private void addGridPos(int x, int y, Explosion e) {
+		GameScene.grid[x][y].add(e);
+	}
+	
+	private void removeGridPos(LinkedList<Explosion> b) {
+		for (Explosion e : b) {
+			GameScene.grid[(int) e.getLayoutX()/50][(int) e.getLayoutY()/50].remove(e);
+		}
 	}
 	
 	/**

@@ -3,8 +3,10 @@ package sprites.wall;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import sprites.Sprite;
+import sprites.bomb.Explodable;
+import sprites.bomb.Explosion;
 
-public class BreakableWall extends Sprite {
+public class BreakableWall extends Sprite implements Explodable {
 
 	public BreakableWall(Scene scene) {
 		super(scene);
@@ -18,5 +20,5 @@ public class BreakableWall extends Sprite {
 	public void run() {
 		toFront();
 	}
-
+	
 }
