@@ -25,6 +25,7 @@ import sprites.Mob;
 import sprites.Player;
 import sprites.Sprite;
 import sprites.TestSprite;
+import sprites.bomb.CheckExplodable;
 import sprites.differentPowerUps.BiggerBombsPowerUp;
 import sprites.differentPowerUps.DoublePointsPowerUp;
 import sprites.differentPowerUps.InfiniteBombsPowerUp;
@@ -45,6 +46,8 @@ public class GameScene extends BaseScene {
 	public static int score, lives;
 
 	Player player = new Player(this);
+	
+	CheckExplodable checkExplodable;
 
 	@SuppressWarnings("unchecked")
 	public GameScene(Pane root, double width, double height) {
@@ -52,6 +55,7 @@ public class GameScene extends BaseScene {
 		System.out.println("Grid-Width: "+grid.length+" / Grid-Height: "+grid[0].length);
 		createGridArrays();
 
+		checkExplodable = new CheckExplodable(root);
 		
 		player.positionX = 1;
 		player.positionY = 1;
@@ -67,6 +71,8 @@ public class GameScene extends BaseScene {
 		buttonsText.setText("PRESSED: "+buttonsPressed.toString());
 		if(debugger && !getPane().getChildren().contains(buttonsText)) getPane().getChildren().add(buttonsText);
 		if(!debugger && getPane().getChildren().contains(buttonsText)) getPane().getChildren().remove(buttonsText);
+		
+		checkExplodable.check();
 	}
 
 	@Override
