@@ -4,8 +4,9 @@ import java.util.Random;
 
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import sprites.bomb.Explodable;
 
-public class Mob extends Sprite {
+public class Mob extends Sprite implements Explodable {
 	Random rand = new Random();
 	
 	boolean getPosition = true;

@@ -12,6 +12,10 @@ public class Location {
 	
 	public int getY() {return y;}
 	
+	public int getGridX() {return x+1;}
+	
+	public int getGridY() {return y+1;}
+	
 	public int getWallX() {return (x*50)+50;}
 	
 	public int getWallY() {return (y*50)+50;}

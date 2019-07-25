@@ -33,7 +33,7 @@ public class LevelOne implements Level {
 		for (Location l : wallRand.getLocations()) {
 			BreakableWall wall = new BreakableWall(scene);
 			wall.relocate(l.getWallX(), l.getWallY());
-			GameScene.grid[l.getX()][l.getY()].add(wall);
+			GameScene.grid[l.getGridX()][l.getGridY()].add(wall);
 			num++;
 		}
 		System.out.println("WALL: " + num);
@@ -44,7 +44,7 @@ public class LevelOne implements Level {
 		for (Location l : duoRand.getLocations()) {
 			DoublePointsPowerUp duo = new DoublePointsPowerUp(scene);
 			duo.relocate(l.getPowerUpX(), l.getPowerUpY());
-			GameScene.grid[l.getX()][l.getY()].add(duo);		
+			GameScene.grid[l.getGridX()][l.getGridY()].add(duo);		
 		}
 	}
 
@@ -53,7 +53,7 @@ public class LevelOne implements Level {
 		for (Location l : bigRand.getLocations()) {
 			BiggerBombsPowerUp big = new BiggerBombsPowerUp(scene);
 			big.relocate(l.getPowerUpX(), l.getPowerUpY());
-			GameScene.grid[l.getX()][l.getY()].add(big);		
+			GameScene.grid[l.getGridX()][l.getGridY()].add(big);		
 		}
 	}
 
@@ -62,7 +62,7 @@ public class LevelOne implements Level {
 		for (Location l : infRand.getLocations()) {
 			InfiniteBombsPowerUp inf = new InfiniteBombsPowerUp(scene);
 			inf.relocate(l.getPowerUpX(), l.getPowerUpY());
-			GameScene.grid[l.getX()][l.getY()].add(inf);		
+			GameScene.grid[l.getGridX()][l.getGridY()].add(inf);		
 		}
 	}
 
@@ -72,7 +72,7 @@ public class LevelOne implements Level {
 		for (Location l : mobLoc) {
 			Mob mob = new Mob(scene);
 			mob.relocate(l.getMobX(), l.getMobY());
-			pane.getChildren().add(mob);
+			GameScene.grid[l.getGridX()][l.getGridY()].add(mob);		
 		}
 		System.out.println("MOb: " + mobLoc.size());
 	}
