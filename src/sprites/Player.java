@@ -8,15 +8,16 @@ import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import scenes.GameScene;
 import sprites.bomb.Bomb;
+import sprites.bomb.Explodable;
 import sprites.bomb.ExplosionThread;
 
 /** 
  * The user controlled playable character.  
  * @author Darin Huang 
  */
-public class Player extends Sprite {
-	private int lives;
-	private int bombIndex = 0;
+public class Player extends Sprite implements Explodable {
+	private static int lives = 6;
+	private static int bombIndex = 0;
 	private ArrayList<Bomb> bombs = new ArrayList<Bomb>();
 	
 	/** 
@@ -104,11 +105,11 @@ public class Player extends Sprite {
 	
 	private ExplosionThread createExplosionThread(Bomb b) {return new ExplosionThread(b);}
 	
-	public int getLives() {return lives;}
-	public void setLives(int lives) {this.lives = lives;}
-
-	public int getBombIndex() {return bombIndex;}
-	public void setBombIndex(int bombIndex) {this.bombIndex = bombIndex;}
+	public static int getLives() {return lives;}
+	public static void setLives(int lives) {Player.lives = lives;}
+	
+	public static int getBombIndex() {return bombIndex;}
+	public static void setBombIndex(int bombIndex) {Player.bombIndex = bombIndex;}
 	
 	public ArrayList<Bomb> getBombs() {return bombs;}
 	public void setBombs(ArrayList<Bomb> bombs) {this.bombs = bombs;}

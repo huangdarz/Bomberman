@@ -17,6 +17,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 import scenes.GameScene;
+import sprites.differentPowerUps.Power;
 
 public abstract class Sprite extends ImageView implements GameLoop {
 	AnimationTimer loop;
@@ -36,8 +37,6 @@ public abstract class Sprite extends ImageView implements GameLoop {
 		DOWN,
 		RIGHT,
 		LEFT
-		
-		
 	}
 	
 	public Sprite(Scene scene) {
@@ -50,7 +49,10 @@ public abstract class Sprite extends ImageView implements GameLoop {
 	
 	public synchronized void move(int velocityX, int velocityY) {
 		evaluatePosition();
+		GameScene.grid[positionX][positionY].remove(this);
 		this.relocate(this.getLayoutX() + velocityX, this.getLayoutY() + velocityY);
+		evaluatePosition();
+		GameScene.grid[positionX][positionY].add(this);
 	}
 	
 	public int getVelocityX() {return this.velocityX;}
@@ -111,7 +113,9 @@ public abstract class Sprite extends ImageView implements GameLoop {
 		CollisionBounds b = new CollisionBounds(getLayoutX(), getLayoutY(), getLayoutBounds().getWidth(), getLayoutBounds().getHeight());
 		HashSet<Direction> invalidDirections = new HashSet<Sprite.Direction>();
 		for(Sprite s : ((GameScene) scene).getInLocalGrids(positionX, positionY)) {
-			invalidDirections.addAll(b.isTouching(new CollisionBounds(s.getLayoutX(), s.getLayoutY(), s.getLayoutBounds().getWidth(), s.getLayoutBounds().getHeight()), 3));
+			if (!(s instanceof Power)) {
+				invalidDirections.addAll(b.isTouching(new CollisionBounds(s.getLayoutX(), s.getLayoutY(), s.getLayoutBounds().getWidth(), s.getLayoutBounds().getHeight()), 3));
+			}
 		}
 		return invalidDirections;
 	}

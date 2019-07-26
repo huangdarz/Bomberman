@@ -44,26 +44,28 @@ public class GameScene extends BaseScene {
 	Text buttonsText = new Text(8, 640, "");
 	public HashSet<String> buttonsPressed = new HashSet<String>();
 	public static int score, lives;
+	private static Text scoreText, livesText;
 
 	Player player = new Player(this);
 	
-	CheckExplodable checkExplodable;
-
 	@SuppressWarnings("unchecked")
 	public GameScene(Pane root, double width, double height) {
 		super(root, width, height);
 		System.out.println("Grid-Width: "+grid.length+" / Grid-Height: "+grid[0].length);
 		createGridArrays();
-
-		checkExplodable = new CheckExplodable(root);
+		lives = Player.getLives();
+		
+		scoreText = new Text(width-85, 25, "Score: "+score);
+		livesText = new Text(15, 25, "Lives: "+lives);
 		
 		player.positionX = 1;
 		player.positionY = 1;
+		grid[player.positionX][player.positionY].add(player);
 //		getPane().setBackground(new Background(new BackgroundImage(new Image(""), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT)));
 
 		getPane().getChildren().addAll(player);
-		getPane().getChildren().add(new Text(width-85, 25, "Score: "+score));
-		getPane().getChildren().add(new Text(15, 25, "Lives: "+lives));
+		getPane().getChildren().add(scoreText);
+		getPane().getChildren().add(livesText);
 	}
 
 	@Override
@@ -72,7 +74,8 @@ public class GameScene extends BaseScene {
 		if(debugger && !getPane().getChildren().contains(buttonsText)) getPane().getChildren().add(buttonsText);
 		if(!debugger && getPane().getChildren().contains(buttonsText)) getPane().getChildren().remove(buttonsText);
 		
-		checkExplodable.check();
+		scoreText.setText("Score: "+score);
+		livesText.setText("Lives: "+Player.getLives());
 	}
 
 	@Override
