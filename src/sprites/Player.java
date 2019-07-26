@@ -16,8 +16,8 @@ import sprites.bomb.ExplosionThread;
  * @author Darin Huang 
  */
 public class Player extends Sprite implements Explodable {
-	private int lives;
-	private int bombIndex = 0;
+	private static int lives = 6;
+	private static int bombIndex = 0;
 	private ArrayList<Bomb> bombs = new ArrayList<Bomb>();
 	
 	/** 
@@ -105,11 +105,11 @@ public class Player extends Sprite implements Explodable {
 	
 	private ExplosionThread createExplosionThread(Bomb b) {return new ExplosionThread(b);}
 	
-	public int getLives() {return lives;}
-	public void setLives(int lives) {this.lives = lives;}
-
-	public int getBombIndex() {return bombIndex;}
-	public void setBombIndex(int bombIndex) {this.bombIndex = bombIndex;}
+	public static int getLives() {return lives;}
+	public static void setLives(int lives) {Player.lives = lives;}
+	
+	public static int getBombIndex() {return bombIndex;}
+	public static void setBombIndex(int bombIndex) {Player.bombIndex = bombIndex;}
 	
 	public ArrayList<Bomb> getBombs() {return bombs;}
 	public void setBombs(ArrayList<Bomb> bombs) {this.bombs = bombs;}

@@ -22,6 +22,8 @@ public class Bomb extends Sprite {
 	private static int maxNumBombs = 1;
 	private static int bombsPlaced = 0;
 	
+	CheckExplodable checkExplodable;
+	
 	ArrayList<Sprite> activeSprites = new ArrayList<Sprite>();
 	
 	/**
@@ -35,6 +37,8 @@ public class Bomb extends Sprite {
 		this.setFitWidth(50);
 		this.setFitHeight(50);
 		getLoop().stop();
+		
+		checkExplodable = new CheckExplodable(getPane());
 	}
 
 	@Override
@@ -52,14 +56,16 @@ public class Bomb extends Sprite {
 		blastLoop(blasts, multiplier);
 		blasts.add(new Explosion(getScene()));
 		blasts.getLast().relocate(getLayoutX(), getLayoutY());
+		GameScene.grid[(int) getLayoutX()/50][(int) getLayoutY()/50].add(blasts.getLast());
 		LinkedList<Explosion> toExplode = createToExplode(blasts);
-		
 		Platform.runLater(() -> {
 			getPane().getChildren().addAll(toExplode);
 			getPane().getChildren().remove(this);
 		});
+		checkExplodable.check();
 		timer(750);
 		Platform.runLater(() -> getPane().getChildren().removeAll(blasts));
+		removeGridPos((int) getLayoutX()/50, (int) getLayoutY()/50, toExplode.getLast());
 		removeGridPos(toExplode);
 		setBombsPlaced(getBombsPlaced()-1);
 	}
@@ -168,6 +174,10 @@ public class Bomb extends Sprite {
 		for (Explosion e : b) {
 			GameScene.grid[(int) e.getLayoutX()/50][(int) e.getLayoutY()/50].remove(e);
 		}
+	}
+	
+	private void removeGridPos(int x, int y, Explosion e) {
+		GameScene.grid[x][y].remove(e);
 	}
 	
 	/**
