@@ -8,13 +8,14 @@ import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import scenes.GameScene;
 import sprites.bomb.Bomb;
+import sprites.bomb.Explodable;
 import sprites.bomb.ExplosionThread;
 
 /** 
  * The user controlled playable character.  
  * @author Darin Huang 
  */
-public class Player extends Sprite {
+public class Player extends Sprite implements Explodable {
 	private int lives;
 	private int bombIndex = 0;
 	private ArrayList<Bomb> bombs = new ArrayList<Bomb>();

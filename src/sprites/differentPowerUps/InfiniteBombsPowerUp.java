@@ -4,7 +4,7 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import sprites.Sprite;
 
-public class InfiniteBombsPowerUp extends Sprite {
+public class InfiniteBombsPowerUp extends Sprite implements Power {
 	
 	public InfiniteBombsPowerUp(Scene scene) {
 		super(scene);

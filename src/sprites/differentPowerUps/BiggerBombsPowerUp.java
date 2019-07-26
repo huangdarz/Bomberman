@@ -4,7 +4,7 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import sprites.Sprite;
 
-public class BiggerBombsPowerUp extends Sprite {
+public class BiggerBombsPowerUp extends Sprite implements Power {
 	
 	public BiggerBombsPowerUp(Scene scene) {
 		super(scene);
