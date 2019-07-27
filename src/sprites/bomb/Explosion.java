@@ -2,7 +2,7 @@ package sprites.bomb;
 
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
-import sprites.Sprite;
+import sprites.base.Sprite;
 
 public class Explosion extends Sprite {
 	private boolean shouldExplode = true; 

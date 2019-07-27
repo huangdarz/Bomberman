@@ -7,8 +7,7 @@ import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import scenes.GameScene;
-import sprites.Sprite;
-import sprites.wall.BreakableWall;
+import sprites.base.Sprite;
 import sprites.wall.UnbreakableWall;
 
 /**
@@ -16,7 +15,7 @@ import sprites.wall.UnbreakableWall;
  * @author Darin Huang
  */
 public class Bomb extends Sprite {
-	private static int range = 3;
+	private static int range = 1;
 	private boolean boundExplosion = true;
 	
 	private static int maxNumBombs = 1;
