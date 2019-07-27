@@ -22,8 +22,6 @@ public class Bomb extends Sprite {
 	private static int maxNumBombs = 1;
 	private static int bombsPlaced = 0;
 	
-	CheckExplodable checkExplodable;
-	
 	ArrayList<Sprite> activeSprites = new ArrayList<Sprite>();
 	
 	/**
@@ -36,9 +34,7 @@ public class Bomb extends Sprite {
 		this.setImage(image);
 		this.setFitWidth(50);
 		this.setFitHeight(50);
-		getLoop().stop();
-		
-		checkExplodable = new CheckExplodable(getPane());
+		getLoop().stop();		
 	}
 
 	@Override
