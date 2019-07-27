@@ -4,9 +4,11 @@ import java.util.Random;
 
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
-import sprites.bomb.Explodable;
+import sprites.bomb.Destroyable;
 
-public class Mob extends Sprite implements Explodable {
+public class Mob extends Sprite implements Destroyable, Points {
+	private static int scorePotential;
+	
 	Random rand = new Random();
 	
 	boolean getPosition = true;
@@ -28,6 +30,8 @@ public class Mob extends Sprite implements Explodable {
 		setFitWidth(40);
 		setFitHeight(40);
 		relocate(55, 55);
+		
+		scorePotential = 10;
 	}
 
 /**
@@ -35,11 +39,16 @@ public class Mob extends Sprite implements Explodable {
  */
 	@Override
 	public void run() {
+		evaluatePosition();
+		
 		reroll();
 
 		switchRandomLength();
 
 		switchRandomDirection();
+		
+		checkDestruction(positionX, positionY, scorePotential, this, getPane());
+		
 	}
 
 /**
@@ -120,6 +129,16 @@ public class Mob extends Sprite implements Explodable {
 			checkCollision(Direction.LEFT, -speed, 0);
 			break;
 		}
+	}
+
+	@Override
+	public int getPoints() {
+		return scorePotential;
+	}
+
+	@Override
+	public void setPoints(int points) {
+		Mob.scorePotential = points;
 	}
 
 }

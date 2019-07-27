@@ -16,7 +16,7 @@ import sprites.wall.UnbreakableWall;
  * @author Darin Huang
  */
 public class Bomb extends Sprite {
-	private int range = 2;
+	private static int range = 3;
 	private boolean boundExplosion = true;
 	
 	private static int maxNumBombs = 1;
@@ -62,7 +62,6 @@ public class Bomb extends Sprite {
 			getPane().getChildren().addAll(toExplode);
 			getPane().getChildren().remove(this);
 		});
-		checkExplodable.check();
 		timer(750);
 		Platform.runLater(() -> getPane().getChildren().removeAll(blasts));
 		removeGridPos((int) getLayoutX()/50, (int) getLayoutY()/50, toExplode.getLast());
@@ -194,6 +193,9 @@ public class Bomb extends Sprite {
 			elapsedTime = finishTime - startTime;
 		}
 	}
+	
+	public static int getRange() {return range;}
+	public static void setRange(int range) {Bomb.range = range;}
 	
 	public static int getBombsPlaced() {return bombsPlaced;}
 	public static void setBombsPlaced(int bombsPlaced) {Bomb.bombsPlaced = bombsPlaced;}

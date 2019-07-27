@@ -47,7 +47,7 @@ public abstract class Sprite extends ImageView implements GameLoop {
 		loop.start();
 	}
 	
-	public synchronized void move(int velocityX, int velocityY) {
+	public void move(int velocityX, int velocityY) {
 		evaluatePosition();
 		GameScene.grid[positionX][positionY].remove(this);
 		this.relocate(this.getLayoutX() + velocityX, this.getLayoutY() + velocityY);
@@ -115,7 +115,7 @@ public abstract class Sprite extends ImageView implements GameLoop {
 		for(Sprite s : ((GameScene) scene).getInLocalGrids(positionX, positionY)) {
 			if (!(s instanceof Power)) {
 				invalidDirections.addAll(b.isTouching(new CollisionBounds(s.getLayoutX(), s.getLayoutY(), s.getLayoutBounds().getWidth(), s.getLayoutBounds().getHeight()), 3));
-			}
+			} 
 		}
 		return invalidDirections;
 	}
