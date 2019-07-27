@@ -1,11 +1,10 @@
-package sprites;
+package sprites.base;
 
 import java.util.ArrayList;
 
 import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
 import javafx.geometry.Point3D;
-import sprites.Sprite.Direction;
 
 public class CollisionBounds extends Bounds {
 	
