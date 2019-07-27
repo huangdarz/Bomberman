@@ -53,7 +53,7 @@ public class GameScene extends BaseScene {
 		super(root, width, height);
 		System.out.println("Grid-Width: "+grid.length+" / Grid-Height: "+grid[0].length);
 		createGridArrays();
-		lives = Player.getLives();
+		lives = player.getLives();
 		
 		scoreText = new Text(width-85, 25, "Score: "+score);
 		livesText = new Text(15, 25, "Lives: "+lives);
@@ -75,7 +75,7 @@ public class GameScene extends BaseScene {
 		if(!debugger && getPane().getChildren().contains(buttonsText)) getPane().getChildren().remove(buttonsText);
 		
 		scoreText.setText("Score: "+score);
-		livesText.setText("Lives: "+Player.getLives());
+		livesText.setText("Lives: "+player.getLives());
 	}
 
 	@Override

@@ -6,19 +6,21 @@ import java.util.HashSet;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
-import scenes.GameScene;
 import sprites.bomb.Bomb;
-import sprites.bomb.Explodable;
+import sprites.bomb.Destroyable;
 import sprites.bomb.ExplosionThread;
+import sprites.differentPowerUps.CheckPower;
 
 /** 
  * The user controlled playable character.  
  * @author Darin Huang 
  */
-public class Player extends Sprite implements Explodable {
+public class Player extends Sprite implements Lives, Destroyable {
 	private static int lives = 6;
 	private static int bombIndex = 0;
 	private ArrayList<Bomb> bombs = new ArrayList<Bomb>();
+	
+	private CheckPower checkPower;
 	
 	/** 
 	 * Primary constructor for Player. 
@@ -32,8 +34,8 @@ public class Player extends Sprite implements Explodable {
 		setFitHeight(40);
 		setLayoutX(50);
 		setLayoutY(50);
-		
 		setSmooth(true);
+		
 	}
 	
 	/**
@@ -42,7 +44,9 @@ public class Player extends Sprite implements Explodable {
 	@Override
 	public void run() {
 		userMove(4);
-		this.toFront();
+		evaluatePosition();
+		toFront();
+		checkDestruction(positionX, positionY, (Lives) this, getPane());
 	}
 	
 	/**
@@ -105,8 +109,8 @@ public class Player extends Sprite implements Explodable {
 	
 	private ExplosionThread createExplosionThread(Bomb b) {return new ExplosionThread(b);}
 	
-	public static int getLives() {return lives;}
-	public static void setLives(int lives) {Player.lives = lives;}
+	public int getLives() {return lives;}
+	public void setLives(int lives) {Player.lives = lives;}
 	
 	public static int getBombIndex() {return bombIndex;}
 	public static void setBombIndex(int bombIndex) {Player.bombIndex = bombIndex;}
