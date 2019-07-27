@@ -1,23 +1,17 @@
-package sprites;
+package sprites.base;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashSet;
-import java.util.Set;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 import application.GameLoop;
 import javafx.animation.AnimationTimer;
-import javafx.geometry.Bounds;
-import javafx.geometry.Point2D;
-import javafx.geometry.Point3D;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 import scenes.GameScene;
-import sprites.differentPowerUps.Power;
+import sprites.Player;
+import sprites.type.Enemy;
+import sprites.type.Power;
 
 public abstract class Sprite extends ImageView implements GameLoop {
 	AnimationTimer loop;
@@ -52,7 +46,9 @@ public abstract class Sprite extends ImageView implements GameLoop {
 		GameScene.grid[positionX][positionY].remove(this);
 		this.relocate(this.getLayoutX() + velocityX, this.getLayoutY() + velocityY);
 		evaluatePosition();
-		GameScene.grid[positionX][positionY].add(this);
+		if (this instanceof Enemy && !(((Enemy) this).isDestroyed())) {
+			GameScene.grid[positionX][positionY].add(this);
+		}
 	}
 	
 	public int getVelocityX() {return this.velocityX;}
@@ -113,7 +109,7 @@ public abstract class Sprite extends ImageView implements GameLoop {
 		CollisionBounds b = new CollisionBounds(getLayoutX(), getLayoutY(), getLayoutBounds().getWidth(), getLayoutBounds().getHeight());
 		HashSet<Direction> invalidDirections = new HashSet<Sprite.Direction>();
 		for(Sprite s : ((GameScene) scene).getInLocalGrids(positionX, positionY)) {
-			if (!(s instanceof Power)) {
+			if (!(s instanceof Power) && !(s instanceof Player) && !(s instanceof Enemy)) {
 				invalidDirections.addAll(b.isTouching(new CollisionBounds(s.getLayoutX(), s.getLayoutY(), s.getLayoutBounds().getWidth(), s.getLayoutBounds().getHeight()), 3));
 			} 
 		}
