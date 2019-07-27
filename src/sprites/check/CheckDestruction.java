@@ -1,23 +1,25 @@
-package sprites.bomb;
+package sprites.check;
 
 import java.util.ArrayList;
 
 import javafx.scene.layout.Pane;
 import scenes.GameScene;
-import sprites.Lives;
 import sprites.Player;
-import sprites.Points;
-import sprites.Sprite;
+import sprites.base.Sprite;
+import sprites.bomb.Explosion;
+import sprites.capability.Lives;
+import sprites.capability.Points;
+import sprites.type.Enemy;
 
-public class CheckDestruction {
+public class CheckDestruction implements Checker {
 	boolean hasExplosion;
 	Player previousPlayer;
-	ArrayList<Sprite> previous;
+	ArrayList<Points> previous;
 	
 	public CheckDestruction() {
 		hasExplosion = false;
 		previousPlayer = null;
-		previous = new ArrayList<Sprite>();
+		previous = new ArrayList<Points>();
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -53,19 +55,18 @@ public class CheckDestruction {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public void check(int posX, int posY, int pointsAwarded, Sprite s, Pane pane) {
+	public void check(int posX, int posY, Points s, Pane pane) {
 		ArrayList<Sprite> grid = (ArrayList<Sprite>) GameScene.grid[posX][posY].clone();
 		grid.forEach(x -> {
 			if (x instanceof Explosion) {
 				if (!previous.contains(s)) {
 					previous.add(s);
-					GameScene.sumScore(((Points) s).getPoints());
-					GameScene.grid[posX][posY].remove(s);
-					pane.getChildren().remove(s);
+					GameScene.sumScore(s.getPoints());
+					((Enemy) s).setDestroyed(true);
+					GameScene.grid[posX][posY].remove((Sprite) s);
+					pane.getChildren().remove((Sprite) s);
 				}
-				
 			}
 		});
 	}
-	
 }
