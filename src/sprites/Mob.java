@@ -4,17 +4,21 @@ import java.util.Random;
 
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
-import sprites.bomb.Destroyable;
+import sprites.base.Sprite;
+import sprites.capability.Destroyable;
+import sprites.capability.Points;
+import sprites.type.Enemy;
 
-public class Mob extends Sprite implements Destroyable, Points {
+public class Mob extends Sprite implements Destroyable, Points, Enemy {
 	private static int scorePotential;
 	
 	Random rand = new Random();
 	
 	boolean getPosition = true;
+	boolean isDestroyed = false;
 	double currentX;
 	double currentY;
-	int speed = 4;
+	int speed = 2;
 	int randomDirection;
 	int randomLength;
 	
@@ -47,7 +51,7 @@ public class Mob extends Sprite implements Destroyable, Points {
 
 		switchRandomDirection();
 		
-		checkDestruction(positionX, positionY, scorePotential, this, getPane());
+		checkDestruction(positionX, positionY, (Points) this, getPane());
 		
 	}
 
@@ -139,6 +143,24 @@ public class Mob extends Sprite implements Destroyable, Points {
 	@Override
 	public void setPoints(int points) {
 		Mob.scorePotential = points;
+	}
+	
+	public static int getScorePotential() {
+		return scorePotential;
+	}
+	
+	public static void setScorePotential(int scorePotential) {
+		Mob.scorePotential = scorePotential;
+	}
+
+	@Override
+	public boolean isDestroyed() {
+		return isDestroyed;
+	}
+
+	@Override
+	public void setDestroyed(boolean isDestroyed) {
+		this.isDestroyed = isDestroyed;
 	}
 
 }

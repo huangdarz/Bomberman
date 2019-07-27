@@ -1,4 +1,4 @@
-package sprites;
+package sprites.capability;
 
 public interface Points {
 	
