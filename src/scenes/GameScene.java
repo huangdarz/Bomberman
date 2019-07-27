@@ -4,10 +4,8 @@ import java.util.ArrayList;
 import java.util.HashSet;
 
 import application.Main;
-import javafx.application.Platform;
 import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
-import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Background;
@@ -17,18 +15,12 @@ import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import level.LevelCreator;
-import sprites.Mob;
 import sprites.Player;
-import sprites.Sprite;
-import sprites.TestSprite;
-import sprites.bomb.CheckExplodable;
-import sprites.differentPowerUps.BiggerBombsPowerUp;
-import sprites.differentPowerUps.DoublePointsPowerUp;
-import sprites.differentPowerUps.InfiniteBombsPowerUp;
+import sprites.base.Sprite;
 import sprites.wall.UnbreakableWall;
 
 public class GameScene extends BaseScene {
@@ -39,6 +31,7 @@ public class GameScene extends BaseScene {
 //	DoublePointsPowerUp duoPowUp = new DoublePointsPowerUp(this);
 
 	public static boolean debugger = false;
+	@SuppressWarnings("unchecked")
 	public static ArrayList<Sprite>[][] grid = new ArrayList[15][13];
 	Dimension2D spriteDimension = new Dimension2D(50d, 50d);
 	Text buttonsText = new Text(8, 640, "");
@@ -48,21 +41,24 @@ public class GameScene extends BaseScene {
 
 	Player player = new Player(this);
 	
-	@SuppressWarnings("unchecked")
 	public GameScene(Pane root, double width, double height) {
 		super(root, width, height);
 		System.out.println("Grid-Width: "+grid.length+" / Grid-Height: "+grid[0].length);
 		createGridArrays();
 		lives = player.getLives();
 		
-		scoreText = new Text(width-85, 25, "Score: "+score);
-		livesText = new Text(15, 25, "Lives: "+lives);
+		scoreText = new Text(width-130, 30, "Score: "+score);
+		livesText = new Text(15, 30, "Lives: "+lives);
+		scoreText.setFont(Font.font("Verdana", 24));
+		scoreText.setFill(Color.WHITE);
+		livesText.setFont(Font.font("Verdana", 24));
+		livesText.setFill(Color.WHITE);
 		
 		player.positionX = 1;
 		player.positionY = 1;
 		grid[player.positionX][player.positionY].add(player);
-//		getPane().setBackground(new Background(new BackgroundImage(new Image(""), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT)));
-
+		getPane().setBackground(new Background(new BackgroundImage(new Image("/res/map.png", 750.0, 650.0, true, true), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT)));
+		
 		getPane().getChildren().addAll(player);
 		getPane().getChildren().add(scoreText);
 		getPane().getChildren().add(livesText);
