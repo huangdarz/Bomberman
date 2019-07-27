@@ -1,9 +1,6 @@
 package application;
 	
-import javafx.animation.AnimationTimer;
 import javafx.application.Application;
-import javafx.geometry.Dimension2D;
-import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import scenes.GameScene;
@@ -35,7 +32,7 @@ public class Main extends Application {
 		primaryStage.setTitle("Bomberman");
 		primaryStage.setResizable(false);
 		primaryStage.show();
-		this.primaryStage = primaryStage;
+		Main.primaryStage = primaryStage;
 	}
 	
 	@Override
