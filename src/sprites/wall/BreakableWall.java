@@ -2,14 +2,14 @@ package sprites.wall;
 
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
-import sprites.Sprite;
-import sprites.bomb.Destroyable;
+import sprites.base.Sprite;
+import sprites.capability.Destroyable;
 
 public class BreakableWall extends Sprite implements Destroyable {
 
 	public BreakableWall(Scene scene) {
 		super(scene);
-		Image image = new Image("/res/cobble.png");
+		Image image = new Image("/res/breakable_walls.png");
 		setImage(image);
 		setFitWidth(50);
 		setFitHeight(50);
