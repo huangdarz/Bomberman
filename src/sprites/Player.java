@@ -6,21 +6,22 @@ import java.util.HashSet;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
+import sprites.base.Sprite;
 import sprites.bomb.Bomb;
-import sprites.bomb.Destroyable;
 import sprites.bomb.ExplosionThread;
-import sprites.differentPowerUps.CheckPower;
+import sprites.capability.Destroyable;
+import sprites.capability.Killable;
+import sprites.capability.Lives;
+import sprites.capability.Powerable;
 
 /** 
  * The user controlled playable character.  
  * @author Darin Huang 
  */
-public class Player extends Sprite implements Lives, Destroyable {
+public class Player extends Sprite implements Lives, Destroyable, Powerable, Killable {
 	private static int lives = 6;
 	private static int bombIndex = 0;
 	private ArrayList<Bomb> bombs = new ArrayList<Bomb>();
-	
-	private CheckPower checkPower;
 	
 	/** 
 	 * Primary constructor for Player. 
@@ -47,6 +48,8 @@ public class Player extends Sprite implements Lives, Destroyable {
 		evaluatePosition();
 		toFront();
 		checkDestruction(positionX, positionY, (Lives) this, getPane());
+		checkPower(positionX, positionY, this, getPane());
+		checkEnemy(positionX, positionY, this, getPane());
 	}
 	
 	/**
