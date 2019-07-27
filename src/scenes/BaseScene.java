@@ -1,15 +1,9 @@
 package scenes;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
 import application.GameLoop;
 import javafx.animation.AnimationTimer;
-import javafx.geometry.Dimension2D;
-import javafx.geometry.Point2D;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
-import sprites.Sprite;
 
 public abstract class BaseScene extends Scene implements GameLoop {
 	
