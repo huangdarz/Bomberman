@@ -13,6 +13,12 @@ public class StartScene extends BaseScene {
 
 	public Button startButton;
 	
+	/**
+	 * Default constructor for StartScene
+	 * @param root {@inheritDoc}
+	 * @param width {@inheritDoc}
+	 * @param height {@inheritDoc}
+	 */
 	public StartScene(Pane root, double width, double height) {
 		super(root, width, height);
 		getPane().setBackground(new Background(new BackgroundImage(new Image("/res/start_screen.png", width, height, false, true), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT)));
@@ -24,11 +30,17 @@ public class StartScene extends BaseScene {
 		getPane().getChildren().add(startButton);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void run() {
 		
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void userInput() {
 		

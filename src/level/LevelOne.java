@@ -3,7 +3,6 @@ package level;
 import java.util.LinkedList;
 
 import javafx.scene.Scene;
-import javafx.scene.layout.Pane;
 import scenes.GameScene;
 import sprites.Mob;
 import sprites.differentPowerUps.BiggerBombsPowerUp;
@@ -19,6 +18,9 @@ public class LevelOne implements Level {
 		infRand,
 		mobRand;
 	
+	/**
+	 * Default constructor for the level.
+	 */
 	public LevelOne() {
 		wallRand = new DistributeRandom(80, 95);
 		duoRand = new DistributeRandom(0, 5);
@@ -27,8 +29,11 @@ public class LevelOne implements Level {
 		mobRand = new DistributeRandom(1, 6, wallRand.getExistingLocations());
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
-	public void createWalls(Scene scene, Pane pane) {
+	public void createWalls(Scene scene) {
 		int num = 0;
 		for (Location l : wallRand.getLocations()) {
 			BreakableWall wall = new BreakableWall(scene);
@@ -39,8 +44,11 @@ public class LevelOne implements Level {
 		System.out.println("WALL: " + num);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
-	public void createDuo(Scene scene, Pane pane) {
+	public void createDuo(Scene scene) {
 		for (Location l : duoRand.getLocations()) {
 			DoublePointsPowerUp duo = new DoublePointsPowerUp(scene);
 			duo.relocate(l.getPowerUpX(), l.getPowerUpY());
@@ -48,8 +56,11 @@ public class LevelOne implements Level {
 		}
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
-	public void createBig(Scene scene, Pane pane) {
+	public void createBig(Scene scene) {
 		for (Location l : bigRand.getLocations()) {
 			BiggerBombsPowerUp big = new BiggerBombsPowerUp(scene);
 			big.relocate(l.getPowerUpX(), l.getPowerUpY());
@@ -57,8 +68,11 @@ public class LevelOne implements Level {
 		}
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
-	public void createInf(Scene scene, Pane pane) {
+	public void createInf(Scene scene) {
 		for (Location l : infRand.getLocations()) {
 			InfiniteBombsPowerUp inf = new InfiniteBombsPowerUp(scene);
 			inf.relocate(l.getPowerUpX(), l.getPowerUpY());
@@ -66,8 +80,11 @@ public class LevelOne implements Level {
 		}
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
-	public void createMobs(Scene scene, Pane pane) {
+	public void createMobs(Scene scene) {
 		LinkedList<Location> mobLoc = mobRand.getLocations();
 		for (Location l : mobLoc) {
 			Mob mob = new Mob(scene);

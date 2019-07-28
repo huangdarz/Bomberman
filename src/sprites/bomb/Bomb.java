@@ -24,8 +24,7 @@ public class Bomb extends Sprite {
 	ArrayList<Sprite> activeSprites = new ArrayList<Sprite>();
 	
 	/**
-	 * Default constructor 
-	 * @param scene The scene this object is added to
+	 * {@inheritDoc}
 	 */
 	public Bomb(Scene scene) {
 		super(scene);
@@ -36,6 +35,9 @@ public class Bomb extends Sprite {
 		getLoop().stop();		
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void run() {
 		
@@ -160,16 +162,32 @@ public class Bomb extends Sprite {
 		return toExplode;
 	}
 	
+	/**
+	 * Adds the explosion to GameScene.grid
+	 * @param x The x position in terms of the grid
+	 * @param y The y position in terms of the grid
+	 * @param e The explosion to add
+	 */
 	private void addGridPos(int x, int y, Explosion e) {
 		GameScene.grid[x][y].add(e);
 	}
 	
+	/**
+	 * Removes the list of explosions from the grid.
+	 * @param b The list of explosions
+	 */
 	private void removeGridPos(LinkedList<Explosion> b) {
 		for (Explosion e : b) {
 			GameScene.grid[(int) e.getLayoutX()/50][(int) e.getLayoutY()/50].remove(e);
 		}
 	}
 	
+	/**
+	 * Removes an explosion to GameScene.grid
+	 * @param x The x position in terms of the grid
+	 * @param y The y position in terms of the grid
+	 * @param e The explosion to remove
+	 */
 	private void removeGridPos(int x, int y, Explosion e) {
 		GameScene.grid[x][y].remove(e);
 	}

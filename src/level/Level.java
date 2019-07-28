@@ -1,28 +1,56 @@
 package level;
 
 import javafx.scene.Scene;
-import javafx.scene.layout.Pane;
 
 public interface Level {
-	public default void create(Scene scene, Pane pane) {
-		createWalls(scene, pane);
-		createPowerUps(scene, pane);
-		createMobs(scene, pane);
+	
+	/**
+	 * Main handler for the creation of the Sprites.
+	 * @param scene The scene the sprite is in
+	 */
+	public default void create(Scene scene) {
+		createWalls(scene);
+		createPowerUps(scene);
+		createMobs(scene);
 	}
 	
-	public void createWalls(Scene scene, Pane pane);
+	/**
+	 * Method to create the walls.
+	 * @param scene The scene the sprite is in
+	 */
+	public void createWalls(Scene scene);
 	
-	public default void createPowerUps(Scene scene, Pane pane) {
-		createDuo(scene, pane);
-		createBig(scene, pane);
-		createInf(scene, pane);
+	/**
+	 * Handler for creating power ups.
+	 * @param scene The scene the sprite is in
+	 */
+	public default void createPowerUps(Scene scene) {
+		createDuo(scene);
+		createBig(scene);
+		createInf(scene);
 	}
 	
-	public void createDuo(Scene scene, Pane pane);
+	/**
+	 * Method to create DoublePointsPowerUp
+	 * @param scene The scene the sprite is in
+	 */
+	public void createDuo(Scene scene);
 	
-	public void createBig(Scene scene, Pane pane);
+	/**
+	 * Method to create BiggerBombsPowerUp
+	 * @param scene The scene the sprite is in
+	 */
+	public void createBig(Scene scene);
 	
-	public void createInf(Scene scene, Pane pane);
+	/**
+	 * Method to create InfiniteBombsPowerUp
+	 * @param scene The scene the sprite is in
+	 */
+	public void createInf(Scene scene);
 	
-	public void createMobs(Scene scene, Pane pane);
+	/**
+	 * Method to create Mobs
+	 * @param scene The scene the sprite is in
+	 */
+	public void createMobs(Scene scene);
 }

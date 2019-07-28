@@ -13,21 +13,32 @@ public class PauseScene extends BaseScene {
 
 	public Button resumeButton;
 	
+	/**
+	 * Default constructor for PauseScene
+	 * @param root {@inheritDoc}
+	 * @param width {@inheritDoc}
+	 * @param height {@inheritDoc}
+	 */
 	public PauseScene(Pane root, double width, double height) {
 		super(root, width, height);
 		getPane().setBackground(new Background(new BackgroundImage(new Image("/res/placeholder_image.png", width, height, false, true), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT)));
-//		ImageView buttonImage = new ImageView();
 		resumeButton = new Button("RESUME");
 		resumeButton.setBackground(new Background(new BackgroundImage(new Image("/res/placeholder_image.png", 250, 100, true, true), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT)));
 		resumeButton.relocate((width/2d) - (resumeButton.getWidth()/2d), height/2d);
 		getPane().getChildren().add(resumeButton);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void run() {
 		
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void userInput() {
 		

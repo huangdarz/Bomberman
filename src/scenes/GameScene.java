@@ -25,12 +25,8 @@ import sprites.base.Sprite;
 import sprites.type.Enemy;
 import sprites.wall.UnbreakableWall;
 
+// TODO Mitch to comment
 public class GameScene extends BaseScene {
-
-//	Mob mob = new Mob(this);
-//	InfiniteBombsPowerUp infPowUp = new InfiniteBombsPowerUp(this);
-//	BiggerBombsPowerUp bigPowUp= new BiggerBombsPowerUp(this);
-//	DoublePointsPowerUp duoPowUp = new DoublePointsPowerUp(this);
 
 	public static boolean debugger = false;
 	@SuppressWarnings("unchecked")
@@ -162,7 +158,7 @@ public class GameScene extends BaseScene {
 				}
 			}
 		}
-		LevelCreator.level(1).create(this, getPane());
+		LevelCreator.level(1).create(this);
 		for(int c = 0; c < grid.length; c++) {
 			for(int r = 0; r < grid[0].length; r++) {
 				getPane().getChildren().addAll(grid[c][r]);
@@ -201,8 +197,8 @@ public class GameScene extends BaseScene {
 	/**
 	 * used mainly for bomb and mob placement
 	 *
-	 * @param s
-	 * @return
+	 * @param s Sprite
+	 * @return Point2D
 	 */
 	public Point2D TransferNearestGrid(Sprite s) {
 		if((int)(s.getLayoutBounds().getCenterX() / 50) != s.positionX || (int)(s.getLayoutBounds().getCenterY() / 50) != s.positionY) {

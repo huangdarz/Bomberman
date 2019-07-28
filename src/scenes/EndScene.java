@@ -12,6 +12,12 @@ public class EndScene extends BaseScene {
 	private Button quitBtn;
 	private Text gameOver, score;
 	
+	/**
+	 * Default constructor for EndScene
+	 * @param root {@inheritDoc}
+	 * @param width {@inheritDoc}
+	 * @param height {@inheritDoc}
+	 */
 	public EndScene(Pane root, double width, double height) {
 		super(root, width, height);
 		
@@ -41,11 +47,17 @@ public class EndScene extends BaseScene {
 		});
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void run() {
 		score.setText("Score: " + GameScene.score);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void userInput() {
 		

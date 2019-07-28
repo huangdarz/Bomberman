@@ -4,9 +4,16 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import sprites.base.Sprite;
 
+/**
+ * The explosion sprite
+ * @author Darin Huang
+ */
 public class Explosion extends Sprite {
 	private boolean shouldExplode = true; 
 	
+	/**
+	 * {@inheritDoc}
+	 */
 	public Explosion(Scene scene) {
 		super(scene);
 		Image image = new Image("/res/explosion.gif");
@@ -15,15 +22,25 @@ public class Explosion extends Sprite {
 		this.setFitHeight(50);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void run() {
 		toFront();
 	}
-
+	
+	/**
+	 * Sets the value of shouldExplode
+	 * @param shouldExplode The value shouldExplode should be
+	 */
 	public void setShouldExplode(boolean shouldExplode) {
 		this.shouldExplode = shouldExplode;
 	}
 	
+	/**
+	 * @return shouldExplode
+	 */
 	public boolean getShouldExplode() {
 		return shouldExplode;
 	}

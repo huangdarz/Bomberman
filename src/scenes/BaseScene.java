@@ -9,6 +9,12 @@ public abstract class BaseScene extends Scene implements GameLoop {
 	
 	AnimationTimer loop;
 	
+	/**
+	 * Default constructor for BaseScene
+	 * @param root {@inheritDoc}
+	 * @param width {@inheritDoc}
+	 * @param height {@inheritDoc}
+	 */
 	public BaseScene(Pane root, double width, double height) {
 		super(root, width, height);
 		loop = loop();
@@ -16,8 +22,14 @@ public abstract class BaseScene extends Scene implements GameLoop {
 		userInput();
 	}
 	
+	/**
+	 * Abstract method for setting user inputs based off key presses
+	 */
 	public abstract void userInput();
 	
+	/**
+	 * @return root
+	 */
 	public Pane getPane() {return (Pane) getRoot();}
 	
 	

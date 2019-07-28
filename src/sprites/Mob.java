@@ -25,7 +25,7 @@ public class Mob extends Sprite implements Destroyable, Points, Enemy {
 
 /**
  * Setting the objects size and location
- * @param scene
+ * @param scene The scene the Sprite is added to.
  */
 	public Mob(Scene scene) {
 		super(scene);
