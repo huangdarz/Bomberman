@@ -45,7 +45,7 @@ public class GameScene extends BaseScene {
 	double startTime;
 
 	Player player = new Player(this);
-	boolean hasEnemies = true;
+	boolean hasEnemies = true, ended = false;
 	
 	public GameScene(Pane root, double width, double height) {
 		super(root, width, height);
@@ -91,9 +91,18 @@ public class GameScene extends BaseScene {
 		
 		double endTime = System.currentTimeMillis()/1000;
 		if (!hasEnemies) {
-			if ((endTime - startTime) % 5 == 0) {
+			if ((endTime - startTime) % 5 == 0 && !ended) {
+				ended = false;
 				getPane().setEffect(new javafx.scene.effect.GaussianBlur());
-				Main.end.show();
+				double centerXPosition = Main.primaryStage.getX() + Main.primaryStage.getWidth()/2d;
+                double centerYPosition = Main.primaryStage.getY() + Main.primaryStage.getHeight()/2d;
+                Main.end.setOnShowing(e -> Main.end.hide());
+                Main.end.setOnShown(e -> {
+                	Main.end.setX(centerXPosition - Main.end.getWidth()/2d);
+                	Main.end.setY(centerYPosition - Main.end.getHeight()/2d);
+                	Main.end.show();
+                });
+                Main.end.show();
 			}
 		}
 	}
@@ -122,7 +131,15 @@ public class GameScene extends BaseScene {
 			}
 			if (key.getCode() == KeyCode.A) {
 				getPane().setEffect(new javafx.scene.effect.GaussianBlur());
-				Main.end.show();
+				double centerXPosition = Main.primaryStage.getX() + Main.primaryStage.getWidth()/2d;
+                double centerYPosition = Main.primaryStage.getY() + Main.primaryStage.getHeight()/2d;
+                Main.end.setOnShowing(e -> Main.end.hide());
+                Main.end.setOnShown(e -> {
+                	Main.end.setX(centerXPosition - Main.end.getWidth()/2d);
+                	Main.end.setY(centerYPosition - Main.end.getHeight()/2d);
+                	Main.end.show();
+                });
+                Main.end.show();
 			}
 		});
 		setOnKeyReleased(key -> {
