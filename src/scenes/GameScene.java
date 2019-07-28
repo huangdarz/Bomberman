@@ -3,8 +3,6 @@ package scenes;
 import java.util.ArrayList;
 import java.util.HashSet;
 
-import com.sun.scenario.effect.GaussianBlur;
-
 import application.GameLoop;
 import application.Main;
 import javafx.geometry.Dimension2D;
