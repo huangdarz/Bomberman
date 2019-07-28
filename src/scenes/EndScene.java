@@ -1,6 +1,6 @@
 package scenes;
 
-import application.Main;
+import javafx.application.Platform;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -37,8 +37,7 @@ public class EndScene extends BaseScene {
 		getPane().getChildren().addAll(quitBtn, gameOver, score);
 		
 		quitBtn.setOnAction(e -> {
-			Main.end.close();
-			Main.primaryStage.close();
+			Platform.exit();
 		});
 	}
 

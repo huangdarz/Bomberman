@@ -52,7 +52,7 @@ public class GameScene extends BaseScene {
 		lives = player.getLives();
 		startTime = System.currentTimeMillis()/1000;
 		
-		scoreText = new Text(width-130, 30, "Score: "+score);
+		scoreText = new Text(width-180, 30, "Score: "+score);
 		livesText = new Text(15, 30, "Lives: "+lives);
 		scoreText.setFont(Font.font("Verdana", 24));
 		scoreText.setFill(Color.WHITE);
