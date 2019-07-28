@@ -3,6 +3,8 @@ package scenes;
 import java.util.ArrayList;
 import java.util.HashSet;
 
+import com.sun.scenario.effect.GaussianBlur;
+
 import application.GameLoop;
 import application.Main;
 import javafx.geometry.Dimension2D;
@@ -86,11 +88,12 @@ public class GameScene extends BaseScene {
 				});
 			}
 		}
+		
 		double endTime = System.currentTimeMillis()/1000;
-		System.out.println(endTime - startTime);
 		if (!hasEnemies) {
 			if ((endTime - startTime) % 5 == 0) {
-				Main.primaryStage.setScene(Main.end);
+				getPane().setEffect(new javafx.scene.effect.GaussianBlur());
+				Main.end.show();
 			}
 		}
 	}
@@ -116,6 +119,10 @@ public class GameScene extends BaseScene {
 					}
 				}
 				System.out.println(Main.primaryStage.getScene());
+			}
+			if (key.getCode() == KeyCode.A) {
+				getPane().setEffect(new javafx.scene.effect.GaussianBlur());
+				Main.end.show();
 			}
 		});
 		setOnKeyReleased(key -> {
