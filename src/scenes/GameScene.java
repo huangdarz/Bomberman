@@ -3,6 +3,7 @@ package scenes;
 import java.util.ArrayList;
 import java.util.HashSet;
 
+import application.GameLoop;
 import application.Main;
 import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
@@ -21,6 +22,7 @@ import javafx.scene.text.Text;
 import level.LevelCreator;
 import sprites.Player;
 import sprites.base.Sprite;
+import sprites.type.Enemy;
 import sprites.wall.UnbreakableWall;
 
 public class GameScene extends BaseScene {
@@ -38,16 +40,19 @@ public class GameScene extends BaseScene {
 	public HashSet<String> buttonsPressed = new HashSet<String>();
 	public static int score, lives;
 	private static Text scoreText, livesText;
+	double startTime;
 
 	Player player = new Player(this);
+	boolean hasEnemies = true, ended = false;
 	
 	public GameScene(Pane root, double width, double height) {
 		super(root, width, height);
 		System.out.println("Grid-Width: "+grid.length+" / Grid-Height: "+grid[0].length);
 		createGridArrays();
 		lives = player.getLives();
+		startTime = System.currentTimeMillis()/1000;
 		
-		scoreText = new Text(width-130, 30, "Score: "+score);
+		scoreText = new Text(width-180, 30, "Score: "+score);
 		livesText = new Text(15, 30, "Lives: "+lives);
 		scoreText.setFont(Font.font("Verdana", 24));
 		scoreText.setFill(Color.WHITE);
@@ -72,6 +77,32 @@ public class GameScene extends BaseScene {
 		
 		scoreText.setText("Score: "+score);
 		livesText.setText("Lives: "+player.getLives());
+		
+		hasEnemies = false;
+		for(int c = 0; c < grid.length; c++) {
+			for(int r = 0; r < grid[0].length; r++) {
+				grid[c][r].forEach(x -> {
+					if (x instanceof Enemy) hasEnemies = true;
+				});
+			}
+		}
+		
+		double endTime = System.currentTimeMillis()/1000;
+		if (!hasEnemies) {
+			if ((endTime - startTime) % 5 == 0 && !ended) {
+				ended = false;
+				getPane().setEffect(new javafx.scene.effect.GaussianBlur());
+				double centerXPosition = Main.primaryStage.getX() + Main.primaryStage.getWidth()/2d;
+                double centerYPosition = Main.primaryStage.getY() + Main.primaryStage.getHeight()/2d;
+                Main.end.setOnShowing(e -> Main.end.hide());
+                Main.end.setOnShown(e -> {
+                	Main.end.setX(centerXPosition - Main.end.getWidth()/2d);
+                	Main.end.setY(centerYPosition - Main.end.getHeight()/2d);
+                	Main.end.show();
+                });
+                Main.end.show();
+			}
+		}
 	}
 
 	@Override
@@ -85,7 +116,28 @@ public class GameScene extends BaseScene {
 			}
 			if(key.getCode() == KeyCode.ESCAPE) {
 				Main.primaryStage.setScene(Main.pause);
+				for(int c = 0; c < grid.length; c++) {
+					for(int r = 0; r < grid[0].length; r++) {
+						grid[c][r].forEach(x -> {
+							if (x instanceof GameLoop) {
+								x.getLoop().stop();
+							}
+						});
+					}
+				}
 				System.out.println(Main.primaryStage.getScene());
+			}
+			if (key.getCode() == KeyCode.A) {
+				getPane().setEffect(new javafx.scene.effect.GaussianBlur());
+				double centerXPosition = Main.primaryStage.getX() + Main.primaryStage.getWidth()/2d;
+                double centerYPosition = Main.primaryStage.getY() + Main.primaryStage.getHeight()/2d;
+                Main.end.setOnShowing(e -> Main.end.hide());
+                Main.end.setOnShown(e -> {
+                	Main.end.setX(centerXPosition - Main.end.getWidth()/2d);
+                	Main.end.setY(centerYPosition - Main.end.getHeight()/2d);
+                	Main.end.show();
+                });
+                Main.end.show();
 			}
 		});
 		setOnKeyReleased(key -> {
