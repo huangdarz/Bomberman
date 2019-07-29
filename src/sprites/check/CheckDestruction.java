@@ -89,7 +89,7 @@ public class CheckDestruction implements Checker {
 				if (!previous.contains(s)) {
 					previous.add(s);
 					GameScene.sumScore(s.getPoints());
-					((Enemy) s).setDestroyed(true);
+					if (s instanceof Enemy) ((Enemy) s).setDestroyed(true);
 					GameScene.grid[posX][posY].remove((Sprite) s);
 					pane.getChildren().remove((Sprite) s);
 				}

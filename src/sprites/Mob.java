@@ -32,7 +32,7 @@ public class Mob extends Sprite implements Destroyable, Points, Enemy {
 	 */
 	public Mob(Scene scene) {
 		super(scene);
-		Image image = new Image("/res/player.png");
+		Image image = new Image("/res/mob.png");
 		setImage(image);
 		setFitWidth(40);
 		setFitHeight(40);

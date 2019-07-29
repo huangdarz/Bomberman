@@ -11,6 +11,7 @@ import sprites.differentPowerUps.BiggerBombsPowerUp;
 import sprites.differentPowerUps.DoublePointsPowerUp;
 import sprites.differentPowerUps.InfiniteBombsPowerUp;
 import sprites.type.Power;
+import sprites.wall.BreakableWall;
 
 /**
  * Class that provides checking of collision with power ups
@@ -45,6 +46,7 @@ public class CheckPower implements Checker {
 				} else if (x instanceof DoublePointsPowerUp && !previousPowers.contains(x)) {
 					previousPowers.add(x);
 					Mob.setScorePotential(Mob.getScorePotential()*2);
+					BreakableWall.points = BreakableWall.points*2;
 					GameScene.grid[posX][posY].remove(x);
 					pane.getChildren().remove(x);
 					System.out.println("Found Double");
