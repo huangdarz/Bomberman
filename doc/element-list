@@ -1,0 +1,11 @@
+application
+level
+scenes
+sprites
+sprites.base
+sprites.bomb
+sprites.capability
+sprites.check
+sprites.differentPowerUps
+sprites.type
+sprites.wall

@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"application"},{"l":"level"},{"l":"scenes"},{"l":"sprites"},{"l":"sprites.base"},{"l":"sprites.bomb"},{"l":"sprites.capability"},{"l":"sprites.check"},{"l":"sprites.differentPowerUps"},{"l":"sprites.type"},{"l":"sprites.wall"}]
