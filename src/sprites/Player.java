@@ -19,7 +19,7 @@ import sprites.capability.Powerable;
  * @author Darin Huang 
  */
 public class Player extends Sprite implements Lives, Destroyable, Powerable, Killable {
-	private static int lives = 6;
+	private static int lives = 3;
 	private static int bombIndex = 0;
 	private ArrayList<Bomb> bombs = new ArrayList<Bomb>();
 	
@@ -96,6 +96,10 @@ public class Player extends Sprite implements Lives, Destroyable, Powerable, Kil
 		}
 	}
 	
+	/**
+	 * Places the bomb and initiates explosion
+	 * @param key The KeyCode to check for
+	 */
 	public void placeBomb(KeyCode key) {
 		if (key == KeyCode.SPACE) {
 			if (Bomb.getBombsPlaced() < Bomb.getMaxNumBombs()) {
@@ -110,6 +114,10 @@ public class Player extends Sprite implements Lives, Destroyable, Powerable, Kil
 		}
 	}
 	
+	/**
+	 * @param b The bomb the explosion thread uses
+	 * @return A new explosionThread object for b
+	 */
 	private ExplosionThread createExplosionThread(Bomb b) {return new ExplosionThread(b);}
 	
 	public int getLives() {return lives;}

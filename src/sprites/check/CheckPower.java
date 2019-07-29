@@ -12,6 +12,10 @@ import sprites.differentPowerUps.DoublePointsPowerUp;
 import sprites.differentPowerUps.InfiniteBombsPowerUp;
 import sprites.type.Power;
 
+/**
+ * Class that provides checking of collision with power ups
+ * @author Darin Huang
+ */
 public class CheckPower implements Checker {
 
 	private ArrayList<Sprite> previousPowers;
@@ -20,6 +24,13 @@ public class CheckPower implements Checker {
 		previousPowers = new ArrayList<Sprite>();
 	}
 	
+	/**
+	 * Checks collision with power up
+	 * @param posX The x position of the Sprite in terms of GameScene.grid
+	 * @param posY The y position of the Sprite in terms of GameScene.grid
+	 * @param sprite The sprite colliding with the power ups
+	 * @param pane The pane the Sprite is in.
+	 */
 	@SuppressWarnings("unchecked")
 	public void check(int posX, int posY, Sprite sprite, Pane pane) {
 		ArrayList<Sprite> grid = (ArrayList<Sprite>) GameScene.grid[posX][posY].clone();

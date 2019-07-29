@@ -99,6 +99,18 @@ public class GameScene extends BaseScene {
                 Main.end.show();
 			}
 		}
+		if (player.getLives() <= 0) {
+			getPane().setEffect(new javafx.scene.effect.GaussianBlur());
+			double centerXPosition = Main.primaryStage.getX() + Main.primaryStage.getWidth()/2d;
+            double centerYPosition = Main.primaryStage.getY() + Main.primaryStage.getHeight()/2d;
+            Main.end.setOnShowing(e -> Main.end.hide());
+            Main.end.setOnShown(e -> {
+            	Main.end.setX(centerXPosition - Main.end.getWidth()/2d);
+            	Main.end.setY(centerYPosition - Main.end.getHeight()/2d);
+            	Main.end.show();
+            });
+            Main.end.show();
+		}
 	}
 
 	@Override

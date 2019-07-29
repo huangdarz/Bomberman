@@ -5,8 +5,14 @@ import javafx.scene.image.Image;
 import sprites.base.Sprite;
 import sprites.capability.Destroyable;
 
+/**
+ * @author Darin Huang
+ */
 public class BreakableWall extends Sprite implements Destroyable {
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public BreakableWall(Scene scene) {
 		super(scene);
 		Image image = new Image("/res/breakable_walls.png");
@@ -15,6 +21,9 @@ public class BreakableWall extends Sprite implements Destroyable {
 		setFitHeight(50);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void run() {
 		toFront();

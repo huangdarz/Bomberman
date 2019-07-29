@@ -9,6 +9,9 @@ import sprites.capability.Destroyable;
 import sprites.capability.Points;
 import sprites.type.Enemy;
 
+/**
+ * @author Michael Legovich
+ */
 public class Mob extends Sprite implements Destroyable, Points, Enemy {
 	private static int scorePotential;
 	
@@ -23,10 +26,10 @@ public class Mob extends Sprite implements Destroyable, Points, Enemy {
 	int randomLength;
 	
 
-/**
- * Setting the objects size and location
- * @param scene The scene the Sprite is added to.
- */
+	/**
+	 * Setting the objects size and location
+	 * @param scene The scene the Sprite is added to.
+	 */
 	public Mob(Scene scene) {
 		super(scene);
 		Image image = new Image("/res/player.png");
@@ -38,9 +41,9 @@ public class Mob extends Sprite implements Destroyable, Points, Enemy {
 		scorePotential = 10;
 	}
 
-/**
- * Repeats the methods infinitely
- */
+	/**
+	 * Repeats the methods infinitely
+	 */
 	@Override
 	public void run() {
 		evaluatePosition();
@@ -55,9 +58,9 @@ public class Mob extends Sprite implements Destroyable, Points, Enemy {
 		
 	}
 
-/**
- * Checking if the movement position has been reached and resting the variables
- */
+	/**
+	 * Checking if the movement position has been reached and resting the variables
+	 */
 	private void reroll() {
 		if (getPosition == true) {
 			currentX = getLayoutX();
@@ -68,20 +71,20 @@ public class Mob extends Sprite implements Destroyable, Points, Enemy {
 		}
 	}
 
-/**
- * Checks that the position of the mob has move the desired amount, and if yes
- * allows the variables to be reset
- * @param position
- */
+	/**
+	 * Checks that the position of the mob has move the desired amount, and if yes
+	 * allows the variables to be reset
+	 * @param position
+	 */
 	private void positionChecker(int position) {
 		if (Math.abs(getLayoutX()-currentX) >= position || Math.abs(getLayoutY()-currentY) >= position) {
 			getPosition = true;
 		}
 	}
 
-/**
- * Deciding how far to travel in a set direction, based on the number randomly found
- */
+	/**
+	 * Deciding how far to travel in a set direction, based on the number randomly found
+	 */
 	private void switchRandomLength() {
 		switch (randomLength) {
 		case 0:
@@ -99,10 +102,10 @@ public class Mob extends Sprite implements Destroyable, Points, Enemy {
 		}
 	}
 
-/**
- * Checking if the mob is colliding with another object, mainly walls or boundaries, if it isn't
- * make it move, otherwise rest the variables
- */
+	/**
+	 * Checking if the mob is colliding with another object, mainly walls or boundaries, if it isn't
+	 * make it move, otherwise rest the variables
+	 */
 	private void checkCollision(Direction directionChosen, int speedX, int speedY) {
 		if(!getInvalidDirections().contains(directionChosen)) {
 			move(speedX, speedY);
@@ -112,9 +115,9 @@ public class Mob extends Sprite implements Destroyable, Points, Enemy {
 		}
 	}
 
-/**
- * Deciding which direction to travel in
- */
+	/**
+	 * Deciding which direction to travel in
+	 */
 	private void switchRandomDirection() {
 		switch (randomDirection) {
 		case 0:
