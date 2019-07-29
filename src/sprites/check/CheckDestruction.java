@@ -32,7 +32,7 @@ public class CheckDestruction implements Checker {
 	 * Checks for collision with explosion for immediate destruction
 	 * @param posX The x position of the Sprite in terms of GameScene.grid
 	 * @param posY The y position of the Sprite in terms of GameScene.grid
-	 * @param sprite The sprite its checking for
+	 * @param s The sprite its checking for
 	 * @param pane The pane the sprite is in
 	 */
 	@SuppressWarnings("unchecked")
@@ -50,7 +50,7 @@ public class CheckDestruction implements Checker {
 	 * Checks for collision with explosion to then deduct lives then eventually destroy
 	 * @param posX The x position of the Sprite in terms of GameScene.grid
 	 * @param posY The y position of the Sprite in terms of GameScene.grid
-	 * @param sprite The sprite that has lives its checking for
+	 * @param s The sprite that has lives its checking for
 	 * @param pane The pane the sprite is in
 	 */
 	@SuppressWarnings({ "unchecked", "unlikely-arg-type" })
@@ -78,7 +78,7 @@ public class CheckDestruction implements Checker {
 	 * Checks for collision with explosion to then add points and immediately destroy
 	 * @param posX The x position of the Sprite in terms of GameScene.grid
 	 * @param posY The y position of the Sprite in terms of GameScene.grid
-	 * @param sprite The sprite its checking for
+	 * @param s The sprite that is an instanceof Points its checking for
 	 * @param pane The pane the sprite is in
 	 */
 	@SuppressWarnings("unchecked")
