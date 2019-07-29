@@ -5,7 +5,6 @@ import java.util.HashSet;
 
 import application.GameLoop;
 import application.Main;
-import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
@@ -16,7 +15,6 @@ import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import level.LevelCreator;
@@ -27,12 +25,9 @@ import sprites.wall.UnbreakableWall;
 
 // TODO Mitch to comment
 public class GameScene extends BaseScene {
-
-	public static boolean debugger = false;
+ 
 	@SuppressWarnings("unchecked")
 	public static ArrayList<Sprite>[][] grid = new ArrayList[15][13];
-	Dimension2D spriteDimension = new Dimension2D(50d, 50d);
-	Text buttonsText = new Text(8, 640, "");
 	public HashSet<String> buttonsPressed = new HashSet<String>();
 	public static int score, lives;
 	private static Text scoreText, livesText;
@@ -67,10 +62,6 @@ public class GameScene extends BaseScene {
 
 	@Override
 	public void run() {
-		buttonsText.setText("PRESSED: "+buttonsPressed.toString());
-		if(debugger && !getPane().getChildren().contains(buttonsText)) getPane().getChildren().add(buttonsText);
-		if(!debugger && getPane().getChildren().contains(buttonsText)) getPane().getChildren().remove(buttonsText);
-		
 		scoreText.setText("Score: "+score);
 		livesText.setText("Lives: "+player.getLives());
 		
@@ -119,9 +110,6 @@ public class GameScene extends BaseScene {
 			buttonsPressed.add(key.getCode().toString());
 			player.moveKeyPressedReleased(key.getCode(), true);
 			player.placeBomb(key.getCode());
-			if(key.getCode() == KeyCode.BACK_QUOTE) {
-				debugger = !debugger;
-			}
 			if(key.getCode() == KeyCode.ESCAPE) {
 				Main.primaryStage.setScene(Main.pause);
 				for(int c = 0; c < grid.length; c++) {
@@ -160,13 +148,13 @@ public class GameScene extends BaseScene {
 			for(int r = 0; r < grid[0].length; r++) {
 				grid[c][r] = new ArrayList<Sprite>();
 				if(c == 0 || c == grid.length - 1) {
-					grid[c][r].add(new UnbreakableWall(this, c * spriteDimension.getWidth(), r * spriteDimension.getHeight()));
+					grid[c][r].add(new UnbreakableWall(this, c * 50, r * 50));
 				}
 				else if(r == 0 || r == grid[0].length - 1) {
-					grid[c][r].add(new UnbreakableWall(this, c * spriteDimension.getWidth(), r * spriteDimension.getHeight()));
+					grid[c][r].add(new UnbreakableWall(this, c * 50, r * 50));
 				}
 				else if(r % 2 == 0 && c % 2 == 0) {
-					grid[c][r].add(new UnbreakableWall(this, c * spriteDimension.getWidth(), r * spriteDimension.getHeight()));
+					grid[c][r].add(new UnbreakableWall(this, c * 50, r * 50));
 				}
 			}
 		}
@@ -186,17 +174,10 @@ public class GameScene extends BaseScene {
 		final int detectionDiameter = 3; // must be odd, includes center grid cell
 		ArrayList<Sprite> local = new ArrayList<Sprite>();
 
-		getPane().getChildren().removeIf(e -> { return (e instanceof Rectangle); });
-
 		for(int c = 0; c < detectionDiameter; c++) {
 			for(int r = 0; r < detectionDiameter; r++) {
 				try {
 					local.addAll(grid[c+x-(int)(detectionDiameter/2)][r+y-(int)(detectionDiameter/2)]);
-					if(debugger) {
-						Rectangle debug = new Rectangle((c+x-(int)(detectionDiameter/2))*50, (r+y-(int)(detectionDiameter/2))*50, 50, 50);
-						debug.setFill(new Color(0.3, 0.3, c == (int)(detectionDiameter/2) && r == (int)(detectionDiameter/2) ? 1.0 : 0.3, 0.7));
-						getPane().getChildren().add(debug);
-					}
 				}
 				catch(ArrayIndexOutOfBoundsException e) {
 

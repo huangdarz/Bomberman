@@ -67,9 +67,24 @@ public class CollisionBounds extends Bounds {
 		return getWidth() < 0 || getHeight() < 0;
 	}
 	
-	// TODO verify calculations, Math.abs(getMax - b.getMin) <= threshold
+	/**
+	 * returns a anonymous ArrayList which contains the directions an object is touching
+	 * first segment of the if statement checks the distance between one edge of this object 
+	 * and the opposite edge of the other object is less than or equal to a set threshold 
+	 * second segment checks the distance between one edge of this object and the same edge 
+	 * of the other object is less than the height of this object 
+	 * 
+	 * if both of these conditions are met the direction checked will be added to the anonymous ArrayList
+	 * 
+	 * @param b
+	 * @param threshold
+	 * @return
+	 */
 	@SuppressWarnings("serial")
 	public synchronized ArrayList<Sprite.Direction> isTouching(CollisionBounds b, int threshold) {
+		/*
+		 * 
+		 */
 		return new ArrayList<Sprite.Direction>() {{
 			if(Math.abs(getMinX() - b.getMaxX()) <= threshold && Math.min(Math.abs(getMaxY() - b.getMaxY()), Math.abs(getMinY() - b.getMinY())) < getHeight()) add(Sprite.Direction.LEFT);
 			if(Math.abs(-getMaxX() + b.getMinX()) <= threshold && Math.min(Math.abs(getMaxY() - b.getMaxY()), Math.abs(getMinY() - b.getMinY())) < getHeight()) add(Sprite.Direction.RIGHT);

@@ -116,16 +116,6 @@ public abstract class Sprite extends ImageView implements GameLoop {
 		}
 	}
 	
-	// TODO Mitch to comment
-	public Sprite getColliding(ArrayList<Sprite> spritesInGrid) {
-		for(Sprite s : spritesInGrid) {
-			if(this.getLayoutBounds().contains(s.getLayoutBounds()) && !s.equals(this)) {
-				return s;
-			}
-		}
-		return null;
-	}
-	
 	/**
 	 * Gets the invalid directions around a sprite for movement
 	 * @return The invalid directions
