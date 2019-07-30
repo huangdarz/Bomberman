@@ -120,9 +120,9 @@ public abstract class Sprite extends ImageView implements GameLoop {
 	 * Gets the invalid directions around a sprite for movement
 	 * @return The invalid directions
 	 */
-	public HashSet<Direction> getInvalidDirections() {
+	public HashSet<CollisionBounds.Direction> getInvalidDirections() {
 		CollisionBounds b = new CollisionBounds(getLayoutX(), getLayoutY(), getLayoutBounds().getWidth(), getLayoutBounds().getHeight());
-		HashSet<Direction> invalidDirections = new HashSet<Sprite.Direction>();
+		HashSet<CollisionBounds.Direction> invalidDirections = new HashSet<CollisionBounds.Direction>();
 		for(Sprite s : ((GameScene) scene).getInLocalGrids(positionX, positionY)) {
 			if (!(s instanceof Power) && !(s instanceof Player) && !(s instanceof Enemy)) {
 				invalidDirections.addAll(b.isTouching(new CollisionBounds(s.getLayoutX(), s.getLayoutY(), s.getLayoutBounds().getWidth(), s.getLayoutBounds().getHeight()), 3));

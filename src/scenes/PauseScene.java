@@ -21,10 +21,12 @@ public class PauseScene extends BaseScene {
 	 */
 	public PauseScene(Pane root, double width, double height) {
 		super(root, width, height);
-		getPane().setBackground(new Background(new BackgroundImage(new Image("/res/placeholder_image.png", width, height, false, true), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT)));
+		getPane().setBackground(new Background(new BackgroundImage(new Image("/res/map.png", 750.0, 650.0, true, true), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT)));
 		resumeButton = new Button("RESUME");
-		resumeButton.setBackground(new Background(new BackgroundImage(new Image("/res/placeholder_image.png", 250, 100, true, true), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT)));
-		resumeButton.relocate((width/2d) - (resumeButton.getWidth()/2d), height/2d);
+		resumeButton.setPrefWidth(227);
+		resumeButton.setPrefHeight(56);
+//		resumeButton.setBackground(new Background(new BackgroundImage(new Image("/res/placeholder_image.png", 250, 100, true, true), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT)));
+		resumeButton.relocate((width/2d) - (resumeButton.getWidth()/2d)-113.5, height/2d);
 		getPane().getChildren().add(resumeButton);
 	}
 

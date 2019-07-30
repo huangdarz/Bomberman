@@ -6,6 +6,7 @@ import java.util.HashSet;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
+import sprites.base.CollisionBounds;
 import sprites.base.Sprite;
 import sprites.bomb.Bomb;
 import sprites.bomb.ExplosionThread;
@@ -81,17 +82,17 @@ public class Player extends Sprite implements Lives, Destroyable, Powerable, Kil
 	 * @param speed The speed of which the player should move
 	 */
 	private synchronized void userMove(int speed) {
-		HashSet<Direction> invalidDirections = getInvalidDirections();
-		if (this.getIsMoving(Sprite.Direction.UP) && !invalidDirections.contains(Sprite.Direction.UP)) {
+		HashSet<CollisionBounds.Direction> invalidDirections = getInvalidDirections();
+		if (this.getIsMoving(Sprite.Direction.UP) && !invalidDirections.contains(CollisionBounds.Direction.UP)) {
 			this.move(0, -speed);
 		}
-		if (this.getIsMoving(Sprite.Direction.DOWN) && !invalidDirections.contains(Sprite.Direction.DOWN)) {
+		if (this.getIsMoving(Sprite.Direction.DOWN) && !invalidDirections.contains(CollisionBounds.Direction.DOWN)) {
 			this.move(0, speed);
 		}
-		if (this.getIsMoving(Sprite.Direction.RIGHT) && !invalidDirections.contains(Sprite.Direction.RIGHT)) {
+		if (this.getIsMoving(Sprite.Direction.RIGHT) && !invalidDirections.contains(CollisionBounds.Direction.RIGHT)) {
 			this.move(speed, 0);
 		}
-		if (this.getIsMoving(Sprite.Direction.LEFT) && !invalidDirections.contains(Sprite.Direction.LEFT)) {
+		if (this.getIsMoving(Sprite.Direction.LEFT) && !invalidDirections.contains(CollisionBounds.Direction.LEFT)) {
 			this.move(-speed, 0);
 		}
 	}

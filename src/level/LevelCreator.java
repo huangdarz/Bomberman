@@ -22,7 +22,9 @@ public class LevelCreator {
 	 * @param level The level to create.
 	 * @return A new LevelCreator object
 	 */
-	public static LevelCreator level(int level){return new LevelCreator(level);}
+	public static LevelCreator level(int level) {
+		return new LevelCreator(level);
+	}
 	
 	/**
 	 * Public handler for level creation. 

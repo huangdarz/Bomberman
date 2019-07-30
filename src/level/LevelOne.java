@@ -91,6 +91,6 @@ public class LevelOne implements Level {
 			mob.relocate(l.getMobX(), l.getMobY());
 			GameScene.grid[l.getGridX()][l.getGridY()].add(mob);		
 		}
-		System.out.println("MOb: " + mobLoc.size());
+		System.out.println("MOB: " + mobLoc.size());
 	}
 }

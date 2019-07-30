@@ -66,6 +66,9 @@ public class GameScene extends BaseScene {
 		getPane().getChildren().add(livesText);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void run() {
 		scoreText.setText("Score: "+score);
@@ -110,6 +113,9 @@ public class GameScene extends BaseScene {
 		}
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void userInput() {
 		setOnKeyPressed(key -> {
@@ -146,9 +152,14 @@ public class GameScene extends BaseScene {
 			buttonsPressed.remove(key.getCode().toString());
 			player.moveKeyPressedReleased(key.getCode(), false);
 		});
-
 	}
 
+	/**
+	 * creates the set map of unbreakable walls, both boundary and inner pattern, <br>
+	 * then randomly distributes breakable walls, mobs and power ups <br>
+	 * <br>
+	 * method will then finally iterate through all grid array indexes and add all objects created to the pane
+	 */
 	public void createGridArrays() {
 		for(int c = 0; c < grid.length; c++) {
 			for(int r = 0; r < grid[0].length; r++) {
@@ -170,24 +181,32 @@ public class GameScene extends BaseScene {
 				getPane().getChildren().addAll(grid[c][r]);
 			}
 		}
-  }
+	}
 
+	/**
+	 * gets the ArrayList of all Sprites in the specified grid position 
+	 * 
+	 * @param x coordinate of ArrayList in grid
+	 * @param y coordinate of ArrayList in grid
+	 * @return
+	 */
 	public static ArrayList<Sprite> getInGrid(int x, int y) {
 		return grid[x][y];
 	}
 
+	/**
+	 * Calculates and retrieves all Sprites in all grids around a set diameter, returns all Sprite objects in an ArrayList
+	 * 
+	 * @param x coordinate of origin of diameter 
+	 * @param y coordinate of origin of diameter
+	 * @return
+	 */
 	public synchronized ArrayList<Sprite> getInLocalGrids(int x, int y) {
 		final int detectionDiameter = 3; // must be odd, includes center grid cell
 		ArrayList<Sprite> local = new ArrayList<Sprite>();
-
 		for(int c = 0; c < detectionDiameter; c++) {
 			for(int r = 0; r < detectionDiameter; r++) {
-				try {
-					local.addAll(grid[c+x-(int)(detectionDiameter/2)][r+y-(int)(detectionDiameter/2)]);
-				}
-				catch(ArrayIndexOutOfBoundsException e) {
-
-				}
+				local.addAll(grid[Math.min(Math.max(c+x-(int)(detectionDiameter/2), 0), grid.length-1)][Math.min(Math.max(r+y-(int)(detectionDiameter/2), 0), grid[0].length - 1)]);
 			}
 		}
 		return local;
@@ -199,12 +218,12 @@ public class GameScene extends BaseScene {
 	 * @param s Sprite
 	 * @return Point2D
 	 */
-	public Point2D TransferNearestGrid(Sprite s) {
-		if((int)(s.getLayoutBounds().getCenterX() / 50) != s.positionX || (int)(s.getLayoutBounds().getCenterY() / 50) != s.positionY) {
-			grid[s.positionX][s.positionY].remove(s);
-			grid[(int)(s.getLayoutBounds().getCenterX() / 50)][(int)(s.getLayoutBounds().getCenterY() / 50)].add(s);
-			System.out.println("Position: "+(int)(s.getLayoutBounds().getCenterX() / 50)+" : "+(int)(s.getLayoutBounds().getCenterY() / 50));
-			return new Point2D((int)(s.getLayoutBounds().getCenterX() / 50), (int)(s.getLayoutBounds().getCenterY())/ 50);
+	public Point2D TransferNearestGrid(Sprite sprite) {
+		if((int)(sprite.getLayoutBounds().getCenterX() / 50) != sprite.positionX || (int)(sprite.getLayoutBounds().getCenterY() / 50) != sprite.positionY) {
+			grid[sprite.positionX][sprite.positionY].remove(sprite);
+			grid[(int)(sprite.getLayoutBounds().getCenterX() / 50)][(int)(sprite.getLayoutBounds().getCenterY() / 50)].add(sprite);
+			System.out.println("Position: "+(int)(sprite.getLayoutBounds().getCenterX() / 50)+" : "+(int)(sprite.getLayoutBounds().getCenterY() / 50));
+			return new Point2D((int)(sprite.getLayoutBounds().getCenterX() / 50), (int)(sprite.getLayoutBounds().getCenterY())/ 50);
 		}
 		return null;
 	}

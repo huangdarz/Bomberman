@@ -4,6 +4,7 @@ import java.util.Random;
 
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import sprites.base.CollisionBounds;
 import sprites.base.Sprite;
 import sprites.capability.Destroyable;
 import sprites.capability.Points;
@@ -106,7 +107,7 @@ public class Mob extends Sprite implements Destroyable, Points, Enemy {
 	 * Checking if the mob is colliding with another object, mainly walls or boundaries, if it isn't
 	 * make it move, otherwise rest the variables
 	 */
-	private void checkCollision(Direction directionChosen, int speedX, int speedY) {
+	private void checkCollision(CollisionBounds.Direction directionChosen, int speedX, int speedY) {
 		if(!getInvalidDirections().contains(directionChosen)) {
 			move(speedX, speedY);
 		}
@@ -121,19 +122,19 @@ public class Mob extends Sprite implements Destroyable, Points, Enemy {
 	private void switchRandomDirection() {
 		switch (randomDirection) {
 		case 0:
-			checkCollision(Direction.UP, 0, -speed);
+			checkCollision(CollisionBounds.Direction.UP, 0, -speed);
 			break;
 
 		case 1:
-			checkCollision(Direction.DOWN, 0, speed);
+			checkCollision(CollisionBounds.Direction.DOWN, 0, speed);
 			break;
 
 		case 2:
-			checkCollision(Direction.RIGHT, speed, 0);
+			checkCollision(CollisionBounds.Direction.RIGHT, speed, 0);
 			break;
 
 		case 3:
-			checkCollision(Direction.LEFT, -speed, 0);
+			checkCollision(CollisionBounds.Direction.LEFT, -speed, 0);
 			break;
 		}
 	}
