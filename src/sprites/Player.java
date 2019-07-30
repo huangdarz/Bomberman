@@ -23,9 +23,9 @@ public class Player extends Sprite implements Lives, Destroyable, Powerable, Kil
 	private static int bombIndex = 0;
 	private ArrayList<Bomb> bombs = new ArrayList<Bomb>();
 	
-	/** 
-	 * Primary constructor for Player. 
-	 * @param scene The scene Player is added to
+	/**
+	 * Creates a new Sprite
+	 * @param scene The scene the Sprite is in.
 	 */
 	public Player(Scene scene) {
 		super(scene);

@@ -10,10 +10,10 @@ public abstract class BaseScene extends Scene implements GameLoop {
 	AnimationTimer loop;
 	
 	/**
-	 * Default constructor for BaseScene
-	 * @param root {@inheritDoc}
-	 * @param width {@inheritDoc}
-	 * @param height {@inheritDoc}
+	 * Creates a scene for a specific root Node with a specific size
+	 * @param root The root node of the scene graph
+	 * @param width The width of the scene
+	 * @param height The height of the scene
 	 */
 	public BaseScene(Pane root, double width, double height) {
 		super(root, width, height);

@@ -36,6 +36,12 @@ public class GameScene extends BaseScene {
 	Player player = new Player(this);
 	boolean hasEnemies = true, ended = false;
 	
+	/**
+	 * Creates a scene for a specific root Node with a specific size
+	 * @param root The root node of the scene graph
+	 * @param width The width of the scene
+	 * @param height The height of the scene
+	 */
 	public GameScene(Pane root, double width, double height) {
 		super(root, width, height);
 		System.out.println("Grid-Width: "+grid.length+" / Grid-Height: "+grid[0].length);

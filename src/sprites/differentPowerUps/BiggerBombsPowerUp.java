@@ -11,7 +11,8 @@ import sprites.type.Power;
 public class BiggerBombsPowerUp extends Sprite implements Power {
 	
 	/**
-	 * {@inheritDoc}
+	 * Creates a new Sprite
+	 * @param scene The scene the Sprite is in.
 	 */
 	public BiggerBombsPowerUp(Scene scene) {
 		super(scene);

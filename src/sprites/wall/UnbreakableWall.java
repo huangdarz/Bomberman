@@ -10,7 +10,8 @@ import sprites.base.Sprite;
 public class UnbreakableWall extends Sprite {
 
 	/**
-	 * {@inheritDoc}
+	 * Creates a new Sprite
+	 * @param scene The scene the Sprite is in.
 	 */
 	public UnbreakableWall(Scene scene, double x, double y) {
 		super(scene);

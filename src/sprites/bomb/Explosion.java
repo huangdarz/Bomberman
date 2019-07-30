@@ -12,7 +12,8 @@ public class Explosion extends Sprite {
 	private boolean shouldExplode = true; 
 	
 	/**
-	 * {@inheritDoc}
+	 * Creates a new Sprite
+	 * @param scene The scene the Sprite is in.
 	 */
 	public Explosion(Scene scene) {
 		super(scene);

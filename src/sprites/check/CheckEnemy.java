@@ -19,7 +19,7 @@ public class CheckEnemy implements Checker {
 	Player previousPlayer;
 	
 	/**
-	 * Default constructor
+	 * Creates a new Checker
 	 */
 	public CheckEnemy() {
 		hasEnemy = false;

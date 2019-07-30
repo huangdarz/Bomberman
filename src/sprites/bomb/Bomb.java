@@ -24,7 +24,8 @@ public class Bomb extends Sprite {
 	ArrayList<Sprite> activeSprites = new ArrayList<Sprite>();
 	
 	/**
-	 * {@inheritDoc}
+	 * Creates a new Sprite
+	 * @param scene The scene the Sprite is in.
 	 */
 	public Bomb(Scene scene) {
 		super(scene);

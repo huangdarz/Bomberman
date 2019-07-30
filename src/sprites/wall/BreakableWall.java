@@ -14,7 +14,8 @@ public class BreakableWall extends Sprite implements Destroyable, Points {
 	public static int points;
 	
 	/**
-	 * {@inheritDoc}
+	 * Creates a new Sprite
+	 * @param scene The scene the Sprite is in.
 	 */
 	public BreakableWall(Scene scene) {
 		super(scene);
@@ -35,11 +36,17 @@ public class BreakableWall extends Sprite implements Destroyable, Points {
 		checkDestruction(positionX, positionY, (Points) this, getPane());
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public int getPoints() {
 		return points;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void setPoints(int points) {
 		BreakableWall.points = points;

@@ -8,7 +8,7 @@ public class ExplosionThread extends Thread {
 	Bomb b;
 	
 	/**
-	 * Default constructor
+	 * Creates a new Explosion Thread
 	 * @param b The bomb whose explosions should be exploded
 	 */
 	public ExplosionThread(Bomb b) {

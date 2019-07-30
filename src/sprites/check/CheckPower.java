@@ -21,6 +21,9 @@ public class CheckPower implements Checker {
 
 	private ArrayList<Sprite> previousPowers;
 	
+	/**
+	 * Creates a new Checker
+	 */
 	public CheckPower() {
 		previousPowers = new ArrayList<Sprite>();
 	}

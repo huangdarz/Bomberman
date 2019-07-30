@@ -20,7 +20,7 @@ public class CheckDestruction implements Checker {
 	ArrayList<Points> previous;
 	
 	/**
-	 * Default constructor
+	 * Creates a new Checker
 	 */
 	public CheckDestruction() {
 		hasExplosion = false;
