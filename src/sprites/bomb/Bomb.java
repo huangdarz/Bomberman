@@ -73,25 +73,28 @@ public class Bomb extends Sprite {
 	 * @param multiplier The multiplier to main equal distance between explosions. 
 	 */
 	private void blastLoop(LinkedList<Explosion> blasts, int multiplier) {
-		for (int x = 0; x < range*4; x++) {
-			blasts.add(new Explosion(getScene()));
-			if (x < range) {
-				calcExplosion(getLayoutX()-getFitWidth()*multiplier, getLayoutY(), blasts.getLast());
-				if (x == range - 1) boundExplosion = true;
-			} else if (x < range*2) {
-				calcExplosion(getLayoutX(), getLayoutY()-getFitHeight()*multiplier, blasts.getLast());
-				if (x == range*2 - 1) boundExplosion = true;
-			} else if (x < range*3) {
-				calcExplosion(getLayoutX()+getFitWidth()*multiplier, getLayoutY(), blasts.getLast());
-				if (x == range*3 - 1) boundExplosion = true;
-			} else {
-				calcExplosion(getLayoutX(), getLayoutY()+getFitHeight()*multiplier, blasts.getLast());
-				if (x == range*4 - 1) boundExplosion = true;
+		if (multiplier == 1) {
+			for (int x = 0; x < range*4; x++) {
+				blasts.add(new Explosion(getScene()));
+				if (x < range) {
+					calcExplosion(getLayoutX()-getFitWidth()*multiplier, getLayoutY(), blasts.getLast());
+					if (x == range - 1) boundExplosion = true;
+				} else if (x < range*2) {
+					calcExplosion(getLayoutX(), getLayoutY()-getFitHeight()*multiplier, blasts.getLast());
+					if (x == range*2 - 1) boundExplosion = true;
+				} else if (x < range*3) {
+					calcExplosion(getLayoutX()+getFitWidth()*multiplier, getLayoutY(), blasts.getLast());
+					if (x == range*3 - 1) boundExplosion = true;
+				} else {
+					calcExplosion(getLayoutX(), getLayoutY()+getFitHeight()*multiplier, blasts.getLast());
+					if (x == range*4 - 1) boundExplosion = true;
+				}
+				blasts.getLast().toBack();
+				multiplier++;
+				if (multiplier > range) multiplier = 1;
 			}
-			blasts.getLast().toBack();
-			multiplier++;
-			if (multiplier > range) multiplier = 1;
 		}
+		
 	}
 	
 	/**
