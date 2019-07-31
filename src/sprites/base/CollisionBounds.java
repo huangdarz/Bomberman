@@ -99,6 +99,7 @@ public class CollisionBounds extends Bounds {
 	 * @param b The Collision Bounds for the Sprite checking
 	 * @param threshold The threshold for the collision
 	 * @return An anonymous ArrayList which contains the directions an object is touching
+	 * @author Mitchell Barker
 	 */
 	@SuppressWarnings("serial")
 	public synchronized ArrayList<Direction> isTouching(CollisionBounds b, int threshold) {

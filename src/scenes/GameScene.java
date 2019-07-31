@@ -23,7 +23,13 @@ import sprites.base.Sprite;
 import sprites.type.Enemy;
 import sprites.wall.UnbreakableWall;
 
-// TODO Mitch to comment
+/**
+ * Main scene which initializes all sprites on constructor call, listens for key presses <br>
+ * as well as provides methods for sprites to use when using collision detection
+ * 
+ * @author Mitchell Barker
+ *
+ */
 public class GameScene extends BaseScene {
  
 	@SuppressWarnings("unchecked")
@@ -228,10 +234,21 @@ public class GameScene extends BaseScene {
 		return null;
 	}
 
+	/**
+	 * adds amount to score
+	 * 
+	 * @param sumScore any positive or negative integer
+	 */
 	public static synchronized void sumScore(int sumScore) {
 		score += sumScore;
 	}
 
+	/**
+	 * adds amount to lives <br>
+	 * game will display end screen when lives reaches 0 
+	 * 
+	 * @param sumLives any positive or negative integer
+	 */
 	public static synchronized void sumLives(int sumLives) {
 		lives += sumLives;
 	}

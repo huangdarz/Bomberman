@@ -119,6 +119,7 @@ public abstract class Sprite extends ImageView implements GameLoop {
 	/**
 	 * Gets the invalid directions around a sprite for movement
 	 * @return The invalid directions
+	 * @author Mitchell Barker
 	 */
 	public HashSet<CollisionBounds.Direction> getInvalidDirections() {
 		CollisionBounds b = new CollisionBounds(getLayoutX(), getLayoutY(), getLayoutBounds().getWidth(), getLayoutBounds().getHeight());
@@ -133,6 +134,7 @@ public abstract class Sprite extends ImageView implements GameLoop {
 	
 	/**
 	 * Calculates the position of the sprite in terms of GameScene.grid
+	 * @author Mitchell Barker
 	 */
 	public void evaluatePosition() {
 		positionX = (int) Math.round(getLayoutX() / 50d);
