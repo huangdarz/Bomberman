@@ -59,7 +59,7 @@ public class GameScene extends BaseScene {
 		player.positionX = 1;
 		player.positionY = 1;
 		grid[player.positionX][player.positionY].add(player);
-		getPane().setBackground(new Background(new BackgroundImage(new Image("/res/map.png", 750.0, 650.0, true, true), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT)));
+		getPane().setBackground(new Background(new BackgroundImage(new Image("/res/map.png", width, height, false, true), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT)));
 		
 		getPane().getChildren().addAll(player);
 		getPane().getChildren().add(scoreText);

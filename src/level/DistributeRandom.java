@@ -3,6 +3,8 @@ package level;
 import java.util.LinkedList;
 import java.util.Random;
 
+import scenes.GameScene;
+
 /**
  * This class calculates the random locations for a Sprite.
  * @author Michael Legovich and Darin Huang
@@ -58,8 +60,8 @@ public class DistributeRandom {
 	 * (Based off grid position 13 x 11)
 	 */
 	private void locationGeneration() {
-		randomLocationX = rand.nextInt(13);
-		randomLocationY = rand.nextInt(11);
+		randomLocationX = rand.nextInt(GameScene.grid.length - 2);
+		randomLocationY = rand.nextInt(GameScene.grid[0].length - 2);
 	}
 
 	/**

@@ -21,7 +21,7 @@ public class PauseScene extends BaseScene {
 	 */
 	public PauseScene(Pane root, double width, double height) {
 		super(root, width, height);
-		getPane().setBackground(new Background(new BackgroundImage(new Image("/res/map.png", 750.0, 650.0, true, true), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT)));
+		getPane().setBackground(new Background(new BackgroundImage(new Image("/res/map.png", width, height, false, true), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT)));
 		resumeButton = new Button("RESUME");
 		resumeButton.setPrefWidth(227);
 		resumeButton.setPrefHeight(56);

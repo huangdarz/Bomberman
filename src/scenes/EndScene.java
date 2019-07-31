@@ -27,15 +27,14 @@ public class EndScene extends BaseScene {
 		
 		quitBtn.setPrefWidth(150);
 		quitBtn.setPrefHeight(50);
-		quitBtn.relocate(300, 400);
+		quitBtn.relocate(width/2 - 75, height*0.6);
 		
 		gameOver.setFont(Font.font("Verdana", 72));
 		gameOver.setFill(Color.WHITE);
-		gameOver.relocate(152.5, 178);
+		gameOver.relocate(width/2d - gameOver.getBoundsInLocal().getWidth()/2d, height*0.3);
 		
 		score.setFont(Font.font("Verdana", 36));
 		score.setFill(Color.WHITE);
-		score.relocate(275, 300);
 		
 		getPane().setStyle("-fx-background-color: rgba(0, 0, 0, 0);");
 		setFill(null);
@@ -53,6 +52,7 @@ public class EndScene extends BaseScene {
 	@Override
 	public void run() {
 		score.setText("Score: " + GameScene.score);
+		score.relocate(getWidth()/2d - score.getBoundsInParent().getWidth()/2d, getHeight()*0.45);
 	}
 
 	/**
