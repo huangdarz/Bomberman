@@ -107,6 +107,7 @@ public class GameScene extends BaseScene {
 		}
 		if (player.getLives() <= 0) {
 			getPane().setEffect(new javafx.scene.effect.GaussianBlur());
+			player.setVisible(false);
 			double centerXPosition = Main.primaryStage.getX() + Main.primaryStage.getWidth()/2d;
             double centerYPosition = Main.primaryStage.getY() + Main.primaryStage.getHeight()/2d;
             Main.end.setOnShowing(e -> Main.end.hide());
@@ -165,6 +166,7 @@ public class GameScene extends BaseScene {
 	 * then randomly distributes breakable walls, mobs and power ups <br>
 	 * <br>
 	 * method will then finally iterate through all grid array indexes and add all objects created to the pane
+	 * @author Mitchell Barker
 	 */
 	public void createGridArrays() {
 		for(int c = 0; c < grid.length; c++) {
@@ -194,7 +196,8 @@ public class GameScene extends BaseScene {
 	 * 
 	 * @param x coordinate of ArrayList in grid
 	 * @param y coordinate of ArrayList in grid
-	 * @return
+	 * @return ArrayList of all objects in grid
+	 * @author Mitchell Barker
 	 */
 	public static ArrayList<Sprite> getInGrid(int x, int y) {
 		return grid[x][y];
@@ -205,7 +208,8 @@ public class GameScene extends BaseScene {
 	 * 
 	 * @param x coordinate of origin of diameter 
 	 * @param y coordinate of origin of diameter
-	 * @return
+	 * @return ArrayList of all objects in local grids
+	 * @author Mitchell Barker
 	 */
 	public synchronized ArrayList<Sprite> getInLocalGrids(int x, int y) {
 		final int detectionDiameter = 3; // must be odd, includes center grid cell
@@ -221,8 +225,9 @@ public class GameScene extends BaseScene {
 	/**
 	 * used mainly for bomb and mob placement
 	 *
-	 * @param s Sprite
-	 * @return Point2D
+	 * @param s Sprite to transfer
+	 * @return Point2D new position in grid
+	 * @author Mitchell Barker
 	 */
 	public Point2D TransferNearestGrid(Sprite sprite) {
 		if((int)(sprite.getLayoutBounds().getCenterX() / 50) != sprite.positionX || (int)(sprite.getLayoutBounds().getCenterY() / 50) != sprite.positionY) {
