@@ -57,11 +57,6 @@ public class Main extends Application {
 		Main.primaryStage = primaryStage;
 	}
 	
-	@Override
-	public void stop() {
-		
-	}
-	
 	public static void main(String[] args) {
 		launch(args);
 	}
